@@ -1,13 +1,7 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {propTypes} from '~decorators'
 
-function mapDispatchToProps(dispatch) {
-    return { dispatch }
-}
-
-@connect({}, mapDispatchToProps)
 @immutableRenderDecorator
 @propTypes({
 
@@ -26,13 +20,13 @@ export default class Main extends Component {
 
     }
     render() {
-        const item = this.props.item
+        const item = this.props.payload
         return (
-            <div class="actions-wrap">
-                <a onClick={this.handleLike} href="javascript:;" class={item.like_status ? 'action-item active' : 'action-item'}><i class={item.like_status ? 'icon icon-action-voteup-active' : 'icon icon-action-voteup'} /><span class="text">{ item.like } 赞</span></a>
-                <a href="javascript:;" class="action-item"><i class="icon icon-action-comment" /><span class="text">{ item.comment_count } 评论</span></a>
-                <a href="javascript:;" class="action-item action-item-fav"><i class="icon icon-action-fav" /><span class="text">{ item.visit } 浏览</span></a>
-                <a onClick={this.handleShare} href="javascript:;" class="action-item"><i class="icon icon-action-share" /><span class="text">分享</span></a>
+            <div className="actions-wrap">
+                <a onClick={this.handleLike} href="javascript:;" className={item.like_status ? 'action-item active' : 'action-item'}><i className={item.like_status ? 'icon icon-action-voteup-active' : 'icon icon-action-voteup'} /><span className="text">{ item.like } 赞</span></a>
+                <a href="javascript:;" className="action-item"><i className="icon icon-action-comment" /><span className="text">{ item.comment_count } 评论</span></a>
+                <a href="javascript:;" className="action-item action-item-fav"><i className="icon icon-action-fav" /><span className="text">{ item.visit } 浏览</span></a>
+                <a onClick={this.handleShare} href="javascript:;" className="action-item"><i className="icon icon-action-share" /><span className="text">分享</span></a>
             </div>
         )
     }

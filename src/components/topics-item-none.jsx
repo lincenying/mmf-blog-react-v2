@@ -2,10 +2,10 @@ import React from 'react'
 
 export default props => {
     return (
-        <div class="card feed">
-            <div class="feed-content">
-                <div class="feed-desc-wrap">
-                    <div class="feed-article-content markdown-body">
+        <div className="card feed">
+            <div className="feed-content">
+                <div className="feed-desc-wrap">
+                    <div className="feed-article-content markdown-body">
                         {props.children}
                     </div>
                 </div>

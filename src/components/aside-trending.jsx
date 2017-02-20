@@ -1,8 +1,8 @@
 import React from 'react'
 
 export default props => {
-    const { trending } = props
-    const html = trending.map((item, index) => {
+    const { payload } = props
+    const html = payload.map((item, index) => {
         return (
             <div key={item._id} className="trending-item">
                 <span className="trending-rank-num">{ index + 1 }</span>

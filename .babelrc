@@ -1,6 +1,7 @@
 {
     "presets": ["es2015", "es2016", "stage-2", "react"],
     "plugins": [
+        "transform-export-extensions",
         "transform-decorators-legacy",
         ["transform-runtime", {
             "polyfill": true,

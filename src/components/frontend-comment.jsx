@@ -16,11 +16,11 @@ export default class Main extends Component {
     }
     handleReply() {
     }
-    handleSearch() {
+    handlePostComment() {
 
     }
     render() {
-        const comments = this.props.comments.data
+        const comments = []
         const html = comments.map(item => {
             return (
                 <div key={item.id} className="comment-item">
@@ -40,7 +40,7 @@ export default class Main extends Component {
                 </div>
             )
         })
-        const hasNext = this.props.comments.hasNext ? <div className="load-more-wrap"> <a onClick="loadcomment()" href="javascript:;" className="comments-load-more">加载更多</a> </div> : ''
+        const hasNext = this.props.comments ? <div className="load-more-wrap"> <a onClick="loadcomment()" href="javascript:;" className="comments-load-more">加载更多</a> </div> : ''
         return (
             <div className="card">
                 <div className="comments">

@@ -1,47 +1,33 @@
-import api from '~api'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
+import api from '~api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
-    lists: [],
-    item: {}
+    data: {},
+    pathname: '',
+    isLoad: false
 })
 
 const reducers = {
-    ['receiveCategoryList']: (state, action) => {
-        const {data} = action
+    ['receiveArticleItem']: (state, action) => {
+        const {data, pathname} = action
         return state.merge({
-            lists: data
-        })
-    },
-    ['receiveCategoryItem']: (state, action) => {
-        const {data} = action
-        return state.merge({
-            item: data
+            data,
+            pathname,
+            isLoad: true
         })
     }
 }
 
-export const getCategoryList = config => {
+export const getArticleItem = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/category/list', config)
+        const { data: { data, code} } = await api.get('frontend/article/item', config)
         if (code === 200) {
             return dispatch({
-                type: 'receiveCategoryList',
-                data: data.list
-            })
-        }
-        return dispatch(errConfig)
-    }
-}
-export const getCategoryItem = config => {
-    return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/category/item', config)
-        if (code === 200) {
-            return dispatch({
-                type: 'receiveCategoryItem',
-                data
+                type: 'receiveArticleItem',
+                data,
+                ...config
             })
         }
         return dispatch(errConfig)

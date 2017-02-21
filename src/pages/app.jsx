@@ -13,7 +13,7 @@ import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
 export default props => {
-    const backend = props.location
+    const backend = props.route.name !== "index"
     const signUpHtml = backend ? <SignUp /> : ''
     const signInHtml = backend ? <SignIn /> : ''
     return (

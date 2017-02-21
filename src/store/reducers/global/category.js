@@ -1,36 +1,47 @@
+import api from '~api'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
-import api from '~api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
-    data: [],
-    hasNext: 0,
-    page: 1,
-    pathname: ''
+    lists: [],
+    item: {}
 })
 
 const reducers = {
-    ['receiveTopics']: (state, action) => {
-        const {list, hasNext, page, pathname} = action
-        const lists = page === 1 ? [].concat(list) : state.toJS().data.concat(list)
+    ['receiveCategoryList']: (state, action) => {
+        const {data} = action
         return state.merge({
-            data: lists,
-            hasNext,
-            page,
-            pathname
+            lists: data
+        })
+    },
+    ['receiveCategoryItem']: (state, action) => {
+        const {data} = action
+        return state.merge({
+            item: data
         })
     }
 }
 
-export const getTopics = config => {
+export const getCategoryList = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('frontend/article/list', config)
+        const { data: { data, code} } = await api.get('backend/category/list', config)
         if (code === 200) {
             return dispatch({
-                type: 'receiveTopics',
-                ...data,
-                ...config
+                type: 'receiveCategoryList',
+                data: data.list
+            })
+        }
+        return dispatch(errConfig)
+    }
+}
+export const getCategoryItem = config => {
+    return async dispatch => {
+        const { data: { data, code} } = await api.get('backend/category/item', config)
+        if (code === 200) {
+            return dispatch({
+                type: 'receiveCategoryItem',
+                data
             })
         }
         return dispatch(errConfig)

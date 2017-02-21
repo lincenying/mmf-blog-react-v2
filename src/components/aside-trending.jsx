@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'react-router/lib/Link'
 
 export default props => {
     const { payload } = props
@@ -6,7 +7,7 @@ export default props => {
         return (
             <div key={item._id} className="trending-item">
                 <span className="trending-rank-num">{ index + 1 }</span>
-                <router-link to={`/article/${item._id}`} className="trending-title">{ item.title }</router-link>
+                <Link to={`/article/${item._id}`} className="trending-title">{ item.title }</Link>
                 <div className="trending-meta">
                     <div className="trending-meta-item"><i className="icon icon-action-voteup" />{ item.like }</div>
                     <div className="trending-meta-item"><i className="icon icon-action-comment" />{ item.comment_count }</div>

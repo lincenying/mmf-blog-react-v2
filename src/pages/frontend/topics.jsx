@@ -10,14 +10,18 @@ import TopicsItem from '../../components/topics-item.jsx'
 import Trending from '../../components/aside-trending.jsx'
 import Category from '../../components/aside-category.jsx'
 import {getTopics} from '~reducers/frontend/topics'
+import {getTrending} from '~reducers/frontend/trending'
+import {getCategoryList} from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
-        topics: state.topics.toJS()
+        topics: state.topics.toJS(),
+        category: state.category.toJS(),
+        trending: state.trending.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getTopics}, dispatch)
+    const actions = bindActionCreators({getTopics, getTrending, getCategoryList}, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -34,8 +38,10 @@ export default class Main extends Component {
         this.handleLoadMore = this.handleLoadMore.bind(this)
     }
     componentWillMount() {
-        const {pathname} = this.props.topics
-        if (pathname !== this.props.location.pathname) this.handlefetchPosts()
+        const { category, trending, topics, getTrending, getCategoryList} = this.props
+        if (topics.pathname !== this.props.location.pathname) this.handlefetchPosts()
+        if (category.lists.length === 0) getCategoryList()
+        if (trending.data.length === 0) getTrending()
     }
     componentDidMount() {
         const path = this.props.location.pathname
@@ -48,15 +54,15 @@ export default class Main extends Component {
         if (pathname !== prevPathname) this.handlefetchPosts()
     }
     handlefetchPosts(page = 1) {
-        const {getTopics, location: {pathname}} = this.props
-        getTopics({page, pathname})
+        const {getTopics, location: {pathname}, params: {id, key, by}} = this.props
+        getTopics({id, key, by, pathname, page})
     }
     handleLoadMore() {
         const {page} = this.props.topics
         this.handlefetchPosts(page + 1)
     }
     render() {
-        const {topics} = this.props
+        const {topics, category, trending} = this.props
         let html
         if (!topics.pathname) {
             html =
@@ -85,8 +91,8 @@ export default class Main extends Component {
                     {html}
                 </div>
                 <div className="main-right">
-                    <Category payload={[]} />
-                    <Trending payload={[]} />
+                    <Category payload={category.lists} />
+                    <Trending payload={trending.data} />
                 </div>
             </div>
         )

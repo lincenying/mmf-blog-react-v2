@@ -38,9 +38,9 @@ export default class Main extends Component {
             </div> :
             <div className="wrap clearfix">
                 <div className="left-part">
-                    <Link to="/" activeClassName="current" className="logo-link"><i className="icon icon-nav-logo" /><span className="hidden">M.M.F 小屋</span></Link>
+                    <Link to="/" className="logo-link"><i className="icon icon-nav-logo" /><span className="hidden">M.M.F 小屋</span></Link>
                     <div className="main-nav">
-                        <Link to="/" activeClassName="current" className="nav-link"><i className="icon icon-nav-home" /><span className="text">首页</span></Link>
+                        <Link to="/" activeClassName="current" onlyActiveOnIndex className="nav-link"><i className="icon icon-nav-home" /><span className="text">首页</span></Link>
                         <Link to="/trending/visit" activeClassName="current" className="nav-link"><i className="icon icon-nav-explore" /><span className="text">热门</span></Link>
                         <Link to="/about" activeClassName="current" className="nav-link"><i className="icon icon-nav-features" /><span className="text">关于</span></Link>
                     </div>

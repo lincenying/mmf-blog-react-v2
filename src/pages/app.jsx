@@ -2,7 +2,6 @@ import React from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import DevTools from '~devtools'
-import Toastr from '~components/global/toastr.jsx'
 import Navigation from '~components/navigation.jsx'
 import SignUp from '~components/sign-up.jsx'
 import SignIn from '~components/sign-in.jsx'
@@ -14,8 +13,8 @@ import 'toastr/build/toastr.min.css'
 
 export default props => {
     const backend = props.route.name !== "index"
-    const signUpHtml = backend ? <SignUp /> : ''
-    const signInHtml = backend ? <SignIn /> : ''
+    const signUpHtml = !backend ? <SignUp /> : ''
+    const signInHtml = !backend ? <SignIn /> : ''
     return (
         <div id="app" className="g-doc">
             <Navigation backend={backend} />
@@ -27,7 +26,6 @@ export default props => {
             {signUpHtml}
             {signInHtml}
             <DevTools />
-            <Toastr />
         </div>
     )
 }

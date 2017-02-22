@@ -1,41 +1,47 @@
+import toastr from 'toastr'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
+
+toastr.options.positionClass = 'toast-top-center'
 
 const initStates = fromJS({
     message: {
         type: '',
         content: '',
         title: ''
-    }
+    },
+    showLoginModal: false,
+    showRegisterModal: false
 })
 
-export const errConfig = {
-    type: 'setMessage',
-    message: {
-        type: 'error',
-        content: 'api 接口错误'
-    }
-}
-
-export const setMessage = message => {
-    return {
-        type: 'setMessage',
-        message
-    }
-}
-
-export default createReducer(initStates, {
-    ['setMessage']: (state, action) => {
-        let message = action.message
-        if (typeof message === 'string') {
-            message = {
-                type: 'success',
-                title: '',
-                content: message
-            }
-        }
+const reducers = {
+    ['showLoginModal']: (state, action) => {
         return state.merge({
-            message
+            showLoginModal: action.payload
+        })
+    },
+    ['showRegisterModal']: (state, action) => {
+        return state.merge({
+            showRegisterModal: action.payload
         })
     }
-})
+}
+
+export const setMessage = config => {
+    let content, type
+    if (typeof config === 'string') {
+        content = config
+        type = 'error'
+    } else {
+        content = config.content
+        type = config.type
+    }
+    toastr[type](content)
+}
+
+export default createReducer(initStates, reducers)
+
+export const errConfig = {
+    type: 'error',
+    content: 'api 接口错误'
+}

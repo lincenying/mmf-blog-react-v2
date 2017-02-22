@@ -1,6 +1,18 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {propTypes} from '~decorators'
+
+function mapStateToProps(state) {
+    return {
+        global: state.global.toJS()
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return { dispatch }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 @immutableRenderDecorator
 @propTypes({
@@ -18,11 +30,14 @@ class signIn extends Component {
     handleRegister() {
     }
     handleClose() {
-
+        this.props.dispatch({
+            type: 'showLoginModal',
+            payload: false
+        })
     }
     render() {
         return (
-            <div className={this.props.show ? 'modal-wrap modal-signin-wrap active' : 'modal-wrap modal-signin-wrap'}><span className="center-helper" />
+            <div className={this.props.global.showLoginModal ? 'modal-wrap modal-signin-wrap active' : 'modal-wrap modal-signin-wrap'}><span className="center-helper" />
                 <div className="modal modal-signup">
                     <h2 className="modal-title">登录</h2><a onClick={this.handleClose} href="javascript:;" className="modal-close"><i className="icon icon-close-black" /></a>
                     <div className="modal-content">

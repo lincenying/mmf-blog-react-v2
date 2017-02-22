@@ -1,6 +1,22 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import cookies from 'js-cookie'
+
+import api from '~api'
 import {propTypes} from '~decorators'
+import {setMessage} from '~reducers/global'
+
+function mapStateToProps(state) {
+    return {
+        global: state.global.toJS()
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return { dispatch }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 
 @immutableRenderDecorator
 @propTypes({
@@ -14,10 +30,30 @@ export default class Main extends Component {
         this.handleLike = this.handleLike.bind(this)
         this.handleShare = this.handleShare.bind(this)
     }
-    handleLike() {
+    async handleLike() {
+        const username = cookies.get('user')
+        const { dispatch, payload } = this.props
+        if (!username) {
+            setMessage({ type: 'error', content: '请先登录!' })
+            dispatch({
+                type: 'showLoginModal',
+                payload: true
+            })
+            return
+        }
+        let url = 'frontend/like'
+        if (payload.like_status) url = 'frontend/unlike'
+        const { data: {code, message} } = await api.get(url, { id: payload._id })
+        if (code === 200) {
+            setMessage({ type: 'success', content: message })
+        }
     }
     handleShare() {
-
+        const top = window.screen.height / 2 - 250
+        const left = window.screen.width / 2 - 300
+        const title = this.props.payload.title + ' - M.M.F 小屋'
+        const url = 'https://www.mmxiaowu.com/article/' + this.props.payload._id
+        window.open("http://service.weibo.com/share/share.php?title=" + encodeURIComponent(title.replace(/&nbsp;/g, " ").replace(/<br \/>/g, " "))+ "&url=" + encodeURIComponent(url), "分享至新浪微博", "height=500, width=600, top=" + top + ", left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
     }
     render() {
         const item = this.props.payload

@@ -140,6 +140,7 @@ nav ul, nav ol {
 
 html {
     background: #ebf0f0;
+    overflow-y: scroll;
 }
 
 .hidden {
@@ -269,6 +270,16 @@ a {
 
 .btn-blue:hover {
     background: #77e1e6;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+#app > span {
+    flex: 1;
 }
 
 .main {
@@ -2031,4 +2042,34 @@ a:hover .icon-arrow-right {
 }
 .editormd.editormd-fullscreen, .editormd.editormd-fullscreen .CodeMirror {
     border-radius: 0;
+}
+
+/* 动画 */
+.example-enter {
+    opacity: 0;
+    transform:   translate(-200px,0);
+    transform: translate3d(-200px,0,0);
+}
+.example-enter.example-enter-active {
+    opacity: 1;
+    transform:   translate(0,0);
+    transform: translate3d(0,0,0);
+    transition-property: transform, opacity;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+    z-index: 2
+}
+.example-leave {
+    opacity: 1;
+    transform:   translate(0,0);
+    transform: translate3d(0,0,0);
+    transition-property: transform, opacity;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+}
+.example-leave.example-leave-active {
+    opacity: 0;
+    transform:   translate(0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: 1
 }

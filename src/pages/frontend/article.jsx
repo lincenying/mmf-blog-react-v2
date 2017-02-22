@@ -3,20 +3,25 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import Link from 'react-router/lib/Link'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+
 import {propTypes} from '~decorators'
 import Comment from '../../components/frontend-comment.jsx'
 import Trending from '../../components/aside-trending.jsx'
 import Category from '../../components/aside-category.jsx'
 import Actions from '../../components/item-actions.jsx'
 import {getArticleItem} from '~reducers/frontend/article'
+import {getTrending} from '~reducers/frontend/trending'
+import {getCategoryList} from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
-        article: state.article.toJS()
+        article: state.article.toJS(),
+        category: state.category.toJS(),
+        trending: state.trending.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getArticleItem}, dispatch)
+    const actions = bindActionCreators({getArticleItem, getTrending, getCategoryList}, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -33,8 +38,10 @@ const addTarget = content => {
 })
 export default class Article extends Component {
     componentWillMount() {
-        const {pathname} = this.props.article
-        if (pathname !== this.props.location.pathname) this.handlefetchArticle()
+        const { article, category, trending, getTrending, getCategoryList} = this.props
+        if (article.pathname !== this.props.location.pathname) this.handlefetchArticle()
+        if (category.lists.length === 0) getCategoryList()
+        if (trending.data.length === 0) getTrending()
     }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
@@ -46,7 +53,7 @@ export default class Article extends Component {
         getArticleItem({ id, pathname })
     }
     render() {
-        const {article, comments} = this.props
+        const {article, comments, category, trending} = this.props
         let html
         if (!article.isLoad) {
             html =
@@ -84,8 +91,8 @@ export default class Article extends Component {
             <div className="main wrap clearfix">
                 {html}
                 <div className="main-right">
-                    <Category payload={[]} />
-                    <Trending payload={[]} />
+                    <Category payload={category.lists} />
+                    <Trending payload={trending.data} />
                 </div>
             </div>
         )

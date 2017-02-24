@@ -20,6 +20,18 @@ const reducers = {
             page,
             pathname
         })
+    },
+    ['updateTopicsLikeState']: (state, action) => {
+        const {payload} = action
+        const data = state.toJS().data
+        const obj = data.find(item => item._id === payload)
+        if (obj) {
+            obj.like = obj.like_status ? obj.like - 1 : obj.like + 1
+            obj.like_status = !obj.like_status
+        }
+        return state.merge({
+            data
+        })
     }
 }
 

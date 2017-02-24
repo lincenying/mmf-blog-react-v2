@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'react-router/lib/Link'
 
-export default props => {
+const AsideTrending = props => {
     const { payload } = props
     const html = payload.map((item, index) => {
         return (
@@ -24,3 +24,4 @@ export default props => {
         </div>
     )
 }
+export default AsideTrending

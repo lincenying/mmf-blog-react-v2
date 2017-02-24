@@ -2073,3 +2073,11 @@ a:hover .icon-arrow-right {
     transform: translate3d(0, 0, 0);
     z-index: 1
 }
+
+.flex-item {
+    display: flex;
+    margin-bottom: 10px;
+}
+.flex-item .flex-label {
+    width: 70px;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const TopicsItemNone = props => {
     return (
         <div className="card feed">
             <div className="feed-content">
@@ -13,3 +13,4 @@ export default props => {
         </div>
     )
 }
+export default TopicsItemNone

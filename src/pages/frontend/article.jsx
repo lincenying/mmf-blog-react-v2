@@ -75,7 +75,7 @@ export default class Article extends Component {
                         <div className="answer-content">
                             <div className="article-content markdown-body" dangerouslySetInnerHTML={{__html: addTarget(article.data.html)}} />
                         </div>
-                        <Actions payload={article.data} />
+                        <Actions item={article.data} payload="item" />
                     </div>
                     <Comment comments={comments} />
                 </div>

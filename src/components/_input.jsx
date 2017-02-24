@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default props => {
+const AInput = props => {
     const {title, classes} = props
     return (
         <div className="settings-section">
@@ -15,3 +15,4 @@ export default props => {
         </div>
     )
 }
+export default AInput

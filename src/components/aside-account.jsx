@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'react-router/lib/Link'
 
-export default () => {
+const AsideAccount =  () => {
     return (
         <div className="card card-me">
             <Link to="/user/account" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />帐号</Link>
@@ -9,3 +9,4 @@ export default () => {
         </div>
     )
 }
+export default AsideAccount

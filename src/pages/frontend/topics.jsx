@@ -30,7 +30,7 @@ function mapDispatchToProps(dispatch) {
 @immutableRenderDecorator
 @propTypes({
 })
-export default class Main extends Component {
+export default class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {

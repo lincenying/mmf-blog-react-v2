@@ -11,7 +11,7 @@ import "assets/css/style.css"
 import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
-export default props => {
+const App = props => {
     const backend = props.route.name !== "index"
     const signUpHtml = !backend ? <SignUp /> : ''
     const signInHtml = !backend ? <SignIn /> : ''
@@ -29,3 +29,4 @@ export default props => {
         </div>
     )
 }
+export default App

@@ -8,7 +8,7 @@ import account from '../../components/aside-account.jsx'
 @propTypes({
 
 })
-export default class Main extends Component {
+export default class UserAccount extends Component {
     constructor(props) {
         super(props)
         this.state = {

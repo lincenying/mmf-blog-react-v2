@@ -22,7 +22,7 @@ function mapDispatchToProps(dispatch) {
 @propTypes({
 
 })
-export default class Main extends Component {
+export default class ItemActions extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -32,7 +32,7 @@ export default class Main extends Component {
     }
     async handleLike() {
         const username = cookies.get('user')
-        const { dispatch, payload } = this.props
+        const { dispatch, item, payload } = this.props
         if (!username) {
             setMessage({ type: 'error', content: '请先登录!' })
             dispatch({
@@ -42,21 +42,22 @@ export default class Main extends Component {
             return
         }
         let url = 'frontend/like'
-        if (payload.like_status) url = 'frontend/unlike'
-        const { data: {code, message} } = await api.get(url, { id: payload._id })
+        if (item.like_status) url = 'frontend/unlike'
+        const { data: {code, message} } = await api.get(url, { id: item._id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
+            this.props.dispatch({type: payload === 'list' ? 'updateTopicsLikeState' : 'updateArticleLikeState', payload: item._id})
         }
     }
     handleShare() {
         const top = window.screen.height / 2 - 250
         const left = window.screen.width / 2 - 300
-        const title = this.props.payload.title + ' - M.M.F 小屋'
-        const url = 'https://www.mmxiaowu.com/article/' + this.props.payload._id
+        const title = this.props.item.title + ' - M.M.F 小屋'
+        const url = 'https://www.mmxiaowu.com/article/' + this.props.item._id
         window.open("http://service.weibo.com/share/share.php?title=" + encodeURIComponent(title.replace(/&nbsp;/g, " ").replace(/<br \/>/g, " "))+ "&url=" + encodeURIComponent(url), "分享至新浪微博", "height=500, width=600, top=" + top + ", left=" + left + ", toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no")
     }
     render() {
-        const item = this.props.payload
+        const item = this.props.item
         return (
             <div className="actions-wrap">
                 <a onClick={this.handleLike} href="javascript:;" className={item.like_status ? 'action-item active' : 'action-item'}><i className={item.like_status ? 'icon icon-action-voteup-active' : 'icon icon-action-voteup'} /><span className="text">{ item.like } 赞</span></a>

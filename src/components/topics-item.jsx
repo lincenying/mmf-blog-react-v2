@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'react-router/lib/Link'
 import Actions from './item-actions'
 
-export default props => {
+const TopicsItem = props => {
     const item = props.payload
     return (
         <div className="card feed">
@@ -12,7 +12,8 @@ export default props => {
                     <div className="feed-article-content markdown-body">{item.content}</div>
                 </div>
             </div>
-            <Actions payload={item} />
+            <Actions item={item} payload="list" />
         </div>
     )
 }
+export default TopicsItem

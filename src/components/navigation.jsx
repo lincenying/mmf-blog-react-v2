@@ -8,7 +8,7 @@ import {propTypes} from '~decorators'
 @propTypes({
 
 })
-export default class Main extends Component {
+export default class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {

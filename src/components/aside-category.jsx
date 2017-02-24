@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'react-router/lib/Link'
 
-const App = props => {
+const AsideCategory = props => {
     const { payload } = props
     const html = payload.map(item => {
         return (
@@ -18,4 +18,4 @@ const App = props => {
     )
 }
 
-export default App
+export default AsideCategory

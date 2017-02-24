@@ -17,6 +17,15 @@ const reducers = {
             pathname,
             isLoad: true
         })
+    },
+    ['updateArticleLikeState']: state => {
+        const like_status = state.data.like_status
+        return state.merge({
+            data: {
+                like_status: !like_status,
+                like: like_status ? state.data.like - 1 : state.data.like + 1
+            }
+        })
     }
 }
 

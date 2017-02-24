@@ -35,7 +35,7 @@ const goScrollTop = () => {
     window.scrollTo(0, 0)
 }
 
-export default ({store}) => {
+const RouterWrap = ({store}) => {
     const history = syncHistoryWithStore(browserHistory, store)
     return (
         <Provider store={store}>
@@ -55,6 +55,7 @@ export default ({store}) => {
         </Provider>
     )
 }
+export default RouterWrap
 /*
 <Route name="backend" needLogin="1" path="/backend" component={App} >
     <Route name="login" path="/backend/login" component={Article} />

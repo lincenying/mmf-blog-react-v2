@@ -15,7 +15,10 @@ var config = merge(baseWebpackConfig, {
             loader: 'style-loader!css-loader!postcss-loader!less-loader'
         }, {
             test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-            loader: 'file-loader'
+            loader: 'file-loader',
+            query: {
+                name: '[name].[hash:7].[ext]'
+            }
         }]
     },
     resolve: {

@@ -36,7 +36,8 @@ var config = {
             "~decorators": path.join(__dirname, "../src/decorators"),
             "~pages": path.join(__dirname, "../src/pages"),
             "~actions": path.join(__dirname, "../src/store/reducers"),
-            "~reducers": path.join(__dirname, "../src/store/reducers")
+            "~reducers": path.join(__dirname, "../src/store/reducers"),
+            "~utils": path.join(__dirname, "../src/utils"),
         },
         extensions: ['.js', '.jsx']
     },

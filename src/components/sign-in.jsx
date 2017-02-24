@@ -1,7 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {propTypes} from '~decorators'
+import {setMessage} from '~reducers/global'
+import api from '~api'
 
 function mapStateToProps(state) {
     return {
@@ -9,7 +12,8 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return { dispatch }
+    const actions = bindActionCreators({setMessage}, dispatch)
+    return { ...actions, dispatch }
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -21,19 +25,32 @@ function mapDispatchToProps(dispatch) {
 class signIn extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            username: '',
+            password: '',
+        }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
         this.handleClose = this.handleClose.bind(this)
     }
-    handleLogin() {
+    async handleLogin() {
+        if (!this.state.username || !this.state.password) {
+            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            return
+        }
+        const { data: { message, code} } = await api.post('frontend/user/login', this.state)
+        if (code === 200) {
+            setMessage({ type: 'success', content: message })
+            this._reactInternalInstance._context.router.go(0)
+            this.handleClose()
+        }
     }
     handleRegister() {
+        this.props.dispatch({ type: 'showLoginModal', payload: false })
+        this.props.dispatch({ type: 'showRegisterModal', payload: true })
     }
     handleClose() {
-        this.props.dispatch({
-            type: 'showLoginModal',
-            payload: false
-        })
+        this.props.dispatch({ type: 'showLoginModal', payload: false })
     }
     render() {
         return (
@@ -43,11 +60,11 @@ class signIn extends Component {
                     <div className="modal-content">
                         <div className="signup-form">
                             <div className="input-wrap">
-                                <input type="text" placeholder="昵称" className="base-input" />
+                                <input type="text" value={this.state.username} onChange={e => this.setState({username: e.target.value})} placeholder="昵称" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <div className="input-wrap">
-                                <input type="password" placeholder="密码" className="base-input" />
+                                <input type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} placeholder="密码" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <a onClick={this.handleLogin} href="javascript:;" className="btn signup-btn btn-yellow">确认登录</a>

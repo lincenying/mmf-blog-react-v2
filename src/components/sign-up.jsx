@@ -1,7 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {propTypes} from '~decorators'
+import {setMessage} from '~reducers/global'
+import api from '~api'
+import { strlen } from '~utils'
 
 function mapStateToProps(state) {
     return {
@@ -9,11 +13,11 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    return { dispatch }
+    const actions = bindActionCreators({setMessage}, dispatch)
+    return { ...actions, dispatch }
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 @immutableRenderDecorator
 @propTypes({
 
@@ -21,22 +25,44 @@ function mapDispatchToProps(dispatch) {
 class signUp extends Component {
     constructor(props) {
         super(props)
+        this.state = {
+            username: '',
+            email: '',
+            password: '',
+            re_password: '',
+        }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
         this.handleClose = this.handleClose.bind(this)
     }
     handleLogin() {
+        this.props.dispatch({ type: 'showLoginModal', payload: true })
+        this.props.dispatch({ type: 'showRegisterModal', payload: false })
     }
-    handleRegister() {
+    async handleRegister() {
+        if (!this.state.username || !this.state.password || !this.state.email) {
+            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            return
+        } else if (strlen(this.state.username) < 4) {
+            setMessage({ type: 'error', content: '用户长度至少 2 个中文或 4 个英文!' })
+            return
+        } else if (strlen(this.state.password) < 8) {
+            setMessage({ type: 'error', content: '密码长度至少 8 位!' })
+            return
+        } else if (this.state.password !== this.state.re_password) {
+            setMessage({ type: 'error', content: '密码和重复密码不一致!' })
+            return
+        }
+        const { data: { message, code} } = await api.post('frontend/user/insert', this.state)
+        if (code === 200) {
+            setMessage({ type: 'success', content: message })
+            this.handleLogin()
+        }
     }
     handleClose() {
-        this.props.dispatch({
-            type: 'showRegisterModal',
-            payload: false
-        })
+        this.props.dispatch({ type: 'showRegisterModal', payload: false })
     }
     render() {
-        console.log(this.props)
         return (
             <div className={this.props.global.showRegisterModal ? 'modal-wrap modal-signup-wrap active' : 'modal-wrap modal-signup-wrap'}><span className="center-helper" />
                 <div className="modal modal-signup">

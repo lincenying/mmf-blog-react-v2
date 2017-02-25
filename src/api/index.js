@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import NProgress from 'nprogress'
 import config from './config'
-import { setMessage } from '~reducers/global'
+import { setMessage } from '~utils'
 
 axios.interceptors.request.use(config => {
     NProgress.start()

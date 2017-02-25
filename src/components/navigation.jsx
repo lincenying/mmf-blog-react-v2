@@ -1,9 +1,20 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import Link from 'react-router/lib/Link'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import cookies from 'js-cookie'
 import {propTypes} from '~decorators'
 
+function mapStateToProps(state) {
+    return {
+        global: state.global.toJS()
+    }
+}
+function mapDispatchToProps(dispatch) {
+    return { dispatch }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
 @propTypes({
 
@@ -18,9 +29,13 @@ export default class Navigation extends Component {
         this.handleSearch = this.handleSearch.bind(this)
     }
     handleLogin() {
+        this.props.dispatch({ type: 'showLoginModal', payload: true })
     }
-    handleSearch() {
-
+    handleSearch(e) {
+        var key = e.target.value
+        if (e.keyCode === 13 && key !== '') {
+            this._reactInternalInstance._context.router.push(`/search/${key}`)
+        }
     }
     render() {
         const loginText = this.state.isLogin ?

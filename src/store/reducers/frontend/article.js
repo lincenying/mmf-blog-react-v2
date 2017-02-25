@@ -19,11 +19,11 @@ const reducers = {
         })
     },
     ['updateArticleLikeState']: state => {
-        const like_status = state.data.like_status
-        return state.merge({
+        const { like, like_status } = state.toJS().data
+        return state.mergeDeep({
             data: {
                 like_status: !like_status,
-                like: like_status ? state.data.like - 1 : state.data.like + 1
+                like: like_status ? like - 1 : like + 1
             }
         })
     }

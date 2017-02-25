@@ -29,7 +29,7 @@ const reducers = {
             obj.like = obj.like_status ? obj.like - 1 : obj.like + 1
             obj.like_status = !obj.like_status
         }
-        return state.merge({
+        return state.mergeDeep({
             data
         })
     }

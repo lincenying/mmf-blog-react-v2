@@ -11,13 +11,13 @@ const initStates = fromJS({
 const reducers = {
     ['receiveCategoryList']: (state, action) => {
         const {data} = action
-        return state.merge({
+        return state.mergeDeep({
             lists: data
         })
     },
     ['receiveCategoryItem']: (state, action) => {
         const {data} = action
-        return state.merge({
+        return state.mergeDeep({
             item: data
         })
     }

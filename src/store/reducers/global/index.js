@@ -16,12 +16,12 @@ const initStates = fromJS({
 
 const reducers = {
     ['showLoginModal']: (state, action) => {
-        return state.merge({
+        return state.mergeDeep({
             showLoginModal: action.payload
         })
     },
     ['showRegisterModal']: (state, action) => {
-        return state.merge({
+        return state.mergeDeep({
             showRegisterModal: action.payload
         })
     }

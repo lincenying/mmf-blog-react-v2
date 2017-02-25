@@ -35,10 +35,7 @@ export default class ItemActions extends Component {
         const { dispatch, item, payload } = this.props
         if (!username) {
             setMessage({ type: 'error', content: '请先登录!' })
-            dispatch({
-                type: 'showLoginModal',
-                payload: true
-            })
+            dispatch({ type: 'showLoginModal', payload: true })
             return
         }
         let url = 'frontend/like'

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {propTypes} from '~decorators'
-import Trending from '../../components/aside-trending.jsx'
+import Trending from '~components/aside-trending.jsx'
 import {getTrending} from '~reducers/frontend/trending'
 
 function mapStateToProps(state) {

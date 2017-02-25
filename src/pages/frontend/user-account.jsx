@@ -3,8 +3,8 @@ import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 
 import api from '~api'
 import {propTypes} from '~decorators'
-import AInput from '../../components/_input.jsx'
-import Account from '../../components/aside-account.jsx'
+import AInput from '~components/_input.jsx'
+import Account from '~components/aside-account.jsx'
 
 @immutableRenderDecorator
 @propTypes({

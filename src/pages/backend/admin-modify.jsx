@@ -6,7 +6,7 @@ import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import {getAdminItem} from '~reducers/backend/admin'
 import {setMessage} from '~utils'
 import api from '~api'
-import AInput from '../../components/_input.jsx'
+import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {

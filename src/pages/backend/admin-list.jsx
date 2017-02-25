@@ -26,9 +26,10 @@ export default class AdminList extends Component {
         }
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
+        this.getAdminList = this.getAdminList.bind(this)
     }
     componentWillMount() {
-        this.props.getAdminList()
+        this.getAdminList()
     }
     async handleRecover(id) {
         const { data: { code, message} } = await api.get('backend/admin/recover', { id })
@@ -44,12 +45,19 @@ export default class AdminList extends Component {
             this.props.dispatch({type: 'deleteAdmin', id})
         }
     }
+    handleLoadMore() {
+        this.getAdminList()
+    }
+    getAdminList() {
+        const {admin: {lists}, location: {pathname}} = this.props
+        this.props.getAdminList({page: lists.page, pathname})
+    }
     render() {
         const {admin} = this.props
-        const lists = admin.lists.data.map(item => {
+        const lists = admin.lists.data.map((item, index) => {
             const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
             return (
-                <div key={item._id} className="list-section">
+                <div key={index} className="list-section">
                     <div className="list-username">{ item.username }</div>
                     <div className="list-email">{ item.email }</div>
                     <div className="list-date">{ timeAgo(item.timestamp) }</div>

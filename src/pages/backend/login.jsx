@@ -3,7 +3,7 @@ import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 
 import api from '~api'
 import {setMessage} from '~utils'
-import AInput from '../../components/_input.jsx'
+import AInput from '~components/_input.jsx'
 
 @immutableRenderDecorator
 export default class Login extends Component {

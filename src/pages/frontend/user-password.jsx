@@ -1,9 +1,25 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {propTypes} from '~decorators'
-import aInput from '../../components/_input.jsx'
-import account from '../../components/aside-account.jsx'
 
+import {propTypes} from '~decorators'
+import api from '~api'
+import AInput from '~components/_input.jsx'
+import Account from '~components/aside-account.jsx'
+import {setMessage} from '~reducers/global'
+
+function mapStateToProps(state) {
+    return {
+        global: state.global.toJS()
+    }
+}
+function mapDispatchToProps(dispatch) {
+    const actions = bindActionCreators({setMessage}, dispatch)
+    return { ...actions, dispatch }
+}
+
+@connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
 @propTypes({
 
@@ -12,10 +28,29 @@ export default class UserPassword extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            old_password: '',
+            password: '',
+            re_password: ''
         }
         this.handleModify = this.handleModify.bind(this)
     }
-    handleModify() {
+    async handleModify() {
+        if (!this.state.password || !this.state.old_password || !this.state.re_password) {
+            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            return
+        } else if (this.state.password !== this.state.re_password) {
+            setMessage({ type: 'error', content: '两次密码输入不一致!' })
+            return
+        }
+        const { data: { code, data} } = await api.post('frontend/user/password', this.state)
+        if (code === 200) {
+            setMessage({ type: 'success', content: data })
+            this.setState({
+                old_password: '',
+                password: '',
+                re_password: ''
+            })
+        }
     }
     render() {
         return (
@@ -24,15 +59,15 @@ export default class UserPassword extends Component {
                     <div className="home-feeds cards-wrap">
                         <div className="settings-main card">
                             <div className="settings-main-content">
-                                <aInput title="当前密码">
-                                    <input type="password" placeholder="当前密码" className="base-input" name="old_password" />
-                                </aInput>
-                                <aInput title="新的密码">
-                                    <input type="password" placeholder="新的密码" className="base-input" name="password" />
-                                </aInput>
-                                <aInput title="确认密码">
-                                    <input type="password" placeholder="确认密码" className="base-input" name="re_password" />
-                                </aInput>
+                                <AInput title="当前密码">
+                                    <input value={this.state.old_password} onChange={e => this.setState({old_password: e.target.value})} type="password" placeholder="当前密码" className="base-input" name="old_password" />
+                                </AInput>
+                                <AInput title="新的密码">
+                                    <input value={this.state.password} onChange={e => this.setState({password: e.target.value})} type="password" placeholder="新的密码" className="base-input" name="password" />
+                                </AInput>
+                                <AInput title="确认密码">
+                                    <input value={this.state.re_password} onChange={e => this.setState({re_password: e.target.value})} type="password" placeholder="确认密码" className="base-input" name="re_password" />
+                                </AInput>
                             </div>
                             <div className="settings-footer clearfix">
                                 <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">保存设置</a>
@@ -41,7 +76,7 @@ export default class UserPassword extends Component {
                     </div>
                 </div>
                 <div className="main-right">
-                    <account />
+                    <Account />
                 </div>
             </div>
         )

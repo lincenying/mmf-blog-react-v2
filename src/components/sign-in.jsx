@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+
 import {propTypes} from '~decorators'
 import {setMessage} from '~reducers/global'
 import api from '~api'
@@ -17,7 +18,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 @immutableRenderDecorator
 @propTypes({
 

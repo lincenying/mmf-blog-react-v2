@@ -2081,3 +2081,7 @@ a:hover .icon-arrow-right {
 .flex-item .flex-label {
     width: 70px;
 }
+
+.toast-top-center {
+    top: 60px !important;
+}

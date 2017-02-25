@@ -1,29 +1,12 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 
-import {propTypes} from '~decorators'
 import api from '~api'
 import AInput from '~components/_input.jsx'
 import Account from '~components/aside-account.jsx'
-import {setMessage} from '~reducers/global'
+import {setMessage} from '~utils'
 
-function mapStateToProps(state) {
-    return {
-        global: state.global.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({setMessage}, dispatch)
-    return { ...actions, dispatch }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
-@propTypes({
-
-})
 export default class UserPassword extends Component {
     constructor(props) {
         super(props)
@@ -36,10 +19,10 @@ export default class UserPassword extends Component {
     }
     async handleModify() {
         if (!this.state.password || !this.state.old_password || !this.state.re_password) {
-            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            setMessage('请将表单填写完整!')
             return
         } else if (this.state.password !== this.state.re_password) {
-            setMessage({ type: 'error', content: '两次密码输入不一致!' })
+            setMessage('两次密码输入不一致!')
             return
         }
         const { data: { code, data} } = await api.post('frontend/user/password', this.state)

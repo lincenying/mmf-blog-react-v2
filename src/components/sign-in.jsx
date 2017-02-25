@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 
 import {propTypes} from '~decorators'
-import {setMessage} from '~reducers/global'
+import {setMessage} from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -12,12 +11,8 @@ function mapStateToProps(state) {
         global: state.global.toJS()
     }
 }
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({setMessage}, dispatch)
-    return { ...actions, dispatch }
-}
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, dispatch => ({ dispatch }))
 @immutableRenderDecorator
 @propTypes({
 
@@ -35,7 +30,7 @@ class signIn extends Component {
     }
     async handleLogin() {
         if (!this.state.username || !this.state.password) {
-            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            setMessage('请将表单填写完整!')
             return
         }
         const { data: { message, code} } = await api.post('frontend/user/login', this.state)

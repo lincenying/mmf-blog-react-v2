@@ -4,24 +4,10 @@ import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 import cookies from 'js-cookie'
 
 import api from '~api'
-import {propTypes} from '~decorators'
-import {setMessage} from '~reducers/global'
+import {setMessage} from '~utils'
 
-function mapStateToProps(state) {
-    return {
-        global: state.global.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    return { dispatch }
-}
-
-@connect(mapStateToProps, mapDispatchToProps)
-
+@connect('', dispatch => ({ dispatch }))
 @immutableRenderDecorator
-@propTypes({
-
-})
 export default class ItemActions extends Component {
     constructor(props) {
         super(props)
@@ -34,7 +20,7 @@ export default class ItemActions extends Component {
         const username = cookies.get('user')
         const { dispatch, item, payload } = this.props
         if (!username) {
-            setMessage({ type: 'error', content: '请先登录!' })
+            setMessage('请先登录!')
             dispatch({ type: 'showLoginModal', payload: true })
             return
         }
@@ -43,7 +29,8 @@ export default class ItemActions extends Component {
         const { data: {code, message} } = await api.get(url, { id: item._id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: payload === 'list' ? 'updateTopicsLikeState' : 'updateArticleLikeState', payload: item._id})
+            dispatch({type: payload === 'list' ? 'updateTopicsLikeState' : 'updateArticleLikeState', payload: item._id})
+            dispatch({type: 'updateTrendingLikeState', payload: item._id})
         }
     }
     handleShare() {

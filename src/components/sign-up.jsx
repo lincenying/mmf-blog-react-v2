@@ -1,27 +1,18 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {propTypes} from '~decorators'
-import {setMessage} from '~reducers/global'
+import {setMessage, strlen} from '~utils'
 import api from '~api'
-import { strlen } from '~utils'
 
 function mapStateToProps(state) {
     return {
         global: state.global.toJS()
     }
 }
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({setMessage}, dispatch)
-    return { ...actions, dispatch }
-}
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, dispatch => ({ dispatch }))
 @immutableRenderDecorator
-@propTypes({
 
-})
 class signUp extends Component {
     constructor(props) {
         super(props)
@@ -41,16 +32,16 @@ class signUp extends Component {
     }
     async handleRegister() {
         if (!this.state.username || !this.state.password || !this.state.email) {
-            setMessage({ type: 'error', content: '请将表单填写完整!' })
+            setMessage('请将表单填写完整!')
             return
         } else if (strlen(this.state.username) < 4) {
-            setMessage({ type: 'error', content: '用户长度至少 2 个中文或 4 个英文!' })
+            setMessage('用户长度至少 2 个中文或 4 个英文!')
             return
         } else if (strlen(this.state.password) < 8) {
-            setMessage({ type: 'error', content: '密码长度至少 8 位!' })
+            setMessage('密码长度至少 8 位!')
             return
         } else if (this.state.password !== this.state.re_password) {
-            setMessage({ type: 'error', content: '密码和重复密码不一致!' })
+            setMessage('密码和重复密码不一致!')
             return
         }
         const { data: { message, code} } = await api.post('frontend/user/insert', this.state)

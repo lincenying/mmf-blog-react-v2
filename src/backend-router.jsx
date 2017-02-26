@@ -35,7 +35,7 @@ const RouterWrap = ({store}) => {
     return (
         <Provider store={store}>
             <Router history={history}>
-                <Route name="backend" needLogin="1" path="/backend" component={Backend} >
+                <Route name="backend" needLogin="1" path="/backend" component={Backend} onEnter={checkLogin} >
                     <IndexRoute name="login" component={Login} />
                     <Route name="admin_list" path="/backend/admin/list" component={AdminList} />
                     <Route name="admin_modify" path="/backend/admin/modify/:id" component={AdminModify} />

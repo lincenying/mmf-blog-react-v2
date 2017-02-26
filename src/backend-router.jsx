@@ -5,7 +5,7 @@ import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore} from 'react-router-redux'
-// import cookies from 'js-cookie'
+import cookies from 'js-cookie'
 
 import NotFound from './pages/404.jsx'
 import Backend from './pages/backend.jsx'
@@ -22,13 +22,13 @@ import Login from './pages/backend/login.jsx'
 import UserList from './pages/backend/user-list.jsx'
 import UserModify from './pages/backend/user-modify.jsx'
 
-// const checkLogin = (nextState, replace, callback) => {
-//     var token = cookies.get('b_user')
-//     if (!token) {
-//         replace('/')
-//     }
-//     callback()
-// }
+const checkLogin = (nextState, replace, callback) => {
+    var token = cookies.get('b_user')
+    if (!token) {
+        replace('/')
+    }
+    callback()
+}
 
 const RouterWrap = ({store}) => {
     const history = syncHistoryWithStore(browserHistory, store)

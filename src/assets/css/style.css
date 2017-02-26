@@ -1596,6 +1596,10 @@ a:hover .icon-arrow-right {
     text-align: right;
 }
 
+.settings-footer a + a {
+    margin-left: 5px;
+}
+
 .settings-footer .admin-load-more {
     display: block;
     text-align: center;
@@ -1650,6 +1654,11 @@ a:hover .icon-arrow-right {
 
 .list-section .list-action {
     width: 100px;
+}
+
+.list-section .list-action a {
+    display: inline-block;
+    padding-right: 5px;
 }
 
 .list-section .list-username {

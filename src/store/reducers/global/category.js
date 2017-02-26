@@ -20,6 +20,27 @@ const reducers = {
         return state.mergeDeep({
             item: data
         })
+    },
+    ['insertCategoryItem']: (state, {item}) => {
+        const { lists } = state.toJS()
+        const data = [item].concat(lists.data)
+        return state.mergeDeep({
+            lists: {
+                data
+            }
+        })
+    },
+    ['updateCategoryItem']: (state, {item}) => {
+        const {lists} = state.toJS()
+        const obj = lists.data.find(ii => ii._id === item.id)
+        if (obj) {
+            obj.cate_name = item.cate_name
+            obj.cate_order = item.cate_order
+        }
+        return state.mergeDeep({
+            lists,
+            item
+        })
     }
 }
 

@@ -70,12 +70,7 @@ export const getArticleList = config => {
         return dispatch(errConfig)
     }
 }
-export const getArticleItem = async ({id}) => {
-    const { data: { data, code} } = await api.get('backend/article/item', { id })
-    if (data && code === 200) {
-        return data
-    }
-}
+
 export const deleteArticle = config => {
     return async dispatch => {
         const { data: { code} } = await api.get('backend/article/delete', config)

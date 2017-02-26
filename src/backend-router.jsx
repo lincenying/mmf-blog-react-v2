@@ -42,7 +42,7 @@ const RouterWrap = ({store}) => {
                     <Route name="article_insert" path="/backend/article/list" component={ArticleList} />
                     <Route name="article_insert" path="/backend/article/insert" component={ArticleInsert} />
                     <Route name="article_modify" path="/backend/article/modify/:id" component={ArticleModify} />
-                    <Route name="article_comment" path="/backend/comment/:id" component={Comment} />
+                    <Route name="article_comment" path="/backend/article/comment/:id" component={Comment} />
                     <Route name="category_list" path="/backend/category/list" component={CategoryList} />
                     <Route name="category_insert" path="/backend/category/insert" component={CategoryInsert} />
                     <Route name="category_modify" path="/backend/category/modify/:id" component={CategoryModify} />

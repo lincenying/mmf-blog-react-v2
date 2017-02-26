@@ -27,6 +27,7 @@ export default class ArticleList extends Component {
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getArticleList = this.getArticleList.bind(this)
+        this.handleLoadMore = this.handleLoadMore.bind(this)
     }
     componentWillMount() {
         this.getArticleList(1)

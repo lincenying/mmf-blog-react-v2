@@ -25,8 +25,8 @@ export default class UserModify extends Component {
         super(props)
         const {username, email} = props.user.item.data
         this.state = {
-            username,
-            email,
+            username: username || '',
+            email: email || '',
             password: ''
         }
         this.handleModify = this.handleModify.bind(this)

@@ -35,10 +35,8 @@ function checkStatus(response) {
 function checkCode(res) {
     if (res.data.code === -500) {
         window.location.href = '/backend'
-        return
     } else if (res.data.code === -400) {
         window.location.href = '/'
-        return
     } else if (res.data.code !== 200) {
         setMessage(res.data.message)
     }

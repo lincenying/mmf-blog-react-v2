@@ -29,7 +29,7 @@ export default class AdminList extends Component {
         this.getAdminList = this.getAdminList.bind(this)
     }
     componentWillMount() {
-        this.getAdminList()
+        this.getAdminList(1)
     }
     async handleRecover(id) {
         const { data: { code, message} } = await api.get('backend/admin/recover', { id })
@@ -48,9 +48,10 @@ export default class AdminList extends Component {
     handleLoadMore() {
         this.getAdminList()
     }
-    getAdminList() {
+    getAdminList(page) {
         const {admin: {lists}, location: {pathname}} = this.props
-        this.props.getAdminList({page: lists.page, pathname})
+        page = page || lists.page
+        this.props.getAdminList({page, pathname})
     }
     render() {
         const {admin} = this.props

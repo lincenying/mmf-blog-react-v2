@@ -19,17 +19,19 @@ const initStates = fromJS({
 
 const reducers = {
     ['receiveAdminList']: (state, action) => {
+        const oldState = state.toJS()
         const {list, pathname, hasNext, hasPrev, page} = action
         let data
         if (page === 1) {
             data = [].concat(list)
         } else {
-            data = state.toJS().lists.data.concat(list)
+            data = oldState.lists.data.concat(list)
         }
-        return state.mergeDeep({
+        return state.merge({
             lists: {
                 data, hasNext, hasPrev, page: page + 1, pathname
-            }
+            },
+            item: oldState.item
         })
     },
     ['receiveAdminItem']: (state, {data, pathname}) => {

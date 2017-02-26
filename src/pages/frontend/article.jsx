@@ -53,7 +53,7 @@ export default class Article extends Component {
         getArticleItem({ id, pathname })
     }
     render() {
-        const {article, comments, category, trending} = this.props
+        const {article, category, trending} = this.props
         let html
         if (!article.isLoad) {
             html =
@@ -77,7 +77,7 @@ export default class Article extends Component {
                         </div>
                         <Actions item={article.data} payload="item" />
                     </div>
-                    <Comment comments={comments} />
+                    <Comment {...this.props} />
                 </div>
         } else {
             html =

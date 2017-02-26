@@ -23,9 +23,10 @@ function mapDispatchToProps(dispatch) {
 export default class AdminModify extends Component {
     constructor(props) {
         super(props)
+        const {username, email} = props.admin.item.data
         this.state = {
-            username: '',
-            email: '',
+            username,
+            email,
             password: ''
         }
         this.handleModify = this.handleModify.bind(this)
@@ -35,7 +36,7 @@ export default class AdminModify extends Component {
     }
     componentDidUpdate(prevProps) {
         const {username, email} = this.props.admin.item.data
-        if (!prevProps.admin.item.data.username && username) {
+        if (prevProps.admin.item.data.username !== username) {
             this.setState({username, email})
         }
     }

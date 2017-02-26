@@ -19,17 +19,19 @@ const initStates = fromJS({
 
 const reducers = {
     ['receiveUserList']: (state, action) => {
+        const oldState = state.toJS()
         const {list, pathname, hasNext, hasPrev, page} = action
         let data
         if (page === 1) {
             data = [].concat(list)
         } else {
-            data = state.toJS().lists.data.concat(list)
+            data = oldState.lists.data.concat(list)
         }
-        return state.mergeDeep({
+        return state.merge({
             lists: {
                 data, hasNext, hasPrev, page: page + 1, pathname
-            }
+            },
+            item: oldState.item
         })
     },
     ['receiveUserItem']: (state, {data, pathname}) => {
@@ -85,7 +87,7 @@ export const getUserList = config => {
 }
 export const getUserItem = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/user/item', config.id)
+        const { data: { data, code} } = await api.get('backend/user/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserItem',

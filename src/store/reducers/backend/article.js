@@ -22,7 +22,7 @@ const reducers = {
         } else {
             data = state.toJS().lists.data.concat(list)
         }
-        return state.mergeDeep({
+        return state.merge({
             lists: {
                 data, hasNext, hasPrev, page: page + 1, pathname
             }

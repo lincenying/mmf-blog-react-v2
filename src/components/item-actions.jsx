@@ -30,7 +30,7 @@ export default class ItemActions extends Component {
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             dispatch({type: payload === 'list' ? 'updateTopicsLikeState' : 'updateArticleLikeState', payload: item._id})
-            dispatch({type: 'updateTrendingLikeState', payload: item._id})
+            //dispatch({type: 'updateTrendingLikeState', payload: item._id})
         }
     }
     handleShare() {

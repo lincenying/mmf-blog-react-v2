@@ -5,7 +5,6 @@ import Route from 'react-router/lib/Route'
 import Router from 'react-router/lib/Router'
 import {Provider} from 'react-redux'
 import {syncHistoryWithStore} from 'react-router-redux'
-//import cookies from 'js-cookie'
 import ls from 'store2'
 
 import NotFound from './pages/404.jsx'
@@ -16,13 +15,6 @@ import Article from './pages/frontend/article.jsx'
 import userAccount from './pages/frontend/user-account.jsx'
 import userPassword from './pages/frontend/user-password.jsx'
 
-// const checkLogin = (nextState, replace, callback) => {
-//     var token = cookies.get('user')
-//     if (!token) {
-//         replace('/')
-//     }
-//     callback()
-// }
 const savePosition = router => {
     const scrollTop = document.body.scrollTop
     const path = router.location.pathname
@@ -56,18 +48,3 @@ const RouterWrap = ({store}) => {
     )
 }
 export default RouterWrap
-/*
-<Route name="backend" needLogin="1" path="/backend" component={App} >
-    <Route name="login" path="/backend/login" component={Article} />
-    <Route name="admin_list" path="/backend/admin/list" component={Article} />
-    <Route name="admin_modify" path="/backend/admin/modify/:id" component={Article} />
-    <Route name="article_insert" path="/backend/article/insert" component={Article} />
-    <Route name="article_modify" path="/backend/article/modify/:id" component={Article} />
-    <Route name="article_comment" path="/backend/comment/:id" component={Article} />
-    <Route name="category_list" path="/backend/category/list" component={Article} />
-    <Route name="category_insert" path="/backend/category/insert" component={Article} />
-    <Route name="category_modify" path="/backend/category/modify/:id" component={Article} />
-    <Route name="user_list" path="/backend/user/list" component={Article} />
-    <Route name="user_modify" path="/backend/user/modify/:id" component={Article} />
-</Route>
-*/

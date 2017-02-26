@@ -73,10 +73,9 @@ export default class About extends Component {
                                     </div>
                                 </div>
                                 <h3 className="about-title">关于网站</h3>
-                                <p>本站服务端采用 express + mongoDB 搭建, 客户端采用 Vue2 的服务端渲染搭建</p>
-                                <p>网站分成前台和后台, 前台采用 SSR 模式渲染, 后台采用 SPA 模式</p>
+                                <p>本站采用 React, React-Router, Redux 搭建, 分成前台和后台</p>
                                 <p>主要功能包括: 管理员, 用户, 分类, 文章, 评论, 文章点赞</p>
-                                <p>主要技术栈: express, mongoose, vue2, vue2-router, vuex, webpack, babel, eslint</p>
+                                <p>主要技术栈: react, react-router, redux, immutable, webpack, babel, eslint</p>
                             </div>
                         </div>
                     </div>

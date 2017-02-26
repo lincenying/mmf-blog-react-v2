@@ -1405,6 +1405,10 @@ a:hover .icon-arrow-right {
     line-height: 1
 }
 
+.comment-item .comment-footer .comment-time {
+    padding-right: 5px;
+}
+
 .comment-item .comment-actions-hidden {
     opacity: 0;
     visibility: hidden;

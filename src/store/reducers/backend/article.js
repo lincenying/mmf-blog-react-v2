@@ -14,7 +14,7 @@ const initStates = fromJS({
 })
 
 const reducers = {
-    ['receiveArticleItem']: (state, action) => {
+    ['receiveBackendArticleList']: (state, action) => {
         const {list, pathname, hasNext, hasPrev, page} = action
         let data
         if (page === 1) {
@@ -29,7 +29,7 @@ const reducers = {
         })
     },
     ['insertArticleItem']: (state, {item}) => {
-        const { lists } = state.toJS().data
+        const { lists } = state.toJS()
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
@@ -38,19 +38,19 @@ const reducers = {
         })
     },
     ['updateArticleItem']: (state, {item}) => {
-        const { lists } = state.toJS().data
+        const { lists } = state.toJS()
         const index = lists.data.findIndex(ii => ii._id === item.id)
         if (index) lists.data[index] = item
         return state.mergeDeep({ lists })
     },
     ['deleteArticle']: (state, {id}) => {
-        const { lists } = state.toJS().data
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({ lists })
     },
     ['recoverArticle']: (state, {id}) => {
-        const { lists } = state.toJS().data
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({ lists })
@@ -62,8 +62,8 @@ export const getArticleList = config => {
         const { data: { data, code} } = await api.get('backend/article/list', config)
         if (code === 200) {
             return dispatch({
-                type: 'receiveArticleList',
-                data,
+                type: 'receiveBackendArticleList',
+                ...data,
                 ...config
             })
         }

@@ -42,16 +42,17 @@ const reducers = {
             }
         })
     },
-    ['updateUserItem']: (state, {item}) => {
-        const {lists} = state.toJS()
-        const obj = lists.data.find(ii => ii._id === item.id)
-        if (obj) {
-            obj.username = item.username
-            obj.email = item.email
+    ['updateUserItem']: (state, {data}) => {
+        const {lists, item} = state.toJS()
+        const index = lists.data.findIndex(ii => ii._id === data._id)
+        if (index > -1) {
+            state.lists.data.splice(index, 1, data)
         }
         return state.mergeDeep({
             lists,
-            item
+            item: {
+                data: item
+            }
         })
     },
     ['deleteUser']: (state, {id}) => {

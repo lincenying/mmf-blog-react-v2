@@ -30,16 +30,15 @@ const reducers = {
             }
         })
     },
-    ['updateCategoryItem']: (state, {item}) => {
+    ['updateCategoryItem']: (state, {data}) => {
         const {lists} = state.toJS()
-        const obj = lists.data.find(ii => ii._id === item.id)
-        if (obj) {
-            obj.cate_name = item.cate_name
-            obj.cate_order = item.cate_order
+        const index = lists.findIndex(ii => ii._id === data._id)
+        if (index > -1) {
+            state.lists.splice(index, 1, data)
         }
         return state.mergeDeep({
             lists,
-            item
+            item: data
         })
     }
 }

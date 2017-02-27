@@ -49,10 +49,10 @@ export default class AdminModify extends Component {
             ...this.state,
             id: this.props.params.id
         }
-        const { data: { message, code} } = await api.post('backend/admin/modify', item)
+        const { data: { message, code, data} } = await api.post('backend/admin/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({ type: 'updateAdminItem', item })
+            this.props.dispatch({ type: 'updateAdminItem', data })
             this.props.router.push('/backend/admin/list')
         }
     }

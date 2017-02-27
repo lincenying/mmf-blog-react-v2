@@ -63,7 +63,7 @@ export default class ArticleList extends Component {
                 <div key={index} className="list-section">
                     <div className="list-title">{ item.title }</div>
                     <div className="list-category">{ item.category_name }</div>
-                    <div className="list-date">{ timeAgo(item.timestamp) }</div>
+                    <div className="list-date">{ timeAgo(item.update_date) }</div>
                     <div className="list-action">
                         <Link to={'/backend/article/modify/' + item._id} className="badge badge-success">编辑</Link>
                         {btn}

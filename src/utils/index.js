@@ -29,9 +29,17 @@ export const strlen = str => {
     return realLength
 }
 
-export const timeAgo = time => {
+export function timeAgo(time) {
+    const preg = /^[\d]+$/
+    const timestamp = preg.test(time)
+    if (!timestamp) {
+        const tmp = Date.parse(time)
+        time = tmp / 1000
+    }
     const between = Date.now() / 1000 - Number(time)
-    if (between < 3600) {
+    if (between < 60) {
+        return '刚刚'
+    } else if (between < 3600) {
         return pluralize(parseInt(between / 60, 10), ' 分钟前')
     } else if (between < 86400) {
         return pluralize(parseInt(between / 3600, 10), ' 小时前')

@@ -37,11 +37,11 @@ const reducers = {
             }
         })
     },
-    ['updateArticleItem']: (state, {item}) => {
+    ['updateArticleItem']: (state, {data}) => {
         const { lists } = state.toJS()
-        const index = lists.data.findIndex(ii => ii._id === item.id)
-        if (index) lists.data[index] = item
-        return state.mergeDeep({ lists })
+        const index = lists.data.findIndex(ii => ii._id === data._id)
+        if (index > -1) lists.data[index] = data
+        return state.mergeDeep({ lists, item: { data } })
     },
     ['deleteArticle']: (state, {id}) => {
         const { lists } = state.toJS()

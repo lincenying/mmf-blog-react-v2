@@ -49,10 +49,10 @@ export default class UserModify extends Component {
             ...this.state,
             id: this.props.params.id
         }
-        const { data: { message, code} } = await api.post('backend/user/modify', item)
+        const { data: { message, code, data } } = await api.post('backend/user/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({ type: 'updateUserItem', item })
+            this.props.dispatch({ type: 'updateUserItem', data })
             this.props.router.push('/backend/user/list')
         }
     }

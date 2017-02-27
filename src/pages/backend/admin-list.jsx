@@ -61,7 +61,7 @@ export default class AdminList extends Component {
                 <div key={index} className="list-section">
                     <div className="list-username">{ item.username }</div>
                     <div className="list-email">{ item.email }</div>
-                    <div className="list-date">{ timeAgo(item.timestamp) }</div>
+                    <div className="list-date">{ timeAgo(item.update_date) }</div>
                     <div className="list-action">
                         <Link to={`/backend/admin/modify/${item._id}`} className="badge badge-success">编辑</Link>
                         {btn}
@@ -76,7 +76,7 @@ export default class AdminList extends Component {
                     <div className="list-section list-header">
                         <div className="list-username">用户名</div>
                         <div className="list-email">邮箱</div>
-                        <div className="list-date">时间</div>
+                        <div className="list-date">最后更新</div>
                         <div className="list-action">操作</div>
                     </div>
                     {lists}

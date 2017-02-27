@@ -41,7 +41,7 @@ export default class UserModify extends Component {
         }
     }
     async handleModify() {
-        if (!this.state.username || !this.state.password || !this.state.email) {
+        if (!this.state.username || !this.state.email) {
             setMessage('请将表单填写完整!')
             return
         }

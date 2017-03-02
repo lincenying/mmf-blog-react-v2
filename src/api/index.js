@@ -11,23 +11,18 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error)
 })
 
-axios.interceptors.response.use(response => {
-    NProgress.done()
-    return response
-}, error => {
-    NProgress.done()
-    setMessage(error.toString())
-    return Promise.reject(error)
-})
+axios.interceptors.response.use(response => response, error => Promise.resolve(error.response))
 
 function checkStatus(response) {
+    NProgress.done()
     if (response.status === 200 || response.status === 304) {
         return response
     }
     return {
         data: {
-            code: -400,
-            message: response.statusText
+            code: -404,
+            message: response.statusText,
+            data: response.statusText,
         }
     }
 }

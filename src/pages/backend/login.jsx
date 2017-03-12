@@ -22,7 +22,7 @@ export default class Login extends Component {
         }
         const { data: { data, code} } = await api.post('backend/admin/login', this.state)
         if (data && code === 200) {
-            this.props.router.push('/backend/article/list')
+            this.props.history.push('/backend/article/list')
         }
     }
     render() {

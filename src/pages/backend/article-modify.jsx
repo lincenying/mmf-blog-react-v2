@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
@@ -39,7 +39,7 @@ export default class ArticleModify extends Component {
     }
     componentDidMount() {
         this.props.getCategoryList()
-        api.get('backend/article/item', { id: this.props.params.id }).then(({data: { code, data}}) => {
+        api.get('backend/article/item', { id: this.props.match.params.id }).then(({data: { code, data}}) => {
             if (code === 200) {
                 this.setState({
                     title: data.title,
@@ -79,7 +79,7 @@ export default class ArticleModify extends Component {
         this.setState({ content }, async () => {
             const { data: { message, code, data} } = await api.post('backend/article/modify', {
                 ...this.state,
-                id: this.props.params.id
+                id: this.props.match.params.id
             })
             if (code === 200) {
                 setMessage({ type: 'success', content: message })

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
 
 import {propTypes} from '~decorators'
@@ -49,7 +49,7 @@ export default class Article extends Component {
         if (pathname !== prevPathname) this.handlefetchArticle()
     }
     handlefetchArticle() {
-        const {getArticleItem, params: {id}, location: {pathname}} = this.props
+        const {getArticleItem, match: {params: {id}}, location: {pathname}} = this.props
         getArticleItem({ id, pathname })
     }
     render() {

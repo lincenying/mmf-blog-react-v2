@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 import {immutableRenderDecorator} from 'react-immutable-render-mixin'
@@ -32,7 +32,7 @@ export default class AdminModify extends Component {
         this.handleModify = this.handleModify.bind(this)
     }
     componentWillMount() {
-        this.props.getAdminItem({id: this.props.params.id})
+        this.props.getAdminItem({id: this.props.match.params.id})
     }
     componentDidUpdate(prevProps) {
         const {username, email} = this.props.admin.item.data
@@ -47,7 +47,7 @@ export default class AdminModify extends Component {
         }
         const item = {
             ...this.state,
-            id: this.props.params.id
+            id: this.props.match.params.id
         }
         const { data: { message, code, data} } = await api.post('backend/admin/modify', item)
         if (code === 200) {

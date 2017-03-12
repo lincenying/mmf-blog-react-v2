@@ -47,7 +47,7 @@ export default class Comment extends Component {
         this.getCommentList()
     }
     getCommentList(page) {
-        const {comment: {lists}, location: {pathname}, params: {id}} = this.props
+        const {comment: {lists}, location: {pathname}, match: {params: {id}}} = this.props
         page = page || lists.page
         this.props.getCommentList({id, page, pathname})
     }

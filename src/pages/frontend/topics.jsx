@@ -46,6 +46,7 @@ export default class Topics extends Component {
     componentDidMount() {
         const path = this.props.location.pathname
         const scrollTop = ls.get(path) || 0
+        ls.remove(path)
         window.scrollTo(0, scrollTop)
     }
     componentDidUpdate(prevProps) {
@@ -53,8 +54,15 @@ export default class Topics extends Component {
         const prevPathname = prevProps.location.pathname
         if (pathname !== prevPathname) this.handlefetchPosts()
     }
+    componentWillUnmount() {
+        const scrollTop = document.body.scrollTop
+        const path = this.props.location.pathname
+        if (path) {
+            if (scrollTop) ls.set(path, scrollTop)
+        }
+    }
     handlefetchPosts(page = 1) {
-        const {getTopics, location: {pathname}, params: {id, key, by}} = this.props
+        const {getTopics, location: {pathname}, match: {params: {id, key, by}}} = this.props
         getTopics({id, key, by, pathname, page})
     }
     handleLoadMore() {

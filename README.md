@@ -4,11 +4,11 @@ demo: [http://react.mmxiaowu.com](http://react.mmxiaowu.com)
 
 #### 说明
 
-本站采用 React, React-Router, Redux 搭建, 分成前台和后台
+本站采用 React, React-Router v4, Redux 搭建, 分成前台和后台
 
 主要功能包括: 管理员, 用户, 分类, 文章, 评论, 文章点赞
 
-主要技术栈: react, react-router, redux, immutable, webpack, babel, eslint
+主要技术栈: react, react-router v4, redux, immutable, webpack, babel, eslint
 
 ---
 

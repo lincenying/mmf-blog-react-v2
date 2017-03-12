@@ -1,20 +1,23 @@
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import withRouter from 'react-router-dom/withRouter'
+import NavLink from 'react-router-dom/NavLink'
 
-const BackendMenu = () => {
+const BackendMenu = props => {
+    const isLogin = props.location.pathname !== '/backend'
     return (
+        !isLogin ? <span /> :
         <div className="main-right">
             <div className="card card-me">
-                <Link to="/backend/admin/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理帐号</Link>
-                <Link to="/backend/user/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />用户列表</Link>
+                <NavLink to="/backend/admin/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理帐号</NavLink>
+                <NavLink to="/backend/user/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />用户列表</NavLink>
             </div>
             <div className="card card-me">
-                <Link to="/backend/category/insert" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />添加分类</Link>
-                <Link to="/backend/category/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理分类</Link>
-                <Link to="/backend/article/insert" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />发布文章</Link>
-                <Link to="/backend/article/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理文章</Link>
+                <NavLink to="/backend/category/insert" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />添加分类</NavLink>
+                <NavLink to="/backend/category/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理分类</NavLink>
+                <NavLink to="/backend/article/insert" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />发布文章</NavLink>
+                <NavLink to="/backend/article/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理文章</NavLink>
             </div>
         </div>
     )
 }
-export default BackendMenu
+export default withRouter(BackendMenu)

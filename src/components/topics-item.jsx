@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router/lib/Link'
+import Link from 'react-router-dom/Link'
 import Actions from './item-actions'
 
 const TopicsItem = props => {

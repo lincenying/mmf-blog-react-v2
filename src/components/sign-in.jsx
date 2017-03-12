@@ -36,8 +36,11 @@ class signIn extends Component {
         const { data: { message, code} } = await api.post('frontend/user/login', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this._reactInternalInstance._context.router.go(0)
-            this.handleClose()
+            //this._reactInternalInstance._context.router.go(0)
+            //this.handleClose()
+            setTimeout(() => {
+                window.location.reload()
+            }, 500)
         }
     }
     handleRegister() {

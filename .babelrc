@@ -1,18 +1,35 @@
 {
-    "presets": ["es2015", "es2016", "stage-2", "react"],
-    "plugins": [
-        "transform-export-extensions",
-        "transform-decorators-legacy",
-        ["transform-runtime", {
-            "polyfill": true,
-            "regenerator": true
-        }]
-    ],
     "env": {
-        "development": {
-        },
         "production": {
-            "plugins": ["transform-react-constant-elements"]
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "browsers": ["last 2 version", "ie 10"]
+                    },
+                    "modules": false,
+                    "debug": true
+                }], "react"
+            ],
+            "plugins": [
+                "transform-runtime",
+                "transform-object-rest-spread",
+                "babel-plugin-transform-decorators-legacy"
+            ]
+        },
+        "development": {
+            "presets": [
+                ["env", {
+                    "targets": {
+                        "chrome": 52
+                    },
+                    "modules": false,
+                    "debug": true
+                }], "react"
+            ],
+            "plugins": [
+                "transform-object-rest-spread",
+                "babel-plugin-transform-decorators-legacy"
+            ]
         }
     }
 }

@@ -45,3 +45,7 @@ http://localhost:8080
 
 管理员登录
 http://localhost:8080/backend
+
+# LICENSE
+
+MIT

@@ -12,7 +12,7 @@ const TopicsItem = props => {
                     <div className="feed-article-content markdown-body">{item.content}</div>
                 </div>
             </div>
-            <Actions item={item} payload="list" />
+            <Actions item={item} />
         </div>
     )
 }

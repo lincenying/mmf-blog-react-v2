@@ -18,7 +18,7 @@ export default class ItemActions extends Component {
     }
     async handleLike() {
         const username = cookies.get('user')
-        const { dispatch, item, payload } = this.props
+        const { dispatch, item } = this.props
         if (!username) {
             setMessage('请先登录!')
             dispatch({ type: 'showLoginModal', payload: true })
@@ -29,7 +29,8 @@ export default class ItemActions extends Component {
         const { data: {code, message} } = await api.get(url, { id: item._id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            dispatch({type: payload === 'list' ? 'updateTopicsLikeState' : 'updateArticleLikeState', payload: item._id})
+            dispatch({type: 'updateTopicsLikeState' , payload: item._id})
+            dispatch({type: 'updateArticleLikeState', payload: item._id})
             //dispatch({type: 'updateTrendingLikeState', payload: item._id})
         }
     }

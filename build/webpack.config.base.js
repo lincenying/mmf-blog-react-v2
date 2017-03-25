@@ -1,19 +1,23 @@
 var path = require('path')
 var webpack = require('webpack')
 
+
 var isInNodeModules = 'node_modules' === path.basename(path.resolve(path.join(__dirname, '..', '..')))
 var relativePath = isInNodeModules ? '../../..' : '..'
-var isInDebugMode = process.argv.some(arg =>
-    arg.indexOf('--debug-template') > -1
-)
+var isInDebugMode = process.argv.some(arg => arg.indexOf('--debug-template') > -1)
 if (isInDebugMode) {
     relativePath = '..'
 }
 var srcPath = path.resolve(__dirname, relativePath, 'src')
 var nodeModulesPath = path.join(__dirname, '..', 'node_modules')
 var buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'dist')
+const isProd = process.env.NODE_ENV === 'production'
 
 var config = {
+    performance: {
+        maxEntrypointSize: 300000,
+        hints: isProd ? 'warning' : false
+    },
     entry: {
         app: [ path.join(srcPath, 'index.jsx') ],
         admin: [ path.join(srcPath, 'backend.jsx') ],

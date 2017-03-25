@@ -2,10 +2,11 @@ var path = require('path')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 var baseWebpackConfig = require('./webpack.config.base')
 var config = merge(baseWebpackConfig, {
-    devtool: 'eval',
+    devtool: '#cheap-module-eval-source-map',
     module: {
         rules: [{
             test: /\.css$/,
@@ -32,6 +33,7 @@ var config = merge(baseWebpackConfig, {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"development"'
         }),
+        new FriendlyErrorsPlugin(),
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NamedModulesPlugin(),
         // prints more readable module names in the browser console on HMR updates

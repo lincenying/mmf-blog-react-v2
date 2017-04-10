@@ -1,6 +1,7 @@
 import React from 'react'
 import Router from 'react-router-dom/BrowserRouter'
 import Route from 'react-router-dom/Route'
+import Switch from 'react-router-dom/Switch'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 import DevTools from '~devtools'
@@ -25,15 +26,17 @@ const App = () => {
             <Route render={({ location, history }) =>
                 <div id="app" className="g-doc">
                     <FrontendNavigation location={location} history={history} />
-                    <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                        <Route name="index" path="/" component={Main} exact />
-                        <Route name="trending" path="/trending/:by" component={Main} />
-                        <Route name="category" path="/category/:id" component={Main} />
-                        <Route name="search" path="/search/:key" component={Main} />
-                        <Route name="article" path="/article/:id" component={Article} />
-                        <Route name="about" path="/about" component={About} />
-                        <MatchWhenAuthorized name="account" path="/user/account" component={userAccount} />
-                        <MatchWhenAuthorized name="password" path="/user/password" component={userPassword} />
+                    <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300} component="div">
+                        <Switch key={location.pathname}>
+                            <Route name="index" path="/" component={Main} exact />
+                            <Route name="trending" path="/trending/:by" component={Main} />
+                            <Route name="category" path="/category/:id" component={Main} />
+                            <Route name="search" path="/search/:key" component={Main} />
+                            <Route name="article" path="/article/:id" component={Article} />
+                            <Route name="about" path="/about" component={About} />
+                            <MatchWhenAuthorized name="account" path="/user/account" component={userAccount} />
+                            <MatchWhenAuthorized name="password" path="/user/password" component={userPassword} />
+                        </Switch>
                     </ReactCSSTransitionGroup>
                     <Sign />
                     <DevTools />

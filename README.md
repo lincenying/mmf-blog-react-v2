@@ -41,7 +41,7 @@ npm run dev
 ```
 
 首页
-http://localhost:8080
+http://localhost:8082
 
 管理员登录
 http://localhost:8080/backend

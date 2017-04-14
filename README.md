@@ -44,7 +44,7 @@ npm run dev
 http://localhost:8082
 
 管理员登录
-http://localhost:8080/backend
+http://localhost:8082/backend
 
 # LICENSE
 

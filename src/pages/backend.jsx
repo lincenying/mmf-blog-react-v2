@@ -1,7 +1,6 @@
 import React from 'react'
 import Router from 'react-router-dom/BrowserRouter'
 import Route from 'react-router-dom/Route'
-import Redirect from 'react-router-dom/Redirect'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import DevTools from '~devtools'

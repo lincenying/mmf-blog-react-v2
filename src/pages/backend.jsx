@@ -1,9 +1,8 @@
-/* eslint-disable */
-import React, {Component} from 'react'
+import React from 'react'
 import Router from 'react-router-dom/BrowserRouter'
 import Route from 'react-router-dom/Route'
 import Redirect from 'react-router-dom/Redirect'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import DevTools from '~devtools'
 import Navigation from '~components/backend-navigation.jsx'
@@ -36,7 +35,7 @@ const Backend = () => {
                 <div className="main wrap clearfix">
                     <div className="main-left">
                         <div className="home-feeds cards-wrap">
-                            <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                            <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                                 <Route name="backend" path="/backend" component={Login} exact />
                                 <MatchWhenAuthorized name="admin_list" path="/backend/admin/list" component={AdminList} />
                                 <MatchWhenAuthorized name="admin_modify" path="/backend/admin/modify/:id" component={AdminModify} />
@@ -49,7 +48,7 @@ const Backend = () => {
                                 <MatchWhenAuthorized name="category_modify" path="/backend/category/modify/:id" component={CategoryModify} />
                                 <MatchWhenAuthorized name="user_list" path="/backend/user/list" component={UserList} />
                                 <MatchWhenAuthorized name="user_modify" path="/backend/user/modify/:id" component={UserModify} />
-                            </ReactCSSTransitionGroup>
+                            </CSSTransitionGroup>
                         </div>
                     </div>
                     <BackendMenu />

@@ -2,7 +2,7 @@ import React from 'react'
 import Router from 'react-router-dom/BrowserRouter'
 import Route from 'react-router-dom/Route'
 import Switch from 'react-router-dom/Switch'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup'
 
 import DevTools from '~devtools'
 import Sign from '~components/sign.jsx'
@@ -26,7 +26,7 @@ const App = () => {
             <Route render={({ location, history }) =>
                 <div id="app" className="g-doc">
                     <FrontendNavigation location={location} history={history} />
-                    <ReactCSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300} component="div">
+                    <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300} component="div">
                         <Switch key={location.pathname}>
                             <Route name="index" path="/" component={Main} exact />
                             <Route name="trending" path="/trending/:by" component={Main} />
@@ -37,7 +37,7 @@ const App = () => {
                             <MatchWhenAuthorized name="account" path="/user/account" component={userAccount} />
                             <MatchWhenAuthorized name="password" path="/user/password" component={userPassword} />
                         </Switch>
-                    </ReactCSSTransitionGroup>
+                    </CSSTransitionGroup>
                     <Sign />
                     <DevTools />
                 </div>

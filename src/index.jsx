@@ -1,8 +1,8 @@
 import React from 'react'
-import {render} from 'react-dom'
+import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import {AppContainer} from 'react-hot-loader'
-import {configureCounterStore} from '~store'
+import { AppContainer } from 'react-hot-loader'
+import { configureCounterStore } from '~store'
 import Root from './pages/app'
 
 const store = configureCounterStore()

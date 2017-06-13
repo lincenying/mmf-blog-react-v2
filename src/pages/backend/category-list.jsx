@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {getCategoryList} from '~reducers/global/category'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { getCategoryList } from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
@@ -11,7 +11,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getCategoryList}, dispatch)
+    const actions = bindActionCreators({ getCategoryList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -22,16 +22,16 @@ export default class CategoryList extends Component {
         super(props)
     }
     componentWillMount() {
-        const {category: { lists }, getCategoryList} = this.props
+        const { category: { lists }, getCategoryList } = this.props
         if (lists.length === 0) getCategoryList()
     }
     render() {
-        const {category: { lists }} = this.props
+        const { category: { lists } } = this.props
         const html = lists.map(item => {
             return (
                 <div key={item._id} className="list-section">
-                    <div className="list-title">{ item.cate_name }</div>
-                    <div className="list-time">{ item.cate_order }</div>
+                    <div className="list-title">{item.cate_name}</div>
+                    <div className="list-time">{item.cate_order}</div>
                     <div className="list-action">
                         <Link to={'/backend/category/modify/' + item._id} className="badge badge-success">编辑</Link>
                     </div>

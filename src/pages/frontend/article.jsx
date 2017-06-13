@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import Link from 'react-router-dom/Link'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import {propTypes} from '~decorators'
+import { propTypes } from '~decorators'
 import Comment from '~components/frontend-comment.jsx'
 import Trending from '~components/aside-trending.jsx'
 import Category from '~components/aside-category.jsx'
 import Actions from '~components/item-actions.jsx'
-import {getArticleItem} from '~reducers/frontend/article'
-import {getTrending} from '~reducers/frontend/trending'
-import {getCategoryList} from '~reducers/global/category'
+import { getArticleItem } from '~reducers/frontend/article'
+import { getTrending } from '~reducers/frontend/trending'
+import { getCategoryList } from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getArticleItem, getTrending, getCategoryList}, dispatch)
+    const actions = bindActionCreators({ getArticleItem, getTrending, getCategoryList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -38,7 +38,7 @@ const addTarget = content => {
 })
 export default class Article extends Component {
     componentWillMount() {
-        const { article, category, trending, getTrending, getCategoryList} = this.props
+        const { article, category, trending, getTrending, getCategoryList } = this.props
         if (article.pathname !== this.props.location.pathname) this.handlefetchArticle()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
@@ -49,11 +49,11 @@ export default class Article extends Component {
         if (pathname !== prevPathname) this.handlefetchArticle()
     }
     handlefetchArticle() {
-        const {getArticleItem, match: {params: {id}}, location: {pathname}} = this.props
+        const { getArticleItem, match: { params: { id } }, location: { pathname } } = this.props
         getArticleItem({ id, pathname })
     }
     render() {
-        const {article, category, trending} = this.props
+        const { article, category, trending } = this.props
         let html
         if (!article.isLoad) {
             html =
@@ -73,7 +73,7 @@ export default class Article extends Component {
                     </div>
                     <div className="card card-answer">
                         <div className="answer-content">
-                            <div className="article-content markdown-body" dangerouslySetInnerHTML={{__html: addTarget(article.data.html)}} />
+                            <div className="article-content markdown-body" dangerouslySetInnerHTML={{ __html: addTarget(article.data.html) }} />
                         </div>
                         <Actions item={article.data} />
                     </div>

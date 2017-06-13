@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
 import api from '~api'
 import AInput from '~components/_input.jsx'
 import Account from '~components/aside-account.jsx'
-import {setMessage} from '~utils'
+import { setMessage } from '~utils'
 
 @immutableRenderDecorator
 export default class UserPassword extends Component {
@@ -25,7 +25,7 @@ export default class UserPassword extends Component {
             setMessage('两次密码输入不一致!')
             return
         }
-        const { data: { code, data} } = await api.post('frontend/user/password', this.state)
+        const { data: { code, data } } = await api.post('frontend/user/password', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: data })
             this.setState({
@@ -43,13 +43,13 @@ export default class UserPassword extends Component {
                         <div className="settings-main card">
                             <div className="settings-main-content">
                                 <AInput title="当前密码">
-                                    <input value={this.state.old_password} onChange={e => this.setState({old_password: e.target.value})} type="password" placeholder="当前密码" className="base-input" name="old_password" />
+                                    <input value={this.state.old_password} onChange={e => this.setState({ old_password: e.target.value })} type="password" placeholder="当前密码" className="base-input" name="old_password" />
                                 </AInput>
                                 <AInput title="新的密码">
-                                    <input value={this.state.password} onChange={e => this.setState({password: e.target.value})} type="password" placeholder="新的密码" className="base-input" name="password" />
+                                    <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="新的密码" className="base-input" name="password" />
                                 </AInput>
                                 <AInput title="确认密码">
-                                    <input value={this.state.re_password} onChange={e => this.setState({re_password: e.target.value})} type="password" placeholder="确认密码" className="base-input" name="re_password" />
+                                    <input value={this.state.re_password} onChange={e => this.setState({ re_password: e.target.value })} type="password" placeholder="确认密码" className="base-input" name="re_password" />
                                 </AInput>
                             </div>
                             <div className="settings-footer clearfix">

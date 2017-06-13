@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
 import api from '~api'
-import {setMessage} from '~utils'
+import { setMessage } from '~utils'
 import AInput from '~components/_input.jsx'
 
 @immutableRenderDecorator
@@ -20,7 +20,7 @@ export default class Login extends Component {
             setMessage('请输入用户名和密码!')
             return
         }
-        const { data: { data, code} } = await api.post('backend/admin/login', this.state)
+        const { data: { data, code } } = await api.post('backend/admin/login', this.state)
         if (data && code === 200) {
             this.props.history.push('/backend/article/list')
         }
@@ -32,11 +32,11 @@ export default class Login extends Component {
                     <div className="settings-main card">
                         <div className="settings-main-content">
                             <AInput title="昵称">
-                                <input value={this.state.username} onChange={e => this.setState({username: e.target.value})} type="text" placeholder="昵称" className="base-input" name="username" />
+                                <input value={this.state.username} onChange={e => this.setState({ username: e.target.value })} type="text" placeholder="昵称" className="base-input" name="username" />
                                 <span className="input-info error">请输入昵称</span>
                             </AInput>
                             <AInput title="密码">
-                                <input value={this.state.password} onChange={e => this.setState({password: e.target.value})} type="password" placeholder="密码" className="base-input" name="password" />
+                                <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="密码" className="base-input" name="password" />
                                 <span className="input-info error">请输入密码</span>
                             </AInput>
                         </div>

@@ -7,7 +7,7 @@ const handleLogout = async () => {
     window.location.href = '/'
 }
 
-const AsideAccount =  () => {
+const AsideAccount = () => {
     return (
         <div className="card card-me">
             <NavLink to="/user/account" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />帐号</NavLink>

@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import {getCommentList} from '~reducers/global/comment'
-import {setMessage, timeAgo} from '~utils'
+import { getCommentList } from '~reducers/global/comment'
+import { setMessage, timeAgo } from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getCommentList}, dispatch)
+    const actions = bindActionCreators({ getCommentList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -26,33 +26,33 @@ export default class Comment extends Component {
         }
     }
     componentWillMount() {
-        const {comment: { pathname }} = this.props
+        const { comment: { pathname } } = this.props
         if (pathname !== this.props.location.pathname) this.getCommentList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message} } = await api.get('backend/comment/recover', { id })
+        const { data: { code, message } } = await api.get('backend/comment/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'recoverComment', id})
+            this.props.dispatch({ type: 'recoverComment', id })
         }
     }
     async handleDelete(id) {
-        const { data: { code, message} } = await api.get('backend/comment/delete', { id })
+        const { data: { code, message } } = await api.get('backend/comment/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'deleteComment', id})
+            this.props.dispatch({ type: 'deleteComment', id })
         }
     }
     handleLoadMore() {
         this.getCommentList()
     }
     getCommentList(page) {
-        const {comment: {lists}, location: {pathname}, match: {params: {id}}} = this.props
+        const { comment: { lists }, location: { pathname }, match: { params: { id } } } = this.props
         page = page || lists.page
-        this.props.getCommentList({id, page, pathname})
+        this.props.getCommentList({ id, page, pathname })
     }
     render() {
-        const {comment} = this.props
+        const { comment } = this.props
         const html = comment.lists.data.map(item => {
             const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
             return (
@@ -62,11 +62,11 @@ export default class Comment extends Component {
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
-                            <a href="javascript:;" className="comment-author">{ item.username }</a>
+                            <a href="javascript:;" className="comment-author">{item.username}</a>
                         </span>
-                        <div className="comment-content">{ item.content }</div>
+                        <div className="comment-content">{item.content}</div>
                         <div className="comment-footer">
-                            <span className="comment-time">{ timeAgo(item.timestamp) }</span>
+                            <span className="comment-time">{timeAgo(item.timestamp)}</span>
                             {btn}
                         </div>
                     </div>

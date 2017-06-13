@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {setMessage, strlen} from '~utils'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { setMessage, strlen } from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -44,7 +44,7 @@ class signUp extends Component {
             setMessage('密码和重复密码不一致!')
             return
         }
-        const { data: { message, code} } = await api.post('frontend/user/insert', this.state)
+        const { data: { message, code } } = await api.post('frontend/user/insert', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.handleLogin()

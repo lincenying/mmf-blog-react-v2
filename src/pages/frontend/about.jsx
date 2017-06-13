@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {propTypes} from '~decorators'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { propTypes } from '~decorators'
 import Trending from '~components/aside-trending.jsx'
-import {getTrending} from '~reducers/frontend/trending'
+import { getTrending } from '~reducers/frontend/trending'
 
 function mapStateToProps(state) {
     return {
@@ -12,7 +12,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getTrending}, dispatch)
+    const actions = bindActionCreators({ getTrending }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -29,7 +29,7 @@ export default class About extends Component {
         }
     }
     componentWillMount() {
-        const {trending: { data }, getTrending} = this.props
+        const { trending: { data }, getTrending } = this.props
         if (data.length === 0) getTrending()
     }
     render() {

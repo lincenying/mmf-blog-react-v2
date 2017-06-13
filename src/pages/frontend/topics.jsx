@@ -1,17 +1,17 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import ls from 'store2'
 
-import {propTypes} from '~decorators'
+import { propTypes } from '~decorators'
 import TopicsItemNone from '~components/topics-item-none.jsx'
 import TopicsItem from '~components/topics-item.jsx'
 import Trending from '~components/aside-trending.jsx'
 import Category from '~components/aside-category.jsx'
-import {getTopics} from '~reducers/frontend/topics'
-import {getTrending} from '~reducers/frontend/trending'
-import {getCategoryList} from '~reducers/global/category'
+import { getTopics } from '~reducers/frontend/topics'
+import { getTrending } from '~reducers/frontend/trending'
+import { getCategoryList } from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
@@ -21,7 +21,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getTopics, getTrending, getCategoryList}, dispatch)
+    const actions = bindActionCreators({ getTopics, getTrending, getCategoryList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -38,7 +38,7 @@ export default class Topics extends Component {
         this.handleLoadMore = this.handleLoadMore.bind(this)
     }
     componentWillMount() {
-        const { category, trending, topics, getTrending, getCategoryList} = this.props
+        const { category, trending, topics, getTrending, getCategoryList } = this.props
         if (topics.pathname !== this.props.location.pathname) this.handlefetchPosts()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
@@ -62,15 +62,15 @@ export default class Topics extends Component {
         }
     }
     handlefetchPosts(page = 1) {
-        const {getTopics, location: {pathname}, match: {params: {id, key, by}}} = this.props
-        getTopics({id, key, by, pathname, page})
+        const { getTopics, location: { pathname }, match: { params: { id, key, by } } } = this.props
+        getTopics({ id, key, by, pathname, page })
     }
     handleLoadMore() {
-        const {page} = this.props.topics
+        const { page } = this.props.topics
         this.handlefetchPosts(page + 1)
     }
     render() {
-        const {topics, category, trending} = this.props
+        const { topics, category, trending } = this.props
         let html
         if (!topics.pathname) {
             html =

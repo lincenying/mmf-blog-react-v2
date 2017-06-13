@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {getCategoryItem} from '~reducers/global/category'
-import {setMessage} from '~utils'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { getCategoryItem } from '~reducers/global/category'
+import { setMessage } from '~utils'
 import api from '~api'
 import AInput from '~components/_input.jsx'
 
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getCategoryItem}, dispatch)
+    const actions = bindActionCreators({ getCategoryItem }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 export default class CategoryModify extends Component {
     constructor(props) {
         super(props)
-        const {cate_name, cate_order} = props.category
+        const { cate_name, cate_order } = props.category
         this.state = {
             cate_name: cate_name || '',
             cate_order: cate_order || ''
@@ -31,12 +31,12 @@ export default class CategoryModify extends Component {
         this.handleModify = this.handleModify.bind(this)
     }
     componentWillMount() {
-        this.props.getCategoryItem({id: this.props.match.params.id})
+        this.props.getCategoryItem({ id: this.props.match.params.id })
     }
     componentDidUpdate(prevProps) {
-        const {cate_name, cate_order} = this.props.category
+        const { cate_name, cate_order } = this.props.category
         if (prevProps.category.cate_name !== cate_name) {
-            this.setState({cate_name, cate_order})
+            this.setState({ cate_name, cate_order })
         }
     }
     async handleModify() {
@@ -48,7 +48,7 @@ export default class CategoryModify extends Component {
             ...this.state,
             id: this.props.match.params.id
         }
-        const { data: { message, code, data} } = await api.post('backend/category/modify', item)
+        const { data: { message, code, data } } = await api.post('backend/category/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateCategoryItem', data })
@@ -60,11 +60,11 @@ export default class CategoryModify extends Component {
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="分类名称">
-                        <input value={this.state.cate_name} onChange={e => this.setState({cate_name: e.target.value})} type="text" placeholder="分类名称" className="base-input" name="cate_name" />
+                        <input value={this.state.cate_name} onChange={e => this.setState({ cate_name: e.target.value })} type="text" placeholder="分类名称" className="base-input" name="cate_name" />
                         <span className="input-info error">请输入分类名称</span>
                     </AInput>
                     <AInput title="分类排序">
-                        <input value={this.state.cate_order} onChange={e => this.setState({cate_order: e.target.value})} type="text" placeholder="分类排序" className="base-input" name="cate_order" />
+                        <input value={this.state.cate_order} onChange={e => this.setState({ cate_order: e.target.value })} type="text" placeholder="分类排序" className="base-input" name="cate_order" />
                         <span className="input-info error">请输入分类排序</span>
                     </AInput>
                 </div>

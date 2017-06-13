@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {getAdminList} from '~reducers/backend/admin'
-import {setMessage, timeAgo} from '~utils'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { getAdminList } from '~reducers/backend/admin'
+import { setMessage, timeAgo } from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getAdminList}, dispatch)
+    const actions = bindActionCreators({ getAdminList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -32,36 +32,36 @@ export default class AdminList extends Component {
         this.getAdminList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message} } = await api.get('backend/admin/recover', { id })
+        const { data: { code, message } } = await api.get('backend/admin/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'recoverAdmin', id})
+            this.props.dispatch({ type: 'recoverAdmin', id })
         }
     }
     async handleDelete(id) {
-        const { data: { code, message} } = await api.get('backend/admin/delete', { id })
+        const { data: { code, message } } = await api.get('backend/admin/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'deleteAdmin', id})
+            this.props.dispatch({ type: 'deleteAdmin', id })
         }
     }
     handleLoadMore() {
         this.getAdminList()
     }
     getAdminList(page) {
-        const {admin: {lists}, location: {pathname}} = this.props
+        const { admin: { lists }, location: { pathname } } = this.props
         page = page || lists.page
-        this.props.getAdminList({page, pathname})
+        this.props.getAdminList({ page, pathname })
     }
     render() {
-        const {admin} = this.props
+        const { admin } = this.props
         const lists = admin.lists.data.map((item, index) => {
             const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
             return (
                 <div key={index} className="list-section">
-                    <div className="list-username">{ item.username }</div>
-                    <div className="list-email">{ item.email }</div>
-                    <div className="list-date">{ timeAgo(item.update_date) }</div>
+                    <div className="list-username">{item.username}</div>
+                    <div className="list-email">{item.email}</div>
+                    <div className="list-date">{timeAgo(item.update_date)}</div>
                     <div className="list-action">
                         <Link to={`/backend/admin/modify/${item._id}`} className="badge badge-success">编辑</Link>
                         {btn}

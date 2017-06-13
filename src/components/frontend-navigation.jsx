@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
 //import Route from 'react-router-dom/Route'
 import Link from 'react-router-dom/Link'
 import NavLink from 'react-router-dom/NavLink'
 //import withRouter from 'react-router-dom/withRouter'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import cookies from 'js-cookie'
 
 function mapStateToProps(state) {
@@ -54,7 +54,7 @@ export default class Navigation extends Component {
                     </div>
                     <div className="right-part">
                         <span className="nav-search"><i className="icon icon-search-white" /><input onKeyUp={this.handleSearch} placeholder="记得按回车哦" className="nav-search-input" /></span>
-                        { loginText }
+                        {loginText}
                     </div>
                 </div>
             </nav>

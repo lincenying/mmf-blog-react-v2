@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {getUserList} from '~reducers/backend/user'
-import {setMessage, timeAgo} from '~utils'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { getUserList } from '~reducers/backend/user'
+import { setMessage, timeAgo } from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -13,7 +13,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getUserList}, dispatch)
+    const actions = bindActionCreators({ getUserList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -32,36 +32,36 @@ export default class UserList extends Component {
         this.getUserList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message} } = await api.get('backend/user/recover', { id })
+        const { data: { code, message } } = await api.get('backend/user/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'recoverUser', id})
+            this.props.dispatch({ type: 'recoverUser', id })
         }
     }
     async handleDelete(id) {
-        const { data: { code, message} } = await api.get('backend/user/delete', { id })
+        const { data: { code, message } } = await api.get('backend/user/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
-            this.props.dispatch({type: 'deleteUser', id})
+            this.props.dispatch({ type: 'deleteUser', id })
         }
     }
     handleLoadMore() {
         this.getUserList()
     }
     getUserList(page) {
-        const {user: {lists}, location: {pathname}} = this.props
+        const { user: { lists }, location: { pathname } } = this.props
         page = page || lists.page
-        this.props.getUserList({page, pathname})
+        this.props.getUserList({ page, pathname })
     }
     render() {
-        const {user} = this.props
+        const { user } = this.props
         const lists = user.lists.data.map((item, index) => {
             const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
             return (
                 <div key={index} className="list-section">
-                    <div className="list-username">{ item.username }</div>
-                    <div className="list-email">{ item.email }</div>
-                    <div className="list-date">{ timeAgo(item.update_date) }</div>
+                    <div className="list-username">{item.username}</div>
+                    <div className="list-email">{item.email}</div>
+                    <div className="list-date">{timeAgo(item.update_date)}</div>
                     <div className="list-action">
                         <Link to={`/backend/user/modify/${item._id}`} className="badge badge-success">编辑</Link>
                         {btn}

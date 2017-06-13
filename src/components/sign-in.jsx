@@ -1,9 +1,9 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import {propTypes} from '~decorators'
-import {setMessage} from '~utils'
+import { propTypes } from '~decorators'
+import { setMessage } from '~utils'
 import api from '~api'
 
 function mapStateToProps(state) {
@@ -33,7 +33,7 @@ class signIn extends Component {
             setMessage('请将表单填写完整!')
             return
         }
-        const { data: { message, code} } = await api.post('frontend/user/login', this.state)
+        const { data: { message, code } } = await api.post('frontend/user/login', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             //this._reactInternalInstance._context.router.go(0)
@@ -58,11 +58,11 @@ class signIn extends Component {
                     <div className="modal-content">
                         <div className="signup-form">
                             <div className="input-wrap">
-                                <input type="text" value={this.state.username} onChange={e => this.setState({username: e.target.value})} placeholder="昵称" className="base-input" />
+                                <input type="text" value={this.state.username} onChange={e => this.setState({ username: e.target.value })} placeholder="昵称" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <div className="input-wrap">
-                                <input type="password" value={this.state.password} onChange={e => this.setState({password: e.target.value})} placeholder="密码" className="base-input" />
+                                <input type="password" value={this.state.password} onChange={e => this.setState({ password: e.target.value })} placeholder="密码" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <a onClick={this.handleLogin} href="javascript:;" className="btn signup-btn btn-yellow">确认登录</a>

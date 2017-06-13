@@ -1,10 +1,10 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {getAdminItem} from '~reducers/backend/admin'
-import {setMessage} from '~utils'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { getAdminItem } from '~reducers/backend/admin'
+import { setMessage } from '~utils'
 import api from '~api'
 import AInput from '~components/_input.jsx'
 
@@ -14,7 +14,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getAdminItem}, dispatch)
+    const actions = bindActionCreators({ getAdminItem }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 export default class AdminModify extends Component {
     constructor(props) {
         super(props)
-        const {username, email} = props.admin.item.data
+        const { username, email } = props.admin.item.data
         this.state = {
             username: username || '',
             email: email || '',
@@ -32,12 +32,12 @@ export default class AdminModify extends Component {
         this.handleModify = this.handleModify.bind(this)
     }
     componentWillMount() {
-        this.props.getAdminItem({id: this.props.match.params.id})
+        this.props.getAdminItem({ id: this.props.match.params.id })
     }
     componentDidUpdate(prevProps) {
-        const {username, email} = this.props.admin.item.data
+        const { username, email } = this.props.admin.item.data
         if (prevProps.admin.item.data.username !== username) {
-            this.setState({username, email})
+            this.setState({ username, email })
         }
     }
     async handleModify() {
@@ -49,7 +49,7 @@ export default class AdminModify extends Component {
             ...this.state,
             id: this.props.match.params.id
         }
-        const { data: { message, code, data} } = await api.post('backend/admin/modify', item)
+        const { data: { message, code, data } } = await api.post('backend/admin/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateAdminItem', data })
@@ -61,15 +61,15 @@ export default class AdminModify extends Component {
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="昵称">
-                        <input value={this.state.username} onChange={e => this.setState({username: e.target.value})} type="text" placeholder="昵称" className="base-input" name="username" />
+                        <input value={this.state.username} onChange={e => this.setState({ username: e.target.value })} type="text" placeholder="昵称" className="base-input" name="username" />
                         <span className="input-info error">请输入昵称</span>
                     </AInput>
                     <AInput title="邮箱">
-                        <input value={this.state.email} onChange={e => this.setState({email: e.target.value})} type="text" placeholder="邮箱" className="base-input" name="email" />
+                        <input value={this.state.email} onChange={e => this.setState({ email: e.target.value })} type="text" placeholder="邮箱" className="base-input" name="email" />
                         <span className="input-info error">请输入邮箱</span>
                     </AInput>
                     <AInput title="密码">
-                        <input value={this.state.password} onChange={e => this.setState({password: e.target.value})} type="password" placeholder="密码" className="base-input" name="password" />
+                        <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="密码" className="base-input" name="password" />
                         <span className="input-info error">请输入密码</span>
                     </AInput>
                 </div>

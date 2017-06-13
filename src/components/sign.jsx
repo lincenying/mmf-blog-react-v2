@@ -11,8 +11,8 @@ const Sign = props => {
     const signInHtml = !backend ? <SignIn /> : ''
     return (
         <div>
-            { signUpHtml }
-            { signInHtml }
+            {signUpHtml}
+            {signInHtml}
         </div>
     )
 }

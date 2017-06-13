@@ -1,12 +1,12 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import Link from 'react-router-dom/Link'
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
-import {propTypes} from '~decorators'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { propTypes } from '~decorators'
 import api from '~api'
-import {setMessage} from '~utils'
-import {getCategoryList} from '~reducers/global/category'
+import { setMessage } from '~utils'
+import { getCategoryList } from '~reducers/global/category'
 import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
     }
 }
 function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({getCategoryList}, dispatch)
+    const actions = bindActionCreators({ getCategoryList }, dispatch)
     return { ...actions, dispatch }
 }
 
@@ -39,7 +39,7 @@ export default class ArticleModify extends Component {
     }
     componentDidMount() {
         this.props.getCategoryList()
-        api.get('backend/article/item', { id: this.props.match.params.id }).then(({data: { code, data}}) => {
+        api.get('backend/article/item', { id: this.props.match.params.id }).then(({ data: { code, data } }) => {
             if (code === 200) {
                 this.setState({
                     title: data.title,
@@ -63,8 +63,8 @@ export default class ArticleModify extends Component {
                             "watch", "preview", "fullscreen"
                         ]
                     },
-                    watch : false,
-                    saveHTMLToTextarea : true
+                    watch: false,
+                    saveHTMLToTextarea: true
                 })
             }
         })
@@ -77,13 +77,13 @@ export default class ArticleModify extends Component {
             return
         }
         this.setState({ content }, async () => {
-            const { data: { message, code, data} } = await api.post('backend/article/modify', {
+            const { data: { message, code, data } } = await api.post('backend/article/modify', {
                 ...this.state,
                 id: this.props.match.params.id
             })
             if (code === 200) {
                 setMessage({ type: 'success', content: message })
-                this.props.dispatch({type: 'updateArticleItem', data})
+                this.props.dispatch({ type: 'updateArticleItem', data })
                 this.props.router.push('/backend/article/list')
             }
         })
@@ -91,17 +91,17 @@ export default class ArticleModify extends Component {
     handleChange(e) {
         const obj = e.target
         const category_name = obj.options[obj.selectedIndex].text
-        this.setState({category: obj.value, category_name})
+        this.setState({ category: obj.value, category_name })
     }
     render() {
         const select = this.props.category.map(item => {
-            return <option key={item._id} value={item._id}>{ item.cate_name }</option>
+            return <option key={item._id} value={item._id}>{item.cate_name}</option>
         })
         return (
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="标题">
-                        <input value={this.state.title} onChange={e => this.setState({title: e.target.value})} type="text" placeholder="标题" className="base-input" name="title" />
+                        <input value={this.state.title} onChange={e => this.setState({ title: e.target.value })} type="text" placeholder="标题" className="base-input" name="title" />
                         <span className="input-info error">请输入标题</span>
                     </AInput>
                     <AInput title="分类" classes={'select-item-wrap'}>

@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {immutableRenderDecorator} from 'react-immutable-render-mixin'
+import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
 import api from '~api'
-import {propTypes} from '~decorators'
+import { propTypes } from '~decorators'
 import AInput from '~components/_input.jsx'
 import Account from '~components/aside-account.jsx'
 
@@ -23,7 +23,7 @@ export default class UserAccount extends Component {
         this.getUser()
     }
     async getUser() {
-        const { data: { code, data} } = await api.get('frontend/user/account')
+        const { data: { code, data } } = await api.get('frontend/user/account')
         if (code === 200) {
             this.setState({
                 username: data.username,

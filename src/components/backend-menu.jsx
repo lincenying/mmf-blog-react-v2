@@ -5,8 +5,7 @@ import NavLink from 'react-router-dom/NavLink'
 const BackendMenu = props => {
     const isLogin = props.location.pathname !== '/backend'
     return (
-        !isLogin ? <span /> :
-        <div className="main-right">
+        !isLogin ? <span /> : <div className="main-right">
             <div className="card card-me">
                 <NavLink to="/backend/admin/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />管理帐号</NavLink>
                 <NavLink to="/backend/user/list" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />用户列表</NavLink>

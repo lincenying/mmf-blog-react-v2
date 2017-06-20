@@ -48,9 +48,9 @@ export default class Article extends Component {
         const prevPathname = prevProps.location.pathname
         if (pathname !== prevPathname) this.handlefetchArticle()
     }
-    handlefetchArticle() {
+    async handlefetchArticle() {
         const { getArticleItem, match: { params: { id } }, location: { pathname } } = this.props
-        getArticleItem({ id, pathname })
+        await getArticleItem({ id, pathname })
     }
     render() {
         const { article, category, trending } = this.props

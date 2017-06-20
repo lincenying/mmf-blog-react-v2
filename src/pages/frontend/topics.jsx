@@ -47,7 +47,7 @@ export default class Topics extends Component {
         const path = this.props.location.pathname
         const scrollTop = ls.get(path) || 0
         ls.remove(path)
-        window.scrollTo(0, scrollTop)
+        if (scrollTop) window.scrollTo(0, scrollTop)
     }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname

@@ -42,6 +42,7 @@ var config = merge(baseWebpackConfig, {
             'process.env.NODE_ENV': '"production"'
         }),
         new ExtractTextPlugin('static/css/[name].[contenthash:7].css'),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.CommonsChunkPlugin({
             name: 'vendor',
             minChunks(module) {
@@ -67,7 +68,14 @@ var config = merge(baseWebpackConfig, {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeRedundantAttributes: true
+            },
+            chunksSortMode (chunk1, chunk2) {
+                var orders = ['manifest', 'vendor', 'app'];
+                var order1 = orders.indexOf(chunk1.names[0]);
+                var order2 = orders.indexOf(chunk2.names[0]);
+                return order1 - order2
             }
+
         }),
         new HtmlWebpackPlugin({
             inject: true,
@@ -78,6 +86,12 @@ var config = merge(baseWebpackConfig, {
                 removeComments: true,
                 collapseWhitespace: true,
                 removeRedundantAttributes: true
+            },
+            chunksSortMode (chunk1, chunk2) {
+                var orders = ['manifest', 'vendor', 'admin'];
+                var order1 = orders.indexOf(chunk1.names[0]);
+                var order2 = orders.indexOf(chunk2.names[0]);
+                return order1 - order2
             }
         })
     ]

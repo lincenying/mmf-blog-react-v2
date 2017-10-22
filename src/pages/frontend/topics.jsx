@@ -55,7 +55,7 @@ export default class Topics extends Component {
         if (pathname !== prevPathname) this.handlefetchPosts()
     }
     componentWillUnmount() {
-        const scrollTop = document.body.scrollTop
+        const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
         const path = this.props.location.pathname
         if (path) {
             if (scrollTop) ls.set(path, scrollTop)

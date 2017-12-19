@@ -43,6 +43,9 @@ export default class Article extends Component {
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
     }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
         const prevPathname = prevProps.location.pathname

@@ -53,7 +53,7 @@ export default class AdminModify extends Component {
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateAdminItem', data })
-            this.props.router.push('/backend/admin/list')
+            this.props.history.push('/backend/admin/list')
         }
     }
     render() {

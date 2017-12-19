@@ -53,7 +53,7 @@ export default class UserModify extends Component {
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateUserItem', data })
-            this.props.router.push('/backend/user/list')
+            this.props.history.push('/backend/user/list')
         }
     }
     render() {

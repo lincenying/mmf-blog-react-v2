@@ -66,7 +66,7 @@ export default class ArticleInsert extends Component {
             if (code === 200) {
                 setMessage({ type: 'success', content: message })
                 this.props.dispatch({ type: 'insertArticleItem', item: data })
-                this.props.router.push('/backend/article/list')
+                this.props.history.push('/backend/article/list')
             }
         })
     }

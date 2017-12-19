@@ -34,8 +34,10 @@ export default class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            scrollTop: 0
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
+        this.onScroll = this.onScroll.bind(this)
     }
     componentWillMount() {
         const { category, trending, topics, getTrending, getCategoryList } = this.props
@@ -48,18 +50,15 @@ export default class Topics extends Component {
         const scrollTop = ls.get(path) || 0
         ls.remove(path)
         if (scrollTop) window.scrollTo(0, scrollTop)
+        window.addEventListener('scroll', this.onScroll)
     }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
         const prevPathname = prevProps.location.pathname
         if (pathname !== prevPathname) this.handlefetchPosts()
     }
-    componentWillUnmount() {
-        const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
-        const path = this.props.location.pathname
-        if (path) {
-            if (scrollTop) ls.set(path, scrollTop)
-        }
+    componentWillUnmount(s,b) {
+        window.removeEventListener('scroll', this.onScroll)
     }
     handlefetchPosts(page = 1) {
         const { getTopics, location: { pathname }, match: { params: { id, key, by } } } = this.props
@@ -68,6 +67,11 @@ export default class Topics extends Component {
     handleLoadMore() {
         const { page } = this.props.topics
         this.handlefetchPosts(page + 1)
+    }
+    onScroll() {
+        const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+        const path = this.props.location.pathname
+        if (path && scrollTop) ls.set(path, scrollTop)
     }
     render() {
         const { topics, category, trending } = this.props

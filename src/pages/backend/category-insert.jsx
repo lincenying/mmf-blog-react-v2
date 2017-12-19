@@ -32,7 +32,7 @@ export default class CategoryModify extends Component {
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'insertCategoryItem', item: data })
-            this.props.router.push('/backend/category/list')
+            this.props.history.push('/backend/category/list')
         }
     }
     render() {

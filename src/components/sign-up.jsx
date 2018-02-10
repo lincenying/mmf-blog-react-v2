@@ -61,19 +61,19 @@ class signUp extends Component {
                     <div className="modal-content">
                         <div className="signup-form">
                             <div className="input-wrap">
-                                <input type="text" placeholder="昵称" className="base-input" />
+                                <input value={this.state.username} onChange={e => this.setState({ username: e.target.value })} type="text" placeholder="昵称" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <div className="input-wrap">
-                                <input type="text" placeholder="邮箱" className="base-input" />
+                                <input value={this.state.email} onChange={e => this.setState({ email: e.target.value })} type="text" placeholder="邮箱" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <div className="input-wrap">
-                                <input type="password" placeholder="密码" className="base-input" />
+                                <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="密码" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <div className="input-wrap">
-                                <input type="password" placeholder="重复密码" className="base-input" />
+                                <input value={this.state.re_password} onChange={e => this.setState({ re_password: e.target.value })} type="password" placeholder="重复密码" className="base-input" />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
                             <a onClick={this.handleRegister} href="javascript:;" className="btn signup-btn btn-yellow">确认注册</a>

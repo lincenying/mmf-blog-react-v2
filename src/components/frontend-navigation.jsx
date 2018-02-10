@@ -43,7 +43,7 @@ export default class Navigation extends Component {
             <span className="nav-me"><a onClick={this.handleLogin} href="javascript:;" className="nav-me-link"><img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" className="nav-avatar-img" /></a></span>
         return (
             <nav className="global-nav">
-                <div className="wrap clearfix">
+                <div className="wrap">
                     <div className="left-part">
                         <Link to="/" className="logo-link"><i className="icon icon-nav-logo" /><span className="hidden">M.M.F 小屋</span></Link>
                         <div className="main-nav">

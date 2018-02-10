@@ -57,7 +57,7 @@ export default class Topics extends Component {
         const prevPathname = prevProps.location.pathname
         if (pathname !== prevPathname) this.handlefetchPosts()
     }
-    componentWillUnmount(s,b) {
+    componentWillUnmount() {
         window.removeEventListener('scroll', this.onScroll)
     }
     handlefetchPosts(page = 1) {

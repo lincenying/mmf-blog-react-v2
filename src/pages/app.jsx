@@ -16,7 +16,7 @@ import userAccount from './frontend/user-account.jsx'
 import userPassword from './frontend/user-password.jsx'
 
 import "assets/css/hljs/googlecode.css"
-import "assets/css/style.css"
+import "assets/less/style.less"
 import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
@@ -30,7 +30,7 @@ export default class App extends Component {
     }
     render() {
         return (
-            <div id="app" className="g-doc">
+            <div id="app" className={this.props.location.pathname.indexOf('backend') >= 0 ? 'backend' : 'frontend'}>
                 <FrontendNavigation location={this.props.location} history={this.props.history} />
                 <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300} component="div">
                     <Switch key={this.props.location.pathname} location={this.props.location} >

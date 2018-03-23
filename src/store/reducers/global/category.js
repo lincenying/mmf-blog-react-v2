@@ -5,51 +5,51 @@ import { errConfig } from '../global'
 
 const initStates = fromJS({
     lists: [],
-    item: {}
+    item: {},
 })
 
 const reducers = {
     ['receiveCategoryList']: (state, action) => {
-        const {data} = action
+        const { data } = action
         return state.mergeDeep({
-            lists: data
+            lists: data,
         })
     },
     ['receiveCategoryItem']: (state, action) => {
-        const {data} = action
+        const { data } = action
         return state.mergeDeep({
-            item: data
+            item: data,
         })
     },
-    ['insertCategoryItem']: (state, {item}) => {
+    ['insertCategoryItem']: (state, { item }) => {
         const { lists } = state.toJS()
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data
-            }
+                data,
+            },
         })
     },
-    ['updateCategoryItem']: (state, {data}) => {
-        const {lists} = state.toJS()
+    ['updateCategoryItem']: (state, { data }) => {
+        const { lists } = state.toJS()
         const index = lists.findIndex(ii => ii._id === data._id)
         if (index > -1) {
             state.lists.splice(index, 1, data)
         }
         return state.mergeDeep({
             lists,
-            item: data
+            item: data,
         })
-    }
+    },
 }
 
 export const getCategoryList = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/category/list', config)
+        const { data: { data, code } } = await api.get('backend/category/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryList',
-                data: data.list
+                data: data.list,
             })
         }
         return dispatch(errConfig)
@@ -57,11 +57,11 @@ export const getCategoryList = config => {
 }
 export const getCategoryItem = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/category/item', config)
+        const { data: { data, code } } = await api.get('backend/category/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryItem',
-                data
+                data,
             })
         }
         return dispatch(errConfig)

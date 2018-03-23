@@ -7,7 +7,7 @@ import { getCategoryList } from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS()
+        category: state.category.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -33,7 +33,9 @@ export default class CategoryList extends Component {
                     <div className="list-title">{item.cate_name}</div>
                     <div className="list-time">{item.cate_order}</div>
                     <div className="list-action">
-                        <Link to={'/backend/category/modify/' + item._id} className="badge badge-success">编辑</Link>
+                        <Link to={'/backend/category/modify/' + item._id} className="badge badge-success">
+                            编辑
+                        </Link>
                     </div>
                 </div>
             )

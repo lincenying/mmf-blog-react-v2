@@ -4,18 +4,18 @@ import api from '~api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
-    data: []
+    data: [],
 })
 
 const reducers = {
     ['receiveTrending']: (state, action) => {
-        const {data} = action
+        const { data } = action
         return state.merge({
-            data
+            data,
         })
     },
     ['updateTrendingLikeState']: (state, action) => {
-        const {payload} = action
+        const { payload } = action
         const data = state.toJS().data
         const obj = data.find(item => item._id === payload)
         if (obj) {
@@ -23,18 +23,18 @@ const reducers = {
             obj.like_status = !obj.like_status
         }
         return state.mergeDeep({
-            data
+            data,
         })
-    }
+    },
 }
 
 export const getTrending = () => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('frontend/trending')
+        const { data: { data, code } } = await api.get('frontend/trending')
         if (data && code === 200) {
             return dispatch({
                 type: 'receiveTrending',
-                data: data.list
+                data: data.list,
             })
         }
         return dispatch(errConfig)

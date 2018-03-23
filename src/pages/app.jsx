@@ -15,8 +15,8 @@ import Article from './frontend/article.jsx'
 import userAccount from './frontend/user-account.jsx'
 import userPassword from './frontend/user-password.jsx'
 
-import "assets/css/hljs/googlecode.css"
-import "assets/less/style.less"
+import 'assets/css/hljs/googlecode.css'
+import 'assets/less/style.less'
 import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
@@ -26,14 +26,19 @@ export default class App extends Component {
         location: PropTypes.shape({
             key: PropTypes.string,
             pathname: PropTypes.string.isRequired,
-        })
+        }),
     }
     render() {
         return (
             <div id="app" className={this.props.location.pathname.indexOf('backend') >= 0 ? 'backend' : 'frontend'}>
                 <FrontendNavigation location={this.props.location} history={this.props.history} />
-                <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300} component="div">
-                    <Switch key={this.props.location.pathname} location={this.props.location} >
+                <CSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                    component="div"
+                >
+                    <Switch key={this.props.location.pathname} location={this.props.location}>
                         {/*使用上面一行, 可以使用动画, 但是将不能使用滚动条记录, 开启下面一行则反之*/}
                         {/*<Switch>*/}
                         <Route name="index" path="/" component={Main} exact />

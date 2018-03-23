@@ -13,7 +13,7 @@ export default class UserPassword extends Component {
         this.state = {
             old_password: '',
             password: '',
-            re_password: ''
+            re_password: '',
         }
         this.handleModify = this.handleModify.bind(this)
     }
@@ -31,7 +31,7 @@ export default class UserPassword extends Component {
             this.setState({
                 old_password: '',
                 password: '',
-                re_password: ''
+                re_password: '',
             })
         }
     }
@@ -43,17 +43,40 @@ export default class UserPassword extends Component {
                         <div className="settings-main card">
                             <div className="settings-main-content">
                                 <AInput title="当前密码">
-                                    <input value={this.state.old_password} onChange={e => this.setState({ old_password: e.target.value })} type="password" placeholder="当前密码" className="base-input" name="old_password" />
+                                    <input
+                                        value={this.state.old_password}
+                                        onChange={e => this.setState({ old_password: e.target.value })}
+                                        type="password"
+                                        placeholder="当前密码"
+                                        className="base-input"
+                                        name="old_password"
+                                    />
                                 </AInput>
                                 <AInput title="新的密码">
-                                    <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="新的密码" className="base-input" name="password" />
+                                    <input
+                                        value={this.state.password}
+                                        onChange={e => this.setState({ password: e.target.value })}
+                                        type="password"
+                                        placeholder="新的密码"
+                                        className="base-input"
+                                        name="password"
+                                    />
                                 </AInput>
                                 <AInput title="确认密码">
-                                    <input value={this.state.re_password} onChange={e => this.setState({ re_password: e.target.value })} type="password" placeholder="确认密码" className="base-input" name="re_password" />
+                                    <input
+                                        value={this.state.re_password}
+                                        onChange={e => this.setState({ re_password: e.target.value })}
+                                        type="password"
+                                        placeholder="确认密码"
+                                        className="base-input"
+                                        name="re_password"
+                                    />
                                 </AInput>
                             </div>
                             <div className="settings-footer clearfix">
-                                <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">保存设置</a>
+                                <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                                    保存设置
+                                </a>
                             </div>
                         </div>
                     </div>

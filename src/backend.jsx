@@ -15,7 +15,8 @@ render(
                 <Root />
             </Router>
         </Provider>
-    </AppContainer>, document.getElementById('root')
+    </AppContainer>,
+    document.getElementById('root')
 )
 
 if (module.hot) {
@@ -28,7 +29,8 @@ if (module.hot) {
                         <RootContainer />
                     </Router>
                 </Provider>
-            </AppContainer>, document.getElementById('root')
+            </AppContainer>,
+            document.getElementById('root')
         )
     })
 }

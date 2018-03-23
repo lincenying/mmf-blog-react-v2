@@ -9,18 +9,18 @@ const initStates = fromJS({
         hasPrev: false,
         pathname: '',
         page: 1,
-        data: []
+        data: [],
     },
     item: {
         data: {},
-        pathname: ''
-    }
+        pathname: '',
+    },
 })
 
 const reducers = {
     ['receiveUserList']: (state, action) => {
         const oldState = state.toJS()
-        const {list, pathname, hasNext, hasPrev, page} = action
+        const { list, pathname, hasNext, hasPrev, page } = action
         let data
         if (page === 1) {
             data = [].concat(list)
@@ -29,21 +29,25 @@ const reducers = {
         }
         return state.merge({
             lists: {
-                data, hasNext, hasPrev, page: page + 1, pathname
+                data,
+                hasNext,
+                hasPrev,
+                page: page + 1,
+                pathname,
             },
-            item: oldState.item
+            item: oldState.item,
         })
     },
-    ['receiveUserItem']: (state, {data, pathname}) => {
+    ['receiveUserItem']: (state, { data, pathname }) => {
         return state.mergeDeep({
             item: {
                 data,
-                pathname
-            }
+                pathname,
+            },
         })
     },
-    ['updateUserItem']: (state, {data}) => {
-        const {lists, item} = state.toJS()
+    ['updateUserItem']: (state, { data }) => {
+        const { lists, item } = state.toJS()
         const index = lists.data.findIndex(ii => ii._id === data._id)
         if (index > -1) {
             state.lists.data.splice(index, 1, data)
@@ -51,36 +55,36 @@ const reducers = {
         return state.mergeDeep({
             lists,
             item: {
-                data: item
-            }
+                data: item,
+            },
         })
     },
-    ['deleteUser']: (state, {id}) => {
-        const {lists} = state.toJS()
+    ['deleteUser']: (state, { id }) => {
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({
-            lists
+            lists,
         })
     },
-    ['recoverUser']: (state, {id}) => {
-        const {lists} = state.toJS()
+    ['recoverUser']: (state, { id }) => {
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({
-            lists
+            lists,
         })
-    }
+    },
 }
 
 export const getUserList = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/user/list', config)
+        const { data: { data, code } } = await api.get('backend/user/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserList',
                 ...data,
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)
@@ -88,12 +92,12 @@ export const getUserList = config => {
 }
 export const getUserItem = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/user/item', config)
+        const { data: { data, code } } = await api.get('backend/user/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserItem',
                 data,
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)

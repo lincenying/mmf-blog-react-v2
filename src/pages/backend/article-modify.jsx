@@ -11,7 +11,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().lists
+        category: state.category.toJS().lists,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -21,9 +21,7 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class ArticleModify extends Component {
     constructor(props) {
         super(props)
@@ -32,7 +30,7 @@ export default class ArticleModify extends Component {
             category: '',
             category_name: '',
             category_old: '',
-            content: ''
+            content: '',
         }
         this.handleModify = this.handleModify.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -46,25 +44,38 @@ export default class ArticleModify extends Component {
                     category: data.category,
                     category_name: data.category_name,
                     category_old: data.category,
-                    content: data.content
+                    content: data.content,
                 })
                 // eslint-disable-next-line
                 window.postEditor = editormd("post-content", {
-                    width: "100%",
+                    width: '100%',
                     height: 500,
                     markdown: data.content,
                     placeholder: '请输入内容...',
                     path: '/static/editor.md/lib/',
                     toolbarIcons() {
                         return [
-                            "bold", "italic", "quote", "|",
-                            "list-ul", "list-ol", "hr", "|",
-                            "link", "reference-link", "image", "code", "table", "|",
-                            "watch", "preview", "fullscreen"
+                            'bold',
+                            'italic',
+                            'quote',
+                            '|',
+                            'list-ul',
+                            'list-ol',
+                            'hr',
+                            '|',
+                            'link',
+                            'reference-link',
+                            'image',
+                            'code',
+                            'table',
+                            '|',
+                            'watch',
+                            'preview',
+                            'fullscreen',
                         ]
                     },
                     watch: false,
-                    saveHTMLToTextarea: true
+                    saveHTMLToTextarea: true,
                 })
             }
         })
@@ -79,7 +90,7 @@ export default class ArticleModify extends Component {
         this.setState({ content }, async () => {
             const { data: { message, code, data } } = await api.post('backend/article/modify', {
                 ...this.state,
-                id: this.props.match.params.id
+                id: this.props.match.params.id,
             })
             if (code === 200) {
                 setMessage({ type: 'success', content: message })
@@ -95,18 +106,34 @@ export default class ArticleModify extends Component {
     }
     render() {
         const select = this.props.category.map(item => {
-            return <option key={item._id} value={item._id}>{item.cate_name}</option>
+            return (
+                <option key={item._id} value={item._id}>
+                    {item.cate_name}
+                </option>
+            )
         })
         return (
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="标题">
-                        <input value={this.state.title} onChange={e => this.setState({ title: e.target.value })} type="text" placeholder="标题" className="base-input" name="title" />
+                        <input
+                            value={this.state.title}
+                            onChange={e => this.setState({ title: e.target.value })}
+                            type="text"
+                            placeholder="标题"
+                            className="base-input"
+                            name="title"
+                        />
                         <span className="input-info error">请输入标题</span>
                     </AInput>
                     <AInput title="分类" classes={'select-item-wrap'}>
                         <i className="icon icon-arrow-down" />
-                        <select value={this.state.category} onChange={this.handleChange} className="select-item" name="category">
+                        <select
+                            value={this.state.category}
+                            onChange={this.handleChange}
+                            className="select-item"
+                            name="category"
+                        >
                             <option value="">请选择分类</option>
                             {select}
                         </select>
@@ -114,13 +141,22 @@ export default class ArticleModify extends Component {
                     </AInput>
                     <div className="settings-section">
                         <div id="post-content" className="settings-item-content">
-                            <textarea id="editor" name="content" className="form-control hidden" data-autosave="editor-content" />
+                            <textarea
+                                id="editor"
+                                name="content"
+                                className="form-control hidden"
+                                data-autosave="editor-content"
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="settings-footer clearfix">
-                    <Link to="/backend/article/list" className="btn btn-blue">返回</Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">编辑文章</a>
+                    <Link to="/backend/article/list" className="btn btn-blue">
+                        返回
+                    </Link>
+                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                        编辑文章
+                    </a>
                 </div>
             </div>
         )

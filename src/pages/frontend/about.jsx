@@ -8,7 +8,7 @@ import { getTrending } from '~reducers/frontend/trending'
 
 function mapStateToProps(state) {
     return {
-        trending: state.trending.toJS()
+        trending: state.trending.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -17,16 +17,12 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class About extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
     }
     componentWillMount() {
         const { trending: { data }, getTrending } = this.props
@@ -54,7 +50,15 @@ export default class About extends Component {
                                 </div>
                                 <div className="flex-item">
                                     <div className="flex-label">Github:</div>
-                                    <div className="flex-content"><a href="https://github.com/lincenying" target="_blank" rel='noopener noreferrer'>@lincenying</a></div>
+                                    <div className="flex-content">
+                                        <a
+                                            href="https://github.com/lincenying"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            @lincenying
+                                        </a>
+                                    </div>
                                 </div>
                                 <div className="flex-item">
                                     <div className="flex-label">技能:</div>
@@ -75,7 +79,7 @@ export default class About extends Component {
                                 <h3 className="about-title">关于网站</h3>
                                 <p>本站采用 React, React-Router, Redux 搭建, 分成前台和后台</p>
                                 <p>主要功能包括: 管理员, 用户, 分类, 文章, 评论, 文章点赞</p>
-                                <p>主要技术栈: react, react-router, redux, immutable, webpack, babel, eslint</p>
+                                <p>主要技术栈: react, react-router, redux, immutable, webpack</p>
                             </div>
                         </div>
                     </div>

@@ -1,12 +1,16 @@
-var path = require("path")
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require("path")
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-var baseWebpackConfig = require('./webpack.config.base')
-var buildPath = path.join(__dirname, '../dist')
-var config = merge(baseWebpackConfig, {
+const baseWebpackConfig = require('./webpack.config.base')
+const buildPath = path.join(__dirname, '../dist')
+const configIndex = require('../config')
+
+const config = merge(baseWebpackConfig, {
+    mode: 'production',
     bail: true,
     devtool: false,
     output: {
@@ -37,31 +41,41 @@ var config = merge(baseWebpackConfig, {
             }
         }]
     },
+    optimization: {
+        runtimeChunk: {
+            name: "manifest"
+        },
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    priority: -20,
+                    chunks: "all"
+                }
+            }
+        },
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        warnings: false
+                    }
+                },
+                sourceMap: configIndex.build.productionSourceMap,
+                parallel: true
+            })
+        ]
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         }),
         new ExtractTextPlugin('static/css/[name].[contenthash:7].css'),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            minChunks(module) {
-                const reg = /\.js$/
-                return module.resource && reg.test(module.resource) && module.resource.indexOf(path.join(__dirname, '../node_modules')) === 0
-            }
-        }),
-        new webpack.optimize.CommonsChunkPlugin({name: 'manifest', chunks: ['vendor']}),
-        new webpack.optimize.UglifyJsPlugin({
-            compressor: {
-                warnings: false
-            },
-            output: {
-                comments: false
-            }
-        }),
         new HtmlWebpackPlugin({
             inject: true,
-            chunks: ['manifest', 'vendor', 'app'],
+            chunks: ['manifest', 'vendors', 'app'],
             filename: 'index.html',
             template: 'src/template/index.html',
             minify: {
@@ -70,16 +84,16 @@ var config = merge(baseWebpackConfig, {
                 removeRedundantAttributes: true
             },
             chunksSortMode (chunk1, chunk2) {
-                var orders = ['manifest', 'vendor', 'app'];
-                var order1 = orders.indexOf(chunk1.names[0]);
-                var order2 = orders.indexOf(chunk2.names[0]);
+                const orders = ['manifest', 'vendors', 'app'];
+                const order1 = orders.indexOf(chunk1.names[0]);
+                const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2
             }
 
         }),
         new HtmlWebpackPlugin({
             inject: true,
-            chunks: ['manifest', 'vendor', 'admin'],
+            chunks: ['manifest', 'vendors', 'admin'],
             filename: 'backend.html',
             template: 'src/template/backend.html',
             minify: {
@@ -88,9 +102,9 @@ var config = merge(baseWebpackConfig, {
                 removeRedundantAttributes: true
             },
             chunksSortMode (chunk1, chunk2) {
-                var orders = ['manifest', 'vendor', 'admin'];
-                var order1 = orders.indexOf(chunk1.names[0]);
-                var order2 = orders.indexOf(chunk2.names[0]);
+                const orders = ['manifest', 'vendors', 'admin'];
+                const order1 = orders.indexOf(chunk1.names[0]);
+                const order2 = orders.indexOf(chunk2.names[0]);
                 return order1 - order2
             }
         })

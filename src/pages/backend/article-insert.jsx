@@ -10,7 +10,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().lists
+        category: state.category.toJS().lists,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -20,16 +20,14 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class ArticleInsert extends Component {
     constructor(props) {
         super(props)
         this.state = {
             title: '',
             category: '',
-            content: ''
+            content: '',
         }
         this.handleInsert = this.handleInsert.bind(this)
     }
@@ -37,21 +35,34 @@ export default class ArticleInsert extends Component {
         this.props.getCategoryList()
         // eslint-disable-next-line
         window.postEditor = editormd("post-content", {
-            width: "100%",
+            width: '100%',
             height: 500,
-            markdown: "",
+            markdown: '',
             placeholder: '请输入内容...',
             path: '/static/editor.md/lib/',
             toolbarIcons() {
                 return [
-                    "bold", "italic", "quote", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "table", "|",
-                    "watch", "preview", "fullscreen"
+                    'bold',
+                    'italic',
+                    'quote',
+                    '|',
+                    'list-ul',
+                    'list-ol',
+                    'hr',
+                    '|',
+                    'link',
+                    'reference-link',
+                    'image',
+                    'code',
+                    'table',
+                    '|',
+                    'watch',
+                    'preview',
+                    'fullscreen',
                 ]
             },
             watch: false,
-            saveHTMLToTextarea: true
+            saveHTMLToTextarea: true,
         })
     }
     handleInsert() {
@@ -72,18 +83,34 @@ export default class ArticleInsert extends Component {
     }
     render() {
         const select = this.props.category.map(item => {
-            return <option key={item._id} value={item._id + '|' + item.cate_name}>{item.cate_name}</option>
+            return (
+                <option key={item._id} value={item._id + '|' + item.cate_name}>
+                    {item.cate_name}
+                </option>
+            )
         })
         return (
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="标题">
-                        <input value={this.state.title} onChange={e => this.setState({ title: e.target.value })} type="text" placeholder="标题" className="base-input" name="title" />
+                        <input
+                            value={this.state.title}
+                            onChange={e => this.setState({ title: e.target.value })}
+                            type="text"
+                            placeholder="标题"
+                            className="base-input"
+                            name="title"
+                        />
                         <span className="input-info error">请输入标题</span>
                     </AInput>
                     <AInput title="分类" classes={'select-item-wrap'}>
                         <i className="icon icon-arrow-down" />
-                        <select value={this.state.category} onChange={e => this.setState({ category: e.target.value })} className="select-item" name="category">
+                        <select
+                            value={this.state.category}
+                            onChange={e => this.setState({ category: e.target.value })}
+                            className="select-item"
+                            name="category"
+                        >
                             <option value="">请选择分类</option>
                             {select}
                         </select>
@@ -91,12 +118,19 @@ export default class ArticleInsert extends Component {
                     </AInput>
                     <div className="settings-section">
                         <div id="post-content" className="settings-item-content">
-                            <textarea id="editor" name="content" className="form-control hidden" data-autosave="editor-content" />
+                            <textarea
+                                id="editor"
+                                name="content"
+                                className="form-control hidden"
+                                data-autosave="editor-content"
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="settings-footer clearfix">
-                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">添加文章</a>
+                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">
+                        添加文章
+                    </a>
                 </div>
             </div>
         )

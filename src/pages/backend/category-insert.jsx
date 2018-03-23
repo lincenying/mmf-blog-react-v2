@@ -7,7 +7,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().item
+        category: state.category.toJS().item,
     }
 }
 
@@ -19,7 +19,7 @@ export default class CategoryModify extends Component {
         const { cate_name, cate_order } = props.category
         this.state = {
             cate_name,
-            cate_order
+            cate_order,
         }
         this.handleInsert = this.handleInsert.bind(this)
     }
@@ -40,16 +40,32 @@ export default class CategoryModify extends Component {
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="分类名称">
-                        <input value={this.state.cate_name} onChange={e => this.setState({ cate_name: e.target.value })} type="text" placeholder="分类名称" className="base-input" name="cate_name" />
+                        <input
+                            value={this.state.cate_name}
+                            onChange={e => this.setState({ cate_name: e.target.value })}
+                            type="text"
+                            placeholder="分类名称"
+                            className="base-input"
+                            name="cate_name"
+                        />
                         <span className="input-info error">请输入分类名称</span>
                     </AInput>
                     <AInput title="分类排序">
-                        <input value={this.state.cate_order} onChange={e => this.setState({ cate_order: e.target.value })} type="text" placeholder="分类排序" className="base-input" name="cate_order" />
+                        <input
+                            value={this.state.cate_order}
+                            onChange={e => this.setState({ cate_order: e.target.value })}
+                            type="text"
+                            placeholder="分类排序"
+                            className="base-input"
+                            name="cate_order"
+                        />
                         <span className="input-info error">请输入分类排序</span>
                     </AInput>
                 </div>
                 <div className="settings-footer clearfix">
-                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">添加分类</a>
+                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">
+                        添加分类
+                    </a>
                 </div>
             </div>
         )

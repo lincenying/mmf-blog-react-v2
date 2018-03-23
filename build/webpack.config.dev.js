@@ -1,11 +1,12 @@
-var path = require('path')
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-var baseWebpackConfig = require('./webpack.config.base')
-var config = merge(baseWebpackConfig, {
+const baseWebpackConfig = require('./webpack.config.base')
+const config = merge(baseWebpackConfig, {
+    mode: 'development',
     devtool: '#cheap-module-eval-source-map',
     module: {
         rules: [{

@@ -7,22 +7,22 @@ const initStates = fromJS({
     data: [],
     hasNext: 0,
     page: 1,
-    pathname: ''
+    pathname: '',
 })
 
 const reducers = {
     ['receiveTopics']: (state, action) => {
-        const {list, hasNext, page, pathname} = action
+        const { list, hasNext, page, pathname } = action
         const lists = page === 1 ? [].concat(list) : state.toJS().data.concat(list)
         return state.merge({
             data: lists,
             hasNext,
             page,
-            pathname
+            pathname,
         })
     },
     ['updateTopicsLikeState']: (state, action) => {
-        const {payload} = action
+        const { payload } = action
         const data = state.toJS().data
         const obj = data.find(item => item._id === payload)
         if (obj) {
@@ -30,19 +30,19 @@ const reducers = {
             obj.like_status = !obj.like_status
         }
         return state.mergeDeep({
-            data
+            data,
         })
-    }
+    },
 }
 
 export const getTopics = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('frontend/article/list', config)
+        const { data: { data, code } } = await api.get('frontend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveTopics',
                 ...data,
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)

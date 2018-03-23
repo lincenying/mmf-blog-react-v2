@@ -21,8 +21,8 @@ import Login from './backend/login.jsx'
 import UserList from './backend/user-list.jsx'
 import UserModify from './backend/user-modify.jsx'
 
-import "assets/css/hljs/googlecode.css"
-import "assets/css/style.css"
+import 'assets/css/hljs/googlecode.css'
+import 'assets/css/style.css'
 import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
@@ -34,19 +34,63 @@ const Backend = () => {
                 <div className="main wrap clearfix">
                     <div className="main-left">
                         <div className="home-feeds cards-wrap">
-                            <CSSTransitionGroup transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+                            <CSSTransitionGroup
+                                transitionName="example"
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={300}
+                            >
                                 <Route name="backend" path="/backend" component={Login} exact />
-                                <MatchWhenAuthorized name="admin_list" path="/backend/admin/list" component={AdminList} />
-                                <MatchWhenAuthorized name="admin_modify" path="/backend/admin/modify/:id" component={AdminModify} />
-                                <MatchWhenAuthorized name="article_insert" path="/backend/article/list" component={ArticleList} />
-                                <MatchWhenAuthorized name="article_insert" path="/backend/article/insert" component={ArticleInsert} />
-                                <MatchWhenAuthorized name="article_modify" path="/backend/article/modify/:id" component={ArticleModify} />
-                                <MatchWhenAuthorized name="article_comment" path="/backend/article/comment/:id" component={Comment} />
-                                <MatchWhenAuthorized name="category_list" path="/backend/category/list" component={CategoryList} />
-                                <MatchWhenAuthorized name="category_insert" path="/backend/category/insert" component={CategoryInsert} />
-                                <MatchWhenAuthorized name="category_modify" path="/backend/category/modify/:id" component={CategoryModify} />
+                                <MatchWhenAuthorized
+                                    name="admin_list"
+                                    path="/backend/admin/list"
+                                    component={AdminList}
+                                />
+                                <MatchWhenAuthorized
+                                    name="admin_modify"
+                                    path="/backend/admin/modify/:id"
+                                    component={AdminModify}
+                                />
+                                <MatchWhenAuthorized
+                                    name="article_insert"
+                                    path="/backend/article/list"
+                                    component={ArticleList}
+                                />
+                                <MatchWhenAuthorized
+                                    name="article_insert"
+                                    path="/backend/article/insert"
+                                    component={ArticleInsert}
+                                />
+                                <MatchWhenAuthorized
+                                    name="article_modify"
+                                    path="/backend/article/modify/:id"
+                                    component={ArticleModify}
+                                />
+                                <MatchWhenAuthorized
+                                    name="article_comment"
+                                    path="/backend/article/comment/:id"
+                                    component={Comment}
+                                />
+                                <MatchWhenAuthorized
+                                    name="category_list"
+                                    path="/backend/category/list"
+                                    component={CategoryList}
+                                />
+                                <MatchWhenAuthorized
+                                    name="category_insert"
+                                    path="/backend/category/insert"
+                                    component={CategoryInsert}
+                                />
+                                <MatchWhenAuthorized
+                                    name="category_modify"
+                                    path="/backend/category/modify/:id"
+                                    component={CategoryModify}
+                                />
                                 <MatchWhenAuthorized name="user_list" path="/backend/user/list" component={UserList} />
-                                <MatchWhenAuthorized name="user_modify" path="/backend/user/modify/:id" component={UserModify} />
+                                <MatchWhenAuthorized
+                                    name="user_modify"
+                                    path="/backend/user/modify/:id"
+                                    component={UserModify}
+                                />
                             </CSSTransitionGroup>
                         </div>
                     </div>

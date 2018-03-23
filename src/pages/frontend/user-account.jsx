@@ -7,15 +7,13 @@ import AInput from '~components/_input.jsx'
 import Account from '~components/aside-account.jsx'
 
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class UserAccount extends Component {
     constructor(props) {
         super(props)
         this.state = {
             username: '',
-            email: ''
+            email: '',
         }
         this.getUser = this.getUser.bind(this)
     }
@@ -39,11 +37,25 @@ export default class UserAccount extends Component {
                         <div className="settings-main card">
                             <div className="settings-main-content">
                                 <AInput title="昵称">
-                                    <input value={this.state.username} type="text" placeholder="昵称" className="base-input" name="username" readOnly />
+                                    <input
+                                        value={this.state.username}
+                                        type="text"
+                                        placeholder="昵称"
+                                        className="base-input"
+                                        name="username"
+                                        readOnly
+                                    />
                                     <span className="input-info error">请输入昵称</span>
                                 </AInput>
                                 <AInput title="邮箱">
-                                    <input value={this.state.email} type="text" placeholder="邮箱" className="base-input" name="email" readOnly />
+                                    <input
+                                        value={this.state.email}
+                                        type="text"
+                                        placeholder="邮箱"
+                                        className="base-input"
+                                        name="email"
+                                        readOnly
+                                    />
                                     <span className="input-info error">请输入邮箱</span>
                                 </AInput>
                             </div>

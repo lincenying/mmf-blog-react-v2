@@ -10,7 +10,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        user: state.backendUser.toJS()
+        user: state.backendUser.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -27,7 +27,7 @@ export default class UserModify extends Component {
         this.state = {
             username: username || '',
             email: email || '',
-            password: ''
+            password: '',
         }
         this.handleModify = this.handleModify.bind(this)
     }
@@ -47,7 +47,7 @@ export default class UserModify extends Component {
         }
         const item = {
             ...this.state,
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
         }
         const { data: { message, code, data } } = await api.post('backend/user/modify', item)
         if (code === 200) {
@@ -61,21 +61,46 @@ export default class UserModify extends Component {
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="昵称">
-                        <input value={this.state.username} onChange={e => this.setState({ username: e.target.value })} type="text" placeholder="昵称" className="base-input" name="username" />
+                        <input
+                            value={this.state.username}
+                            onChange={e => this.setState({ username: e.target.value })}
+                            type="text"
+                            placeholder="昵称"
+                            className="base-input"
+                            name="username"
+                        />
                         <span className="input-info error">请输入昵称</span>
                     </AInput>
                     <AInput title="邮箱">
-                        <input value={this.state.email} onChange={e => this.setState({ email: e.target.value })} type="text" placeholder="邮箱" className="base-input" name="email" />
+                        <input
+                            value={this.state.email}
+                            onChange={e => this.setState({ email: e.target.value })}
+                            type="text"
+                            placeholder="邮箱"
+                            className="base-input"
+                            name="email"
+                        />
                         <span className="input-info error">请输入邮箱</span>
                     </AInput>
                     <AInput title="密码">
-                        <input value={this.state.password} onChange={e => this.setState({ password: e.target.value })} type="password" placeholder="密码" className="base-input" name="password" />
+                        <input
+                            value={this.state.password}
+                            onChange={e => this.setState({ password: e.target.value })}
+                            type="password"
+                            placeholder="密码"
+                            className="base-input"
+                            name="password"
+                        />
                         <span className="input-info error">请输入密码</span>
                     </AInput>
                 </div>
                 <div className="settings-footer clearfix">
-                    <Link to="/backend/user/list" className="btn btn-blue">返回</Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">编辑管理员</a>
+                    <Link to="/backend/user/list" className="btn btn-blue">
+                        返回
+                    </Link>
+                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                        编辑管理员
+                    </a>
                 </div>
             </div>
         )

@@ -9,7 +9,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        comment: state.comment.toJS()
+        comment: state.comment.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -22,8 +22,7 @@ function mapDispatchToProps(dispatch) {
 export default class Comment extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
     }
     componentWillMount() {
         const { comment: { pathname } } = this.props
@@ -54,15 +53,29 @@ export default class Comment extends Component {
     render() {
         const { comment } = this.props
         const html = comment.lists.data.map(item => {
-            const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
+            const btn = item.is_delete ? (
+                <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">
+                    恢复
+                </a>
+            ) : (
+                <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">
+                    删除
+                </a>
+            )
             return (
                 <div key={item._id} className="comment-item">
                     <a href="javascript:;" className="comment-author-avatar-link">
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                        <img
+                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
+                            alt=""
+                            className="avatar-img"
+                        />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
-                            <a href="javascript:;" className="comment-author">{item.username}</a>
+                            <a href="javascript:;" className="comment-author">
+                                {item.username}
+                            </a>
                         </span>
                         <div className="comment-content">{item.content}</div>
                         <div className="comment-footer">
@@ -73,13 +86,20 @@ export default class Comment extends Component {
                 </div>
             )
         })
-        const next = comment.lists.hasNext ? <div className="settings-footer clearfix"> <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">加载更多</a> </div> : ''
+        const next = comment.lists.hasNext ? (
+            <div className="settings-footer clearfix">
+                {' '}
+                <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">
+                    加载更多
+                </a>{' '}
+            </div>
+        ) : (
+            ''
+        )
         return (
             <div className="card">
                 <div className="comments">
-                    <div className="comment-items-wrap">
-                        {html}
-                    </div>
+                    <div className="comment-items-wrap">{html}</div>
                     {next}
                 </div>
             </div>

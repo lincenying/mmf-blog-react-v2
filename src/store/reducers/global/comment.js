@@ -8,13 +8,13 @@ const initStates = fromJS({
         data: [],
         hasNext: 0,
         page: 1,
-        pathname: ''
-    }
+        pathname: '',
+    },
 })
 
 const reducers = {
     ['recevieCommentList']: (state, action) => {
-        const {list, pathname, hasNext, hasPrev, page} = action
+        const { list, pathname, hasNext, hasPrev, page } = action
         let data
         if (page === 1) {
             data = [].concat(list)
@@ -23,45 +23,49 @@ const reducers = {
         }
         return state.merge({
             lists: {
-                data, hasNext, hasPrev, page: page + 1, pathname
-            }
+                data,
+                hasNext,
+                hasPrev,
+                page: page + 1,
+                pathname,
+            },
         })
     },
-    ['insertCommentItem']: (state, {item}) => {
+    ['insertCommentItem']: (state, { item }) => {
         const { lists } = state.toJS()
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data
-            }
+                data,
+            },
         })
     },
-    ['deleteComment']: (state, {id}) => {
-        const {lists} = state.toJS()
+    ['deleteComment']: (state, { id }) => {
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({
-            lists
+            lists,
         })
     },
-    ['recoverComment']: (state, {id}) => {
-        const {lists} = state.toJS()
+    ['recoverComment']: (state, { id }) => {
+        const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({
-            lists
+            lists,
         })
-    }
+    },
 }
 
 export const getCommentList = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('frontend/comment/list', config)
+        const { data: { data, code } } = await api.get('frontend/comment/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'recevieCommentList',
                 ...data,
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)

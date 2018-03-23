@@ -10,9 +10,18 @@ const handleLogout = async () => {
 const AsideAccount = () => {
     return (
         <div className="card card-me">
-            <NavLink to="/user/account" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />帐号</NavLink>
-            <NavLink to="/user/password" activeClassName="active" className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />密码</NavLink>
-            <a href="javascript:;" onClick={handleLogout} className="side-entry"><i className="icon icon-arrow-right" /><i className="icon icon-articles" />退出</a>
+            <NavLink to="/user/account" activeClassName="active" className="side-entry">
+                <i className="icon icon-arrow-right" />
+                <i className="icon icon-articles" />帐号
+            </NavLink>
+            <NavLink to="/user/password" activeClassName="active" className="side-entry">
+                <i className="icon icon-arrow-right" />
+                <i className="icon icon-articles" />密码
+            </NavLink>
+            <a href="javascript:;" onClick={handleLogout} className="side-entry">
+                <i className="icon icon-arrow-right" />
+                <i className="icon icon-articles" />退出
+            </a>
         </div>
     )
 }

@@ -5,9 +5,7 @@ const TopicsItemNone = props => {
         <div className="card feed">
             <div className="feed-content">
                 <div className="feed-desc-wrap">
-                    <div className="feed-article-content markdown-body">
-                        {props.children}
-                    </div>
+                    <div className="feed-article-content markdown-body">{props.children}</div>
                 </div>
             </div>
         </div>

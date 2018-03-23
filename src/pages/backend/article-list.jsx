@@ -9,7 +9,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        topics: state.backendArticle.toJS()
+        topics: state.backendArticle.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -22,8 +22,7 @@ function mapDispatchToProps(dispatch) {
 export default class ArticleList extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-        }
+        this.state = {}
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getArticleList = this.getArticleList.bind(this)
@@ -57,22 +56,48 @@ export default class ArticleList extends Component {
     render() {
         const { topics } = this.props
         const lists = topics.lists.data.map((item, index) => {
-            const btn = item.is_delete ? <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">恢复</a> : <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">删除</a>
-            const com = item.comment_count > 0 ? <Link to={'/backend/article/comment/' + item._id} className="badge badge-success">评论</Link> : ''
+            const btn = item.is_delete ? (
+                <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">
+                    恢复
+                </a>
+            ) : (
+                <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">
+                    删除
+                </a>
+            )
+            const com =
+                item.comment_count > 0 ? (
+                    <Link to={'/backend/article/comment/' + item._id} className="badge badge-success">
+                        评论
+                    </Link>
+                ) : (
+                    ''
+                )
             return (
                 <div key={index} className="list-section">
                     <div className="list-title">{item.title}</div>
                     <div className="list-category">{item.category_name}</div>
                     <div className="list-date">{timeAgo(item.update_date)}</div>
                     <div className="list-action">
-                        <Link to={'/backend/article/modify/' + item._id} className="badge badge-success">编辑</Link>
+                        <Link to={'/backend/article/modify/' + item._id} className="badge badge-success">
+                            编辑
+                        </Link>
                         {btn}
                         {com}
                     </div>
                 </div>
             )
         })
-        const next = topics.lists.hasNext ? <div className="settings-footer clearfix"> <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">加载更多</a> </div> : ''
+        const next = topics.lists.hasNext ? (
+            <div className="settings-footer clearfix">
+                {' '}
+                <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">
+                    加载更多
+                </a>{' '}
+            </div>
+        ) : (
+            ''
+        )
         return (
             <div className="settings-main card">
                 <div className="settings-main-content">

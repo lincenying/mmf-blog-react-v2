@@ -17,7 +17,7 @@ function mapStateToProps(state) {
     return {
         topics: state.topics.toJS(),
         category: state.category.toJS(),
-        trending: state.trending.toJS()
+        trending: state.trending.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -26,15 +26,13 @@ function mapDispatchToProps(dispatch) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 @immutableRenderDecorator
-@propTypes({
-})
+@propTypes({})
 export default class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            scrollTop: 0
+            scrollTop: 0,
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
         this.onScroll = this.onScroll.bind(this)
@@ -77,31 +75,36 @@ export default class Topics extends Component {
         const { topics, category, trending } = this.props
         let html
         if (!topics.pathname) {
-            html =
+            html = (
                 <div className="home-feeds cards-wrap">
                     <TopicsItemNone>加载中, 请稍等...</TopicsItemNone>
                 </div>
+            )
         } else if (topics.data.length > 0) {
             const lists = topics.data.map(item => <TopicsItem key={item._id} payload={item} />)
-            const hasNext = topics.hasNext ? <a onClick={this.handleLoadMore} href="javascript:;" className="load-more">更多<i className="icon icon-circle-loading" /></a> : ''
-            html =
+            const hasNext = topics.hasNext ? (
+                <a onClick={this.handleLoadMore} href="javascript:;" className="load-more">
+                    更多<i className="icon icon-circle-loading" />
+                </a>
+            ) : (
+                ''
+            )
+            html = (
                 <div className="home-feeds cards-wrap">
                     {lists}
-                    <div className="load-more-wrap">
-                        {hasNext}
-                    </div>
+                    <div className="load-more-wrap">{hasNext}</div>
                 </div>
+            )
         } else {
-            html =
+            html = (
                 <div className="home-feeds cards-wrap">
                     <TopicsItemNone>当前分类还没有文章...</TopicsItemNone>
                 </div>
+            )
         }
         return (
             <div className="main wrap clearfix">
-                <div className="main-left">
-                    {html}
-                </div>
+                <div className="main-left">{html}</div>
                 <div className="main-right">
                     <Category payload={category.lists} />
                     <Trending payload={trending.data} />

@@ -11,7 +11,7 @@ import { getCommentList } from '~reducers/global/comment'
 
 function mapStateToProps(state) {
     return {
-        comment: state.comment.toJS()
+        comment: state.comment.toJS(),
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -21,14 +21,12 @@ function mapDispatchToProps(dispatch) {
 
 @connect(mapStateToProps, mapDispatchToProps)
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class FrontendComment extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            content: ''
+            content: '',
         }
         this.handleGetComment = this.handleGetComment.bind(this)
         this.handleReply = this.handleReply.bind(this)
@@ -53,13 +51,13 @@ export default class FrontendComment extends Component {
         } else {
             const { data: { code, data } } = await api.post('frontend/comment/insert', {
                 ...this.state,
-                id: this.props.match.params.id
+                id: this.props.match.params.id,
             })
             if (code === 200) {
                 this.setState({ content: '' })
                 setMessage({
                     content: '评论发布成功!',
-                    type: 'success'
+                    type: 'success',
                 })
                 this.props.dispatch({ type: 'insertCommentItem', item: data })
             }
@@ -67,7 +65,7 @@ export default class FrontendComment extends Component {
     }
     handleReply(item) {
         this.setState({ content: '回复 @' + item.username + ': ' })
-        document.querySelector("#content").focus()
+        document.querySelector('#content').focus()
     }
     render() {
         const { comment } = this.props
@@ -75,36 +73,70 @@ export default class FrontendComment extends Component {
             return (
                 <div key={item._id} className="comment-item">
                     <a href="javascript:;" className="comment-author-avatar-link">
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                        <img
+                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
+                            alt=""
+                            className="avatar-img"
+                        />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
-                            <a href="javascript:;" className="comment-author">{item.username}</a>
+                            <a href="javascript:;" className="comment-author">
+                                {item.username}
+                            </a>
                         </span>
                         <div className="comment-content">{item.content}</div>
                         <div className="comment-footer">
                             <span className="comment-time">{item.creat_date}</span>
-                            <a onClick={this.handleReply.bind(this, item)} href="javascript:;" className="comment-action-item comment-reply">回复</a>
+                            <a
+                                onClick={this.handleReply.bind(this, item)}
+                                href="javascript:;"
+                                className="comment-action-item comment-reply"
+                            >
+                                回复
+                            </a>
                         </div>
                     </div>
                 </div>
             )
         })
-        const hasNext = comment.lists.hasNext ? <div className="load-more-wrap"> <a onClick={this.handleGetComment} href="javascript:;" className="comments-load-more">加载更多</a> </div> : ''
+        const hasNext = comment.lists.hasNext ? (
+            <div className="load-more-wrap">
+                {' '}
+                <a onClick={this.handleGetComment} href="javascript:;" className="comments-load-more">
+                    加载更多
+                </a>{' '}
+            </div>
+        ) : (
+            ''
+        )
         return (
             <div className="card">
                 <div className="comments">
-                    <div className="comment-post-wrap"> <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                    <div className="comment-post-wrap">
+                        {' '}
+                        <img
+                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
+                            alt=""
+                            className="avatar-img"
+                        />
                         <div className="comment-post-input-wrap base-textarea-wrap">
-                            <textarea value={this.state.content} onChange={e => this.setState({ content: e.target.value })} id="content" className="textarea-input base-input" cols="30" rows="4" />
+                            <textarea
+                                value={this.state.content}
+                                onChange={e => this.setState({ content: e.target.value })}
+                                id="content"
+                                className="textarea-input base-input"
+                                cols="30"
+                                rows="4"
+                            />
                         </div>
                         <div className="comment-post-actions clearfix">
-                            <a onClick={this.handlePostComment} href="javascript:;" className="btn btn-blue">发表评论</a>
+                            <a onClick={this.handlePostComment} href="javascript:;" className="btn btn-blue">
+                                发表评论
+                            </a>
                         </div>
                     </div>
-                    <div className="comment-items-wrap">
-                        {html}
-                    </div>
+                    <div className="comment-items-wrap">{html}</div>
                     {hasNext}
                 </div>
             </div>

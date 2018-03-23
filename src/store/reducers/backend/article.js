@@ -9,13 +9,13 @@ const initStates = fromJS({
         path: '',
         hasNext: 0,
         hasPrev: 0,
-        page: 1
-    }
+        page: 1,
+    },
 })
 
 const reducers = {
     ['receiveBackendArticleList']: (state, action) => {
-        const {list, pathname, hasNext, hasPrev, page} = action
+        const { list, pathname, hasNext, hasPrev, page } = action
         let data
         if (page === 1) {
             data = [].concat(list)
@@ -24,47 +24,51 @@ const reducers = {
         }
         return state.merge({
             lists: {
-                data, hasNext, hasPrev, page: page + 1, pathname
-            }
+                data,
+                hasNext,
+                hasPrev,
+                page: page + 1,
+                pathname,
+            },
         })
     },
-    ['insertArticleItem']: (state, {item}) => {
+    ['insertArticleItem']: (state, { item }) => {
         const { lists } = state.toJS()
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data
-            }
+                data,
+            },
         })
     },
-    ['updateArticleItem']: (state, {data}) => {
+    ['updateArticleItem']: (state, { data }) => {
         const { lists } = state.toJS()
         const index = lists.data.findIndex(ii => ii._id === data._id)
         if (index > -1) lists.data[index] = data
         return state.mergeDeep({ lists, item: { data } })
     },
-    ['deleteArticle']: (state, {id}) => {
+    ['deleteArticle']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({ lists })
     },
-    ['recoverArticle']: (state, {id}) => {
+    ['recoverArticle']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({ lists })
-    }
+    },
 }
 
 export const getArticleList = config => {
     return async dispatch => {
-        const { data: { data, code} } = await api.get('backend/article/list', config)
+        const { data: { data, code } } = await api.get('backend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveBackendArticleList',
                 ...data,
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)
@@ -73,11 +77,11 @@ export const getArticleList = config => {
 
 export const deleteArticle = config => {
     return async dispatch => {
-        const { data: { code} } = await api.get('backend/article/delete', config)
+        const { data: { code } } = await api.get('backend/article/delete', config)
         if (code === 200) {
             return dispatch({
                 type: 'deleteArticle',
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)
@@ -85,11 +89,11 @@ export const deleteArticle = config => {
 }
 export const recoverArticle = config => {
     return async dispatch => {
-        const { data: { code} } = await api.get('backend/article/recover', config)
+        const { data: { code } } = await api.get('backend/article/recover', config)
         if (code === 200) {
             return dispatch({
                 type: 'recoverArticle',
-                ...config
+                ...config,
             })
         }
         return dispatch(errConfig)

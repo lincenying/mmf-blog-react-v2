@@ -31,11 +31,8 @@ const addTarget = content => {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-
 @immutableRenderDecorator
-@propTypes({
-
-})
+@propTypes({})
 export default class Article extends Component {
     componentWillMount() {
         const { article, category, trending, getTrending, getCategoryList } = this.props
@@ -59,36 +56,50 @@ export default class Article extends Component {
         const { article, category, trending } = this.props
         let html
         if (!article.isLoad) {
-            html =
+            html = (
                 <div className="main-left">
                     <div className="card card-answer">
                         <div className="answer-content">加载中, 请稍等...</div>
                     </div>
                 </div>
+            )
         } else if (article.data._id) {
-            html =
+            html = (
                 <div className="main-left">
                     <div className="card card-question-head">
                         <div className="question-content">
-                            <Link to={'/category/' + article.data.category} className="topic-link-item">{article.data.category_name}</Link>
-                            <h2 className="question-title"><Link to={'/article/' + article.data._id} className="question-title-link">{article.data.title}</Link></h2>
+                            <Link to={'/category/' + article.data.category} className="topic-link-item">
+                                {article.data.category_name}
+                            </Link>
+                            <h2 className="question-title">
+                                <Link to={'/article/' + article.data._id} className="question-title-link">
+                                    {article.data.title}
+                                </Link>
+                            </h2>
                         </div>
                     </div>
                     <div className="card card-answer">
                         <div className="answer-content">
-                            <div className="article-content markdown-body" dangerouslySetInnerHTML={{ __html: addTarget(article.data.html) }} />
+                            <div
+                                className="article-content markdown-body"
+                                dangerouslySetInnerHTML={{
+                                    __html: addTarget(article.data.html),
+                                }}
+                            />
                         </div>
                         <Actions item={article.data} />
                     </div>
                     <Comment {...this.props} />
                 </div>
+            )
         } else {
-            html =
+            html = (
                 <div className="main-left">
                     <div className="card card-answer">
                         <div className="answer-content">该文章不存在, 或者该文章已经被删除</div>
                     </div>
                 </div>
+            )
         }
         return (
             <div className="main wrap clearfix">

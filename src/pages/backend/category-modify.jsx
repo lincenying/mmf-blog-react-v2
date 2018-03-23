@@ -10,7 +10,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().item
+        category: state.category.toJS().item,
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -26,7 +26,7 @@ export default class CategoryModify extends Component {
         const { cate_name, cate_order } = props.category
         this.state = {
             cate_name: cate_name || '',
-            cate_order: cate_order || ''
+            cate_order: cate_order || '',
         }
         this.handleModify = this.handleModify.bind(this)
     }
@@ -46,7 +46,7 @@ export default class CategoryModify extends Component {
         }
         const item = {
             ...this.state,
-            id: this.props.match.params.id
+            id: this.props.match.params.id,
         }
         const { data: { message, code, data } } = await api.post('backend/category/modify', item)
         if (code === 200) {
@@ -60,17 +60,35 @@ export default class CategoryModify extends Component {
             <div className="settings-main card">
                 <div className="settings-main-content">
                     <AInput title="分类名称">
-                        <input value={this.state.cate_name} onChange={e => this.setState({ cate_name: e.target.value })} type="text" placeholder="分类名称" className="base-input" name="cate_name" />
+                        <input
+                            value={this.state.cate_name}
+                            onChange={e => this.setState({ cate_name: e.target.value })}
+                            type="text"
+                            placeholder="分类名称"
+                            className="base-input"
+                            name="cate_name"
+                        />
                         <span className="input-info error">请输入分类名称</span>
                     </AInput>
                     <AInput title="分类排序">
-                        <input value={this.state.cate_order} onChange={e => this.setState({ cate_order: e.target.value })} type="text" placeholder="分类排序" className="base-input" name="cate_order" />
+                        <input
+                            value={this.state.cate_order}
+                            onChange={e => this.setState({ cate_order: e.target.value })}
+                            type="text"
+                            placeholder="分类排序"
+                            className="base-input"
+                            name="cate_order"
+                        />
                         <span className="input-info error">请输入分类排序</span>
                     </AInput>
                 </div>
                 <div className="settings-footer clearfix">
-                    <Link to="/backend/category/list" className="btn btn-blue">返回</Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">编辑分类</a>
+                    <Link to="/backend/category/list" className="btn btn-blue">
+                        返回
+                    </Link>
+                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                        编辑分类
+                    </a>
                 </div>
             </div>
         )

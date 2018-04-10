@@ -1,9 +1,11 @@
-const path = require("path")
+const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 const baseWebpackConfig = require('./webpack.config.base')
 const buildPath = path.join(__dirname, '../dist')
@@ -17,61 +19,78 @@ const config = merge(baseWebpackConfig, {
         path: buildPath,
         filename: 'static/js/[name].[chunkhash:7].js',
         chunkFilename: 'static/js/[name].[chunkhash:7].chunk.js',
-        publicPath: '/'
+        publicPath: '/',
     },
     resolve: {
         alias: {
-            "~store": path.join(__dirname, "../src/store/conf.prod"),
-            "~devtools": path.join(__dirname, "../src/components/global/devtools-prod"),
-        }
+            '~store': path.join(__dirname, '../src/store/conf.prod'),
+            '~devtools': path.join(__dirname, '../src/components/global/devtools-prod'),
+        },
     },
     module: {
-        rules: [{
-            test: /\.css$/,
-            loader: ExtractTextPlugin.extract(['css-loader', 'postcss-loader'])
-        },  {
-            test: /\.less/,
-            loader: ExtractTextPlugin.extract(['css-loader', 'postcss-loader', 'less-loader'])
-        }, {
-            test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-            loader: 'url-loader',
-            query: {
-                limit: 10000,
-                name: 'static/img/[name].[hash:7].[ext]'
-            }
-        }]
+        rules: [
+            {
+                test: /\.css$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 'postcss-loader'
+                ]
+            },
+            {
+                test: /\.less/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 'postcss-loader', 'less-loader'
+                ]
+            },
+            {
+                test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
+                loader: 'url-loader',
+                query: {
+                    limit: 10000,
+                    name: 'static/img/[name].[hash:7].[ext]',
+                },
+            },
+        ],
     },
     optimization: {
         runtimeChunk: {
-            name: "manifest"
+            name: 'manifest',
         },
         splitChunks: {
             cacheGroups: {
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
+                    name: 'vendors',
                     priority: -20,
-                    chunks: "all"
-                }
-            }
+                    chunks: 'all',
+                },
+            },
         },
         minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions: {
                     compress: {
-                        warnings: false
-                    }
+                        warnings: false,
+                    },
                 },
                 sourceMap: configIndex.build.productionSourceMap,
-                parallel: true
-            })
-        ]
+                parallel: true,
+            }),
+            new OptimizeCSSAssetsPlugin({})
+        ],
     },
     plugins: [
         new webpack.DefinePlugin({
-            'process.env.NODE_ENV': '"production"'
+            'process.env.NODE_ENV': '"production"',
         }),
-        new ExtractTextPlugin('static/css/[name].[contenthash:7].css'),
+        // new ExtractTextPlugin('static/css/[name].[contenthash:7].css'),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: 'static/css/[name].[contenthash:7].css',
+            chunkFilename: 'static/css/[id].[contenthash:7].css',
+        }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
@@ -81,15 +100,14 @@ const config = merge(baseWebpackConfig, {
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
-                removeRedundantAttributes: true
+                removeRedundantAttributes: true,
             },
-            chunksSortMode (chunk1, chunk2) {
-                const orders = ['manifest', 'vendors', 'app'];
-                const order1 = orders.indexOf(chunk1.names[0]);
-                const order2 = orders.indexOf(chunk2.names[0]);
+            chunksSortMode(chunk1, chunk2) {
+                const orders = ['manifest', 'vendors', 'app']
+                const order1 = orders.indexOf(chunk1.names[0])
+                const order2 = orders.indexOf(chunk2.names[0])
                 return order1 - order2
-            }
-
+            },
         }),
         new HtmlWebpackPlugin({
             inject: true,
@@ -99,16 +117,16 @@ const config = merge(baseWebpackConfig, {
             minify: {
                 removeComments: true,
                 collapseWhitespace: true,
-                removeRedundantAttributes: true
+                removeRedundantAttributes: true,
             },
-            chunksSortMode (chunk1, chunk2) {
-                const orders = ['manifest', 'vendors', 'admin'];
-                const order1 = orders.indexOf(chunk1.names[0]);
-                const order2 = orders.indexOf(chunk2.names[0]);
+            chunksSortMode(chunk1, chunk2) {
+                const orders = ['manifest', 'vendors', 'admin']
+                const order1 = orders.indexOf(chunk1.names[0])
+                const order2 = orders.indexOf(chunk2.names[0])
                 return order1 - order2
-            }
-        })
-    ]
+            },
+        }),
+    ],
 })
 
 module.exports = config

@@ -1136,12 +1136,19 @@ browserslist@^2.1.2:
     caniuse-lite "^1.0.30000792"
     electron-to-chromium "^1.3.30"
 
-browserslist@^3.2.0, browserslist@^3.2.1:
+browserslist@^3.2.0:
   version "3.2.1"
   resolved "http://registry.npm.taobao.org/browserslist/download/browserslist-3.2.1.tgz#4960a45fbfe39b2be36fe5ba07cce9ea32c8221c"
   dependencies:
     caniuse-lite "^1.0.30000819"
     electron-to-chromium "^1.3.40"
+
+browserslist@^3.2.4:
+  version "3.2.4"
+  resolved "http://registry.npm.taobao.org/browserslist/download/browserslist-3.2.4.tgz#fb9ad70fd09875137ae943a31ab815ed76896031"
+  dependencies:
+    caniuse-lite "^1.0.30000821"
+    electron-to-chromium "^1.3.41"
 
 buffer-from@^1.0.0:
   version "1.0.0"
@@ -1260,6 +1267,10 @@ caniuse-lite@^1.0.30000792, caniuse-lite@^1.0.30000817, caniuse-lite@^1.0.300008
   version "1.0.30000819"
   resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000819.tgz#aabee5fd15a080febab6ae5d30c9ea15f4c6d4e2"
 
+caniuse-lite@^1.0.30000821:
+  version "1.0.30000823"
+  resolved "http://registry.npm.taobao.org/caniuse-lite/download/caniuse-lite-1.0.30000823.tgz#b79842a5b5a48eaa416b73f5a5d7a23f52d26014"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "http://registry.npm.taobao.org/caseless/download/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -1341,10 +1352,6 @@ class-utils@^0.3.5:
     define-property "^0.2.5"
     isobject "^3.0.0"
     static-extend "^0.1.1"
-
-classnames@^2.2.5:
-  version "2.2.5"
-  resolved "http://registry.npm.taobao.org/classnames/download/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
 clean-css@4.1.x:
   version "4.1.11"
@@ -1692,7 +1699,7 @@ cssesc@^0.1.0:
   version "0.1.0"
   resolved "http://registry.npm.taobao.org/cssesc/download/cssesc-0.1.0.tgz#c814903e45623371a0477b40109aaafbeeaddbb4"
 
-cssnano@^3.10.0:
+cssnano@^3.10.0, cssnano@^3.4.0:
   version "3.10.0"
   resolved "http://registry.npm.taobao.org/cssnano/download/cssnano-3.10.0.tgz#4f38f6cea2b9b17fa01490f23f1dc68ea65c1c38"
   dependencies:
@@ -2011,6 +2018,10 @@ ee-first@1.1.1:
 electron-to-chromium@^1.2.7, electron-to-chromium@^1.3.30, electron-to-chromium@^1.3.40:
   version "1.3.40"
   resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.40.tgz#1fbd6d97befd72b8a6f921dc38d22413d2f6fddf"
+
+electron-to-chromium@^1.3.41:
+  version "1.3.42"
+  resolved "http://registry.npm.taobao.org/electron-to-chromium/download/electron-to-chromium-1.3.42.tgz#95c33bf01d0cc405556aec899fe61fd4d76ea0f9"
 
 elliptic@^6.0.0:
   version "6.4.0"
@@ -2971,9 +2982,9 @@ html-minifier@^3.2.3:
     relateurl "0.2.x"
     uglify-js "3.3.x"
 
-html-webpack-plugin@^3.1.0:
-  version "3.1.0"
-  resolved "http://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-3.1.0.tgz#6e02baaedb1e906310917f03239c793a75af2885"
+html-webpack-plugin@^3.2.0:
+  version "3.2.0"
+  resolved "http://registry.npm.taobao.org/html-webpack-plugin/download/html-webpack-plugin-3.2.0.tgz#b01abbd723acaaa7b37b6af4492ebda03d9dd37b"
   dependencies:
     html-minifier "^3.2.3"
     loader-utils "^0.2.16"
@@ -3586,6 +3597,13 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   version "6.0.2"
   resolved "http://registry.npm.taobao.org/kind-of/download/kind-of-6.0.2.tgz#01146b36a6218e64e58f3a8d66de5d7fc6f6d051"
 
+last-call-webpack-plugin@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.npm.taobao.org/last-call-webpack-plugin/download/last-call-webpack-plugin-3.0.0.tgz#9742df0e10e3cf46e5c0381c2de90d3a7a2d7555"
+  dependencies:
+    lodash "^4.17.5"
+    webpack-sources "^1.1.0"
+
 lcid@^1.0.0:
   version "1.0.0"
   resolved "http://registry.npm.taobao.org/lcid/download/lcid-1.0.0.tgz#308accafa0bc483a3867b4b6f2b9506251d1b835"
@@ -3903,6 +3921,13 @@ min-document@^2.19.0:
   resolved "http://registry.npm.taobao.org/min-document/download/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
   dependencies:
     dom-walk "^0.1.0"
+
+mini-css-extract-plugin@^0.4.0:
+  version "0.4.0"
+  resolved "http://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-0.4.0.tgz#ff3bf08bee96e618e177c16ca6131bfecef707f9"
+  dependencies:
+    loader-utils "^1.1.0"
+    webpack-sources "^1.1.0"
 
 minimalistic-assert@^1.0.0:
   version "1.0.0"
@@ -4237,6 +4262,13 @@ opn@^5.1.0, opn@^5.3.0:
   resolved "http://registry.npm.taobao.org/opn/download/opn-5.3.0.tgz#64871565c863875f052cfdf53d3e3cb5adb53b1c"
   dependencies:
     is-wsl "^1.1.0"
+
+optimize-css-assets-webpack-plugin@^4.0.0:
+  version "4.0.0"
+  resolved "http://registry.npm.taobao.org/optimize-css-assets-webpack-plugin/download/optimize-css-assets-webpack-plugin-4.0.0.tgz#d5f80041fb1391b358a1f35273c3b53de814e8fe"
+  dependencies:
+    cssnano "^3.4.0"
+    last-call-webpack-plugin "^3.0.0"
 
 optionator@^0.8.2:
   version "0.8.2"
@@ -4963,23 +4995,23 @@ react-dock@^0.2.4:
     lodash.debounce "^3.1.1"
     prop-types "^15.5.8"
 
-react-dom@^16.2.0:
-  version "16.2.0"
-  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-16.2.0.tgz#69003178601c0ca19b709b33a83369fe6124c044"
+react-dom@^16.3.1:
+  version "16.3.1"
+  resolved "http://registry.npm.taobao.org/react-dom/download/react-dom-16.3.1.tgz#6a3c90a4fb62f915bdbcf6204422d93a7d4ca573"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
-react-hot-loader@4.0.0:
-  version "4.0.0"
-  resolved "http://registry.npm.taobao.org/react-hot-loader/download/react-hot-loader-4.0.0.tgz#3452fa9bc0d0ba9dfc5b0ccfa25101ca8dbd2de2"
+react-hot-loader@4.0.1:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/react-hot-loader/download/react-hot-loader-4.0.1.tgz#48284350ae5d7ba07dac872bd5bbc6e477352593"
   dependencies:
     fast-levenshtein "^2.0.6"
     global "^4.3.0"
     hoist-non-react-statics "^2.5.0"
-    prop-types "^15.6.0"
+    prop-types "^15.6.1"
     shallowequal "^1.0.2"
 
 react-immutable-render-mixin@^0.9.7:
@@ -5036,20 +5068,19 @@ react-router@^4.2.0:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
-react-transition-group@^2.2.1:
-  version "2.2.1"
-  resolved "http://registry.npm.taobao.org/react-transition-group/download/react-transition-group-2.2.1.tgz#e9fb677b79e6455fd391b03823afe84849df4a10"
+react-transition-group@^2.3.0:
+  version "2.3.0"
+  resolved "http://registry.npm.taobao.org/react-transition-group/download/react-transition-group-2.3.0.tgz#8dd1af58f6af284b19fd057f512e74f20438ad31"
   dependencies:
     chain-function "^1.0.0"
-    classnames "^2.2.5"
     dom-helpers "^3.2.0"
     loose-envify "^1.3.1"
     prop-types "^15.5.8"
     warning "^3.0.0"
 
-react@^16.2.0:
-  version "16.2.0"
-  resolved "http://registry.npm.taobao.org/react/download/react-16.2.0.tgz#a31bd2dab89bff65d42134fa187f24d054c273ba"
+react@^16.3.1:
+  version "16.3.1"
+  resolved "http://registry.npm.taobao.org/react/download/react-16.3.1.tgz#4a2da433d471251c69b6033ada30e2ed1202cfd8"
   dependencies:
     fbjs "^0.8.16"
     loose-envify "^1.1.0"
@@ -6086,7 +6117,7 @@ uglify-js@3.3.x:
     commander "~2.15.0"
     source-map "~0.6.1"
 
-uglifyjs-webpack-plugin@^1.1.1, uglifyjs-webpack-plugin@^1.2.4:
+uglifyjs-webpack-plugin@^1.2.4:
   version "1.2.4"
   resolved "http://registry.npm.taobao.org/uglifyjs-webpack-plugin/download/uglifyjs-webpack-plugin-1.2.4.tgz#5eec941b2e9b8538be0a20fc6eda25b14c7c1043"
   dependencies:
@@ -6290,9 +6321,21 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-webpack-dev-middleware@3.0.1, webpack-dev-middleware@^3.0.1:
+webpack-dev-middleware@3.0.1:
   version "3.0.1"
   resolved "http://registry.npm.taobao.org/webpack-dev-middleware/download/webpack-dev-middleware-3.0.1.tgz#7ffd6d0192883c83d3f262e8d7dec822493c6166"
+  dependencies:
+    loud-rejection "^1.6.0"
+    memory-fs "~0.4.1"
+    mime "^2.1.0"
+    path-is-absolute "^1.0.0"
+    range-parser "^1.0.3"
+    url-join "^4.0.0"
+    webpack-log "^1.0.1"
+
+webpack-dev-middleware@^3.1.0:
+  version "3.1.0"
+  resolved "http://registry.npm.taobao.org/webpack-dev-middleware/download/webpack-dev-middleware-3.1.0.tgz#b354b17d0baa274ea3af38c6f005e66a16bdb76b"
   dependencies:
     loud-rejection "^1.6.0"
     memory-fs "~0.4.1"
@@ -6366,9 +6409,9 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^4.2.0:
-  version "4.2.0"
-  resolved "http://registry.npm.taobao.org/webpack/download/webpack-4.2.0.tgz#a4f80807651a0e611bb09609600dc266262efcc1"
+webpack@^4.4.1:
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/webpack/download/webpack-4.4.1.tgz#b0105789890c28bfce9f392623ef5850254328a4"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^3.0.0"
@@ -6386,7 +6429,7 @@ webpack@^4.2.0:
     node-libs-browser "^2.0.0"
     schema-utils "^0.4.2"
     tapable "^1.0.0"
-    uglifyjs-webpack-plugin "^1.1.1"
+    uglifyjs-webpack-plugin "^1.2.4"
     watchpack "^1.5.0"
     webpack-sources "^1.0.1"
 

@@ -31,7 +31,9 @@ class signIn extends Component {
             setMessage('请将表单填写完整!')
             return
         }
-        const { data: { message, code } } = await api.post('frontend/user/login', this.state)
+        const {
+            data: { message, code },
+        } = await api.post('frontend/user/login', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             //this._reactInternalInstance._context.router.go(0)

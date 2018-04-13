@@ -32,14 +32,18 @@ export default class ArticleList extends Component {
         this.getArticleList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message } } = await api.get('backend/article/recover', { id })
+        const {
+            data: { code, message },
+        } = await api.get('backend/article/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'recoverArticle', id })
         }
     }
     async handleDelete(id) {
-        const { data: { code, message } } = await api.get('backend/article/delete', { id })
+        const {
+            data: { code, message },
+        } = await api.get('backend/article/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'deleteArticle', id })
@@ -49,7 +53,10 @@ export default class ArticleList extends Component {
         this.getArticleList()
     }
     getArticleList(page) {
-        const { topics: { lists }, location: { pathname } } = this.props
+        const {
+            topics: { lists },
+            location: { pathname },
+        } = this.props
         page = page || lists.page
         this.props.getArticleList({ page, pathname })
     }

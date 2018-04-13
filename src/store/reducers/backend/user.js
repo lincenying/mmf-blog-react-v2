@@ -79,7 +79,9 @@ const reducers = {
 
 export const getUserList = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/user/list', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/user/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserList',
@@ -92,7 +94,9 @@ export const getUserList = config => {
 }
 export const getUserItem = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/user/item', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/user/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserItem',

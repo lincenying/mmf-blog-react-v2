@@ -63,7 +63,9 @@ const reducers = {
 
 export const getArticleList = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/article/list', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveBackendArticleList',
@@ -77,7 +79,9 @@ export const getArticleList = config => {
 
 export const deleteArticle = config => {
     return async dispatch => {
-        const { data: { code } } = await api.get('backend/article/delete', config)
+        const {
+            data: { code },
+        } = await api.get('backend/article/delete', config)
         if (code === 200) {
             return dispatch({
                 type: 'deleteArticle',
@@ -89,7 +93,9 @@ export const deleteArticle = config => {
 }
 export const recoverArticle = config => {
     return async dispatch => {
-        const { data: { code } } = await api.get('backend/article/recover', config)
+        const {
+            data: { code },
+        } = await api.get('backend/article/recover', config)
         if (code === 200) {
             return dispatch({
                 type: 'recoverArticle',

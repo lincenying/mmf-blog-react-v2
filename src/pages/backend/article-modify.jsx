@@ -88,7 +88,9 @@ export default class ArticleModify extends Component {
             return
         }
         this.setState({ content }, async () => {
-            const { data: { message, code, data } } = await api.post('backend/article/modify', {
+            const {
+                data: { message, code, data },
+            } = await api.post('backend/article/modify', {
                 ...this.state,
                 id: this.props.match.params.id,
             })

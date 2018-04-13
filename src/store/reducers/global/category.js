@@ -45,7 +45,9 @@ const reducers = {
 
 export const getCategoryList = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/category/list', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/category/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryList',
@@ -57,7 +59,9 @@ export const getCategoryList = config => {
 }
 export const getCategoryItem = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/category/item', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/category/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryItem',

@@ -59,7 +59,13 @@ export default class Topics extends Component {
         window.removeEventListener('scroll', this.onScroll)
     }
     handlefetchPosts(page = 1) {
-        const { getTopics, location: { pathname }, match: { params: { id, key, by } } } = this.props
+        const {
+            getTopics,
+            location: { pathname },
+            match: {
+                params: { id, key, by },
+            },
+        } = this.props
         getTopics({ id, key, by, pathname, page })
     }
     handleLoadMore() {

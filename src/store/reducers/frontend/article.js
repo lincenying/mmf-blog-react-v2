@@ -31,7 +31,9 @@ const reducers = {
 
 export const getArticleItem = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('frontend/article/item', config)
+        const {
+            data: { data, code },
+        } = await api.get('frontend/article/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveArticleItem',

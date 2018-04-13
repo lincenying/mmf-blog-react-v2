@@ -73,7 +73,9 @@ export default class ArticleInsert extends Component {
             return
         }
         this.setState({ content }, async () => {
-            const { data: { message, code, data } } = await api.post('backend/article/insert', this.state)
+            const {
+                data: { message, code, data },
+            } = await api.post('backend/article/insert', this.state)
             if (code === 200) {
                 setMessage({ type: 'success', content: message })
                 this.props.dispatch({ type: 'insertArticleItem', item: data })

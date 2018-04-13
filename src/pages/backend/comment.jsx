@@ -25,18 +25,24 @@ export default class Comment extends Component {
         this.state = {}
     }
     componentWillMount() {
-        const { comment: { pathname } } = this.props
+        const {
+            comment: { pathname },
+        } = this.props
         if (pathname !== this.props.location.pathname) this.getCommentList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message } } = await api.get('backend/comment/recover', { id })
+        const {
+            data: { code, message },
+        } = await api.get('backend/comment/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'recoverComment', id })
         }
     }
     async handleDelete(id) {
-        const { data: { code, message } } = await api.get('backend/comment/delete', { id })
+        const {
+            data: { code, message },
+        } = await api.get('backend/comment/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'deleteComment', id })
@@ -46,7 +52,13 @@ export default class Comment extends Component {
         this.getCommentList()
     }
     getCommentList(page) {
-        const { comment: { lists }, location: { pathname }, match: { params: { id } } } = this.props
+        const {
+            comment: { lists },
+            location: { pathname },
+            match: {
+                params: { id },
+            },
+        } = this.props
         page = page || lists.page
         this.props.getCommentList({ id, page, pathname })
     }

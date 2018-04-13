@@ -31,7 +31,9 @@ export default class AdminList extends Component {
         this.getAdminList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message } } = await api.get('backend/admin/recover', {
+        const {
+            data: { code, message },
+        } = await api.get('backend/admin/recover', {
             id,
         })
         if (code === 200) {
@@ -40,7 +42,9 @@ export default class AdminList extends Component {
         }
     }
     async handleDelete(id) {
-        const { data: { code, message } } = await api.get('backend/admin/delete', {
+        const {
+            data: { code, message },
+        } = await api.get('backend/admin/delete', {
             id,
         })
         if (code === 200) {
@@ -52,7 +56,10 @@ export default class AdminList extends Component {
         this.getAdminList()
     }
     getAdminList(page) {
-        const { admin: { lists }, location: { pathname } } = this.props
+        const {
+            admin: { lists },
+            location: { pathname },
+        } = this.props
         page = page || lists.page
         this.props.getAdminList({ page, pathname })
     }

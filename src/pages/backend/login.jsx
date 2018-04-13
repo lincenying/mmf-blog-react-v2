@@ -20,7 +20,9 @@ export default class Login extends Component {
             setMessage('请输入用户名和密码!')
             return
         }
-        const { data: { data, code } } = await api.post('backend/admin/login', this.state)
+        const {
+            data: { data, code },
+        } = await api.post('backend/admin/login', this.state)
         if (data && code === 200) {
             this.props.history.push('/backend/article/list')
         }

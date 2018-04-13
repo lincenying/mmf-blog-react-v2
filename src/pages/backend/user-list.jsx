@@ -31,7 +31,9 @@ export default class UserList extends Component {
         this.getUserList(1)
     }
     async handleRecover(id) {
-        const { data: { code, message } } = await api.get('backend/user/recover', {
+        const {
+            data: { code, message },
+        } = await api.get('backend/user/recover', {
             id,
         })
         if (code === 200) {
@@ -40,7 +42,9 @@ export default class UserList extends Component {
         }
     }
     async handleDelete(id) {
-        const { data: { code, message } } = await api.get('backend/user/delete', {
+        const {
+            data: { code, message },
+        } = await api.get('backend/user/delete', {
             id,
         })
         if (code === 200) {
@@ -52,7 +56,10 @@ export default class UserList extends Component {
         this.getUserList()
     }
     getUserList(page) {
-        const { user: { lists }, location: { pathname } } = this.props
+        const {
+            user: { lists },
+            location: { pathname },
+        } = this.props
         page = page || lists.page
         this.props.getUserList({ page, pathname })
     }

@@ -28,7 +28,9 @@ export default class CategoryModify extends Component {
             setMessage('请将表单填写完整!')
             return
         }
-        const { data: { message, code, data } } = await api.post('backend/category/insert', this.state)
+        const {
+            data: { message, code, data },
+        } = await api.post('backend/category/insert', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'insertCategoryItem', item: data })

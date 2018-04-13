@@ -25,7 +25,10 @@ export default class About extends Component {
         this.state = {}
     }
     componentWillMount() {
-        const { trending: { data }, getTrending } = this.props
+        const {
+            trending: { data },
+            getTrending,
+        } = this.props
         if (data.length === 0) getTrending()
     }
     render() {

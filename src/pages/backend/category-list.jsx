@@ -22,11 +22,16 @@ export default class CategoryList extends Component {
         super(props)
     }
     componentWillMount() {
-        const { category: { lists }, getCategoryList } = this.props
+        const {
+            category: { lists },
+            getCategoryList,
+        } = this.props
         if (lists.length === 0) getCategoryList()
     }
     render() {
-        const { category: { lists } } = this.props
+        const {
+            category: { lists },
+        } = this.props
         const html = lists.map(item => {
             return (
                 <div key={item._id} className="list-section">

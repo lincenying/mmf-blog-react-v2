@@ -37,7 +37,14 @@ export default class FrontendComment extends Component {
         if (comment.lists.pathname !== this.props.location.pathname) this.handleGetComment(1)
     }
     handleGetComment(page) {
-        const { comment, getCommentList, location: { pathname }, match: { params: { id } } } = this.props
+        const {
+            comment,
+            getCommentList,
+            location: { pathname },
+            match: {
+                params: { id },
+            },
+        } = this.props
         page = page || comment.lists.page
         getCommentList({ id, pathname, limit: 10, page })
     }
@@ -49,7 +56,9 @@ export default class FrontendComment extends Component {
         } else if (this.state.content === '') {
             setMessage('请输入评论内容!')
         } else {
-            const { data: { code, data } } = await api.post('frontend/comment/insert', {
+            const {
+                data: { code, data },
+            } = await api.post('frontend/comment/insert', {
                 ...this.state,
                 id: this.props.match.params.id,
             })

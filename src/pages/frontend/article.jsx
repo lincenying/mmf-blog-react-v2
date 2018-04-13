@@ -49,7 +49,13 @@ export default class Article extends Component {
         if (pathname !== prevPathname) this.handlefetchArticle()
     }
     async handlefetchArticle() {
-        const { getArticleItem, match: { params: { id } }, location: { pathname } } = this.props
+        const {
+            getArticleItem,
+            match: {
+                params: { id },
+            },
+            location: { pathname },
+        } = this.props
         await getArticleItem({ id, pathname })
     }
     render() {

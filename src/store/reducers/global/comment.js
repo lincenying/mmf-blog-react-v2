@@ -60,7 +60,9 @@ const reducers = {
 
 export const getCommentList = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('frontend/comment/list', config)
+        const {
+            data: { data, code },
+        } = await api.get('frontend/comment/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'recevieCommentList',

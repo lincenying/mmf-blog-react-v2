@@ -25,7 +25,9 @@ export default class ItemActions extends Component {
         }
         let url = 'frontend/like'
         if (item.like_status) url = 'frontend/unlike'
-        const { data: { code, message } } = await api.get(url, { id: item._id })
+        const {
+            data: { code, message },
+        } = await api.get(url, { id: item._id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             dispatch({ type: 'updateTopicsLikeState', payload: item._id })

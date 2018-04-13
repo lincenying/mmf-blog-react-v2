@@ -79,7 +79,9 @@ const reducers = {
 
 export const getAdminList = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/admin/list', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/admin/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveAdminList',
@@ -92,7 +94,9 @@ export const getAdminList = config => {
 }
 export const getAdminItem = config => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('backend/admin/item', config)
+        const {
+            data: { data, code },
+        } = await api.get('backend/admin/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveAdminItem',

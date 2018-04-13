@@ -30,7 +30,9 @@ const reducers = {
 
 export const getTrending = () => {
     return async dispatch => {
-        const { data: { data, code } } = await api.get('frontend/trending')
+        const {
+            data: { data, code },
+        } = await api.get('frontend/trending')
         if (data && code === 200) {
             return dispatch({
                 type: 'receiveTrending',

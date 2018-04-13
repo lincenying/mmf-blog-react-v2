@@ -25,7 +25,9 @@ export default class UserPassword extends Component {
             setMessage('两次密码输入不一致!')
             return
         }
-        const { data: { code, data } } = await api.post('frontend/user/password', this.state)
+        const {
+            data: { code, data },
+        } = await api.post('frontend/user/password', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: data })
             this.setState({

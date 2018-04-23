@@ -50,23 +50,9 @@ const config = {
         rules: [
             {
                 test: /\.js|\.jsx$/,
-                loader: 'eslint-loader',
-                enforce: 'pre',
-                include: srcPath
-            },
-            {
-                test: /\.js|\.jsx$/,
                 include: srcPath,
                 exclude: /node_modules/,
                 loader: ['babel-loader']
-            },
-            {
-                test: /\.json$/,
-                loader: 'json-loader'
-            },
-            {
-                test: /\.(mp4|webm)$/,
-                loader: 'url-loader?limit=10000'
             }
         ]
     },

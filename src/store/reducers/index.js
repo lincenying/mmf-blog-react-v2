@@ -21,5 +21,5 @@ export default combineReducers({
     backendAdmin,
     backendArticle,
     backendUser,
-    routing: routerReducer,
+    routing: routerReducer
 })

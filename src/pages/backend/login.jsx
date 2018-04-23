@@ -11,7 +11,7 @@ export default class Login extends Component {
         super(props)
         this.state = {
             username: '',
-            password: '',
+            password: ''
         }
         this.handleLogin = this.handleLogin.bind(this)
     }
@@ -21,7 +21,7 @@ export default class Login extends Component {
             return
         }
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.post('backend/admin/login', this.state)
         if (data && code === 200) {
             this.props.history.push('/backend/article/list')

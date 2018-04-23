@@ -4,14 +4,14 @@ import api from '~api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
-    data: [],
+    data: []
 })
 
 const reducers = {
     ['receiveTrending']: (state, action) => {
         const { data } = action
         return state.merge({
-            data,
+            data
         })
     },
     ['updateTrendingLikeState']: (state, action) => {
@@ -23,20 +23,20 @@ const reducers = {
             obj.like_status = !obj.like_status
         }
         return state.mergeDeep({
-            data,
+            data
         })
-    },
+    }
 }
 
 export const getTrending = () => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('frontend/trending')
         if (data && code === 200) {
             return dispatch({
                 type: 'receiveTrending',
-                data: data.list,
+                data: data.list
             })
         }
         return dispatch(errConfig)

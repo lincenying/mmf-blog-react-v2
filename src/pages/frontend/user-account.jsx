@@ -13,7 +13,7 @@ export default class UserAccount extends Component {
         super(props)
         this.state = {
             username: '',
-            email: '',
+            email: ''
         }
         this.getUser = this.getUser.bind(this)
     }
@@ -22,12 +22,12 @@ export default class UserAccount extends Component {
     }
     async getUser() {
         const {
-            data: { code, data },
+            data: { code, data }
         } = await api.get('frontend/user/account')
         if (code === 200) {
             this.setState({
                 username: data.username,
-                email: data.email,
+                email: data.email
             })
         }
     }

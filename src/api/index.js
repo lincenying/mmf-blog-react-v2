@@ -25,8 +25,8 @@ function checkStatus(response) {
         data: {
             code: -404,
             message: response.statusText,
-            data: response.statusText,
-        },
+            data: response.statusText
+        }
     }
 }
 
@@ -50,8 +50,8 @@ export default {
             timeout: config.timeout,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-            },
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
         })
             .then(checkStatus)
             .then(checkCode)
@@ -63,10 +63,10 @@ export default {
             params,
             timeout: config.timeout,
             headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-            },
+                'X-Requested-With': 'XMLHttpRequest'
+            }
         })
             .then(checkStatus)
             .then(checkCode)
-    },
+    }
 }

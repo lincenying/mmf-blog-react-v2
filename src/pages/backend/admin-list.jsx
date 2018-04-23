@@ -9,7 +9,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        admin: state.backendAdmin.toJS(),
+        admin: state.backendAdmin.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -32,9 +32,9 @@ export default class AdminList extends Component {
     }
     async handleRecover(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/admin/recover', {
-            id,
+            id
         })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -43,9 +43,9 @@ export default class AdminList extends Component {
     }
     async handleDelete(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/admin/delete', {
-            id,
+            id
         })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -58,7 +58,7 @@ export default class AdminList extends Component {
     getAdminList(page) {
         const {
             admin: { lists },
-            location: { pathname },
+            location: { pathname }
         } = this.props
         page = page || lists.page
         this.props.getAdminList({ page, pathname })

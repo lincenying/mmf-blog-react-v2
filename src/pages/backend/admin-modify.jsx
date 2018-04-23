@@ -10,7 +10,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        admin: state.backendAdmin.toJS(),
+        admin: state.backendAdmin.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -27,7 +27,7 @@ export default class AdminModify extends Component {
         this.state = {
             username: username || '',
             email: email || '',
-            password: '',
+            password: ''
         }
         this.handleModify = this.handleModify.bind(this)
     }
@@ -47,10 +47,10 @@ export default class AdminModify extends Component {
         }
         const item = {
             ...this.state,
-            id: this.props.match.params.id,
+            id: this.props.match.params.id
         }
         const {
-            data: { message, code, data },
+            data: { message, code, data }
         } = await api.post('backend/admin/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })

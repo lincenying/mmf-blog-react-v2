@@ -9,7 +9,7 @@ import cookies from 'js-cookie'
 
 function mapStateToProps(state) {
     return {
-        global: state.global.toJS(),
+        global: state.global.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -23,7 +23,7 @@ export default class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLogin: cookies.get('user'),
+            isLogin: cookies.get('user')
         }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleSearch = this.handleSearch.bind(this)

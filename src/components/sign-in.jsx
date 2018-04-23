@@ -8,7 +8,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        global: state.global.toJS(),
+        global: state.global.toJS()
     }
 }
 
@@ -20,7 +20,7 @@ class signIn extends Component {
         super(props)
         this.state = {
             username: '',
-            password: '',
+            password: ''
         }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
@@ -32,7 +32,7 @@ class signIn extends Component {
             return
         }
         const {
-            data: { message, code },
+            data: { message, code }
         } = await api.post('frontend/user/login', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })

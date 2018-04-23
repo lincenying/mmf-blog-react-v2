@@ -6,7 +6,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        global: state.global.toJS(),
+        global: state.global.toJS()
     }
 }
 
@@ -19,7 +19,7 @@ class signUp extends Component {
             username: '',
             email: '',
             password: '',
-            re_password: '',
+            re_password: ''
         }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleRegister = this.handleRegister.bind(this)
@@ -44,7 +44,7 @@ class signUp extends Component {
             return
         }
         const {
-            data: { message, code },
+            data: { message, code }
         } = await api.post('frontend/user/insert', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })

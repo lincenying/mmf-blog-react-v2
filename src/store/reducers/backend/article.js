@@ -9,8 +9,8 @@ const initStates = fromJS({
         path: '',
         hasNext: 0,
         hasPrev: 0,
-        page: 1,
-    },
+        page: 1
+    }
 })
 
 const reducers = {
@@ -28,8 +28,8 @@ const reducers = {
                 hasNext,
                 hasPrev,
                 page: page + 1,
-                pathname,
-            },
+                pathname
+            }
         })
     },
     ['insertArticleItem']: (state, { item }) => {
@@ -37,8 +37,8 @@ const reducers = {
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data,
-            },
+                data
+            }
         })
     },
     ['updateArticleItem']: (state, { data }) => {
@@ -58,19 +58,19 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({ lists })
-    },
+    }
 }
 
 export const getArticleList = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveBackendArticleList',
                 ...data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)
@@ -80,12 +80,12 @@ export const getArticleList = config => {
 export const deleteArticle = config => {
     return async dispatch => {
         const {
-            data: { code },
+            data: { code }
         } = await api.get('backend/article/delete', config)
         if (code === 200) {
             return dispatch({
                 type: 'deleteArticle',
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)
@@ -94,12 +94,12 @@ export const deleteArticle = config => {
 export const recoverArticle = config => {
     return async dispatch => {
         const {
-            data: { code },
+            data: { code }
         } = await api.get('backend/article/recover', config)
         if (code === 200) {
             return dispatch({
                 type: 'recoverArticle',
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)

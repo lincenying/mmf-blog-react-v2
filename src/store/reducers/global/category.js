@@ -5,20 +5,20 @@ import { errConfig } from '../global'
 
 const initStates = fromJS({
     lists: [],
-    item: {},
+    item: {}
 })
 
 const reducers = {
     ['receiveCategoryList']: (state, action) => {
         const { data } = action
         return state.mergeDeep({
-            lists: data,
+            lists: data
         })
     },
     ['receiveCategoryItem']: (state, action) => {
         const { data } = action
         return state.mergeDeep({
-            item: data,
+            item: data
         })
     },
     ['insertCategoryItem']: (state, { item }) => {
@@ -26,8 +26,8 @@ const reducers = {
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data,
-            },
+                data
+            }
         })
     },
     ['updateCategoryItem']: (state, { data }) => {
@@ -38,20 +38,20 @@ const reducers = {
         }
         return state.mergeDeep({
             lists,
-            item: data,
+            item: data
         })
-    },
+    }
 }
 
 export const getCategoryList = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/category/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryList',
-                data: data.list,
+                data: data.list
             })
         }
         return dispatch(errConfig)
@@ -60,12 +60,12 @@ export const getCategoryList = config => {
 export const getCategoryItem = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/category/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryItem',
-                data,
+                data
             })
         }
         return dispatch(errConfig)

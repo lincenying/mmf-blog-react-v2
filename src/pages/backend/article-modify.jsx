@@ -11,7 +11,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().lists,
+        category: state.category.toJS().lists
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -30,7 +30,7 @@ export default class ArticleModify extends Component {
             category: '',
             category_name: '',
             category_old: '',
-            content: '',
+            content: ''
         }
         this.handleModify = this.handleModify.bind(this)
         this.handleChange = this.handleChange.bind(this)
@@ -44,7 +44,7 @@ export default class ArticleModify extends Component {
                     category: data.category,
                     category_name: data.category_name,
                     category_old: data.category,
-                    content: data.content,
+                    content: data.content
                 })
                 // eslint-disable-next-line
                 window.postEditor = editormd("post-content", {
@@ -71,11 +71,11 @@ export default class ArticleModify extends Component {
                             '|',
                             'watch',
                             'preview',
-                            'fullscreen',
+                            'fullscreen'
                         ]
                     },
                     watch: false,
-                    saveHTMLToTextarea: true,
+                    saveHTMLToTextarea: true
                 })
             }
         })
@@ -89,10 +89,10 @@ export default class ArticleModify extends Component {
         }
         this.setState({ content }, async () => {
             const {
-                data: { message, code, data },
+                data: { message, code, data }
             } = await api.post('backend/article/modify', {
                 ...this.state,
-                id: this.props.match.params.id,
+                id: this.props.match.params.id
             })
             if (code === 200) {
                 setMessage({ type: 'success', content: message })

@@ -7,7 +7,7 @@ import { getCategoryList } from '~reducers/global/category'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS(),
+        category: state.category.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -24,13 +24,13 @@ export default class CategoryList extends Component {
     componentWillMount() {
         const {
             category: { lists },
-            getCategoryList,
+            getCategoryList
         } = this.props
         if (lists.length === 0) getCategoryList()
     }
     render() {
         const {
-            category: { lists },
+            category: { lists }
         } = this.props
         const html = lists.map(item => {
             return (

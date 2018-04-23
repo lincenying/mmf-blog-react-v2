@@ -9,7 +9,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        comment: state.comment.toJS(),
+        comment: state.comment.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -26,13 +26,13 @@ export default class Comment extends Component {
     }
     componentWillMount() {
         const {
-            comment: { pathname },
+            comment: { pathname }
         } = this.props
         if (pathname !== this.props.location.pathname) this.getCommentList(1)
     }
     async handleRecover(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/comment/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -41,7 +41,7 @@ export default class Comment extends Component {
     }
     async handleDelete(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/comment/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -56,8 +56,8 @@ export default class Comment extends Component {
             comment: { lists },
             location: { pathname },
             match: {
-                params: { id },
-            },
+                params: { id }
+            }
         } = this.props
         page = page || lists.page
         this.props.getCommentList({ id, page, pathname })

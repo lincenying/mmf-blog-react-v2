@@ -6,7 +6,7 @@ import { errConfig } from '../global'
 const initStates = fromJS({
     data: {},
     pathname: '',
-    isLoad: false,
+    isLoad: false
 })
 
 const reducers = {
@@ -15,7 +15,7 @@ const reducers = {
         return state.merge({
             data,
             pathname,
-            isLoad: true,
+            isLoad: true
         })
     },
     ['updateArticleLikeState']: state => {
@@ -23,22 +23,22 @@ const reducers = {
         return state.mergeDeep({
             data: {
                 like_status: !like_status,
-                like: like_status ? like - 1 : like + 1,
-            },
+                like: like_status ? like - 1 : like + 1
+            }
         })
-    },
+    }
 }
 
 export const getArticleItem = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('frontend/article/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveArticleItem',
                 data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)

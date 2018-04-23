@@ -9,7 +9,7 @@ import api from '~api'
 
 function mapStateToProps(state) {
     return {
-        user: state.backendUser.toJS(),
+        user: state.backendUser.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -32,9 +32,9 @@ export default class UserList extends Component {
     }
     async handleRecover(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/user/recover', {
-            id,
+            id
         })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -43,9 +43,9 @@ export default class UserList extends Component {
     }
     async handleDelete(id) {
         const {
-            data: { code, message },
+            data: { code, message }
         } = await api.get('backend/user/delete', {
-            id,
+            id
         })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
@@ -58,7 +58,7 @@ export default class UserList extends Component {
     getUserList(page) {
         const {
             user: { lists },
-            location: { pathname },
+            location: { pathname }
         } = this.props
         page = page || lists.page
         this.props.getUserList({ page, pathname })

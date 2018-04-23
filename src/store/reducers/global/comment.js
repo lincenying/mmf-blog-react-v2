@@ -8,8 +8,8 @@ const initStates = fromJS({
         data: [],
         hasNext: 0,
         page: 1,
-        pathname: '',
-    },
+        pathname: ''
+    }
 })
 
 const reducers = {
@@ -27,8 +27,8 @@ const reducers = {
                 hasNext,
                 hasPrev,
                 page: page + 1,
-                pathname,
-            },
+                pathname
+            }
         })
     },
     ['insertCommentItem']: (state, { item }) => {
@@ -36,8 +36,8 @@ const reducers = {
         const data = [item].concat(lists.data)
         return state.mergeDeep({
             lists: {
-                data,
-            },
+                data
+            }
         })
     },
     ['deleteComment']: (state, { id }) => {
@@ -45,7 +45,7 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({
-            lists,
+            lists
         })
     },
     ['recoverComment']: (state, { id }) => {
@@ -53,21 +53,21 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({
-            lists,
+            lists
         })
-    },
+    }
 }
 
 export const getCommentList = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('frontend/comment/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'recevieCommentList',
                 ...data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)

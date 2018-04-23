@@ -17,7 +17,7 @@ function mapStateToProps(state) {
     return {
         article: state.article.toJS(),
         category: state.category.toJS(),
-        trending: state.trending.toJS(),
+        trending: state.trending.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -52,9 +52,9 @@ export default class Article extends Component {
         const {
             getArticleItem,
             match: {
-                params: { id },
+                params: { id }
             },
-            location: { pathname },
+            location: { pathname }
         } = this.props
         await getArticleItem({ id, pathname })
     }
@@ -89,7 +89,7 @@ export default class Article extends Component {
                             <div
                                 className="article-content markdown-body"
                                 dangerouslySetInnerHTML={{
-                                    __html: addTarget(article.data.html),
+                                    __html: addTarget(article.data.html)
                                 }}
                             />
                         </div>

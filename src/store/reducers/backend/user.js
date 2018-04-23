@@ -9,12 +9,12 @@ const initStates = fromJS({
         hasPrev: false,
         pathname: '',
         page: 1,
-        data: [],
+        data: []
     },
     item: {
         data: {},
-        pathname: '',
-    },
+        pathname: ''
+    }
 })
 
 const reducers = {
@@ -33,17 +33,17 @@ const reducers = {
                 hasNext,
                 hasPrev,
                 page: page + 1,
-                pathname,
+                pathname
             },
-            item: oldState.item,
+            item: oldState.item
         })
     },
     ['receiveUserItem']: (state, { data, pathname }) => {
         return state.mergeDeep({
             item: {
                 data,
-                pathname,
-            },
+                pathname
+            }
         })
     },
     ['updateUserItem']: (state, { data }) => {
@@ -55,8 +55,8 @@ const reducers = {
         return state.mergeDeep({
             lists,
             item: {
-                data: item,
-            },
+                data: item
+            }
         })
     },
     ['deleteUser']: (state, { id }) => {
@@ -64,7 +64,7 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({
-            lists,
+            lists
         })
     },
     ['recoverUser']: (state, { id }) => {
@@ -72,21 +72,21 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({
-            lists,
+            lists
         })
-    },
+    }
 }
 
 export const getUserList = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/user/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserList',
                 ...data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)
@@ -95,13 +95,13 @@ export const getUserList = config => {
 export const getUserItem = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/user/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserItem',
                 data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)

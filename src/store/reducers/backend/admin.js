@@ -9,12 +9,12 @@ const initStates = fromJS({
         hasPrev: false,
         pathname: '',
         page: 1,
-        data: [],
+        data: []
     },
     item: {
         data: {},
-        pathname: '',
-    },
+        pathname: ''
+    }
 })
 
 const reducers = {
@@ -33,17 +33,17 @@ const reducers = {
                 hasNext,
                 hasPrev,
                 page: page + 1,
-                pathname,
+                pathname
             },
-            item: oldState.item,
+            item: oldState.item
         })
     },
     ['receiveAdminItem']: (state, { data, pathname }) => {
         return state.mergeDeep({
             item: {
                 data,
-                pathname,
-            },
+                pathname
+            }
         })
     },
     ['updateAdminItem']: (state, { data }) => {
@@ -55,8 +55,8 @@ const reducers = {
         return state.mergeDeep({
             lists,
             item: {
-                data: item,
-            },
+                data: item
+            }
         })
     },
     ['deleteAdmin']: (state, { id }) => {
@@ -64,7 +64,7 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
         return state.mergeDeep({
-            lists,
+            lists
         })
     },
     ['recoverAdmin']: (state, { id }) => {
@@ -72,21 +72,21 @@ const reducers = {
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
         return state.mergeDeep({
-            lists,
+            lists
         })
-    },
+    }
 }
 
 export const getAdminList = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/admin/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveAdminList',
                 ...data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)
@@ -95,13 +95,13 @@ export const getAdminList = config => {
 export const getAdminItem = config => {
     return async dispatch => {
         const {
-            data: { data, code },
+            data: { data, code }
         } = await api.get('backend/admin/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveAdminItem',
                 data,
-                ...config,
+                ...config
             })
         }
         return dispatch(errConfig)

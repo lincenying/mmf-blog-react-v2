@@ -9,9 +9,7 @@ var opn = require('opn')
 // TODO: hide this behind a flag and eliminate dead code on eject.
 // This shouldn't be exposed to the user.
 var handleCompile
-var isSmokeTest = process.argv.some(arg =>
-    arg.indexOf('--smoke-test') > -1
-)
+var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1)
 if (isSmokeTest) {
     handleCompile = function(err, stats) {
         if (err || stats.hasErrors() || stats.hasWarnings()) {
@@ -32,23 +30,25 @@ function isLikelyASyntaxError(message) {
 // It would be easier if webpack provided a rich error object.
 
 function formatMessage(message) {
-    return message
-        // Make some common errors shorter:
-        .replace(
-            // Babel syntax error
-            'Module build failed: SyntaxError:',
-            friendlySyntaxErrorLabel
-        )
-        .replace(
-            // Webpack file not found error
-            /Module not found: Error: Cannot resolve 'file' or 'directory'/,
-            'Module not found:'
-        )
-        // Internal stacks are generally useless so we strip them
-         // at ... ...:x:y
-        .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
-        // Webpack loader names obscure CSS filenames
-        .replace('./~/css-loader!./~/postcss-loader!', '')
+    return (
+        message
+            // Make some common errors shorter:
+            .replace(
+                // Babel syntax error
+                'Module build failed: SyntaxError:',
+                friendlySyntaxErrorLabel
+            )
+            .replace(
+                // Webpack file not found error
+                /Module not found: Error: Cannot resolve 'file' or 'directory'/,
+                'Module not found:'
+            )
+            // Internal stacks are generally useless so we strip them
+            // at ... ...:x:y
+            .replace(/^\s*at\s.*:\d+:\d+[\s\)]*\n/gm, '')
+            // Webpack loader names obscure CSS filenames
+            .replace('./~/css-loader!./~/postcss-loader!', '')
+    )
 }
 
 function clearConsole() {
@@ -73,12 +73,8 @@ compiler.plugin('done', function(stats) {
     }
 
     var json = stats.toJson()
-    var formattedErrors = json.errors.map(message =>
-        'Error in ' + formatMessage(message)
-    )
-    var formattedWarnings = json.warnings.map(message =>
-        'Warning in ' + formatMessage(message)
-    )
+    var formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message))
+    var formattedWarnings = json.warnings.map(message => 'Warning in ' + formatMessage(message))
 
     if (hasErrors) {
         console.log(chalk.red('Failed to compile.'))

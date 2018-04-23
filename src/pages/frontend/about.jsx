@@ -8,7 +8,7 @@ import { getTrending } from '~reducers/frontend/trending'
 
 function mapStateToProps(state) {
     return {
-        trending: state.trending.toJS(),
+        trending: state.trending.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -27,7 +27,7 @@ export default class About extends Component {
     componentWillMount() {
         const {
             trending: { data },
-            getTrending,
+            getTrending
         } = this.props
         if (data.length === 0) getTrending()
     }

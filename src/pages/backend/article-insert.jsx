@@ -10,7 +10,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().lists,
+        category: state.category.toJS().lists
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -27,7 +27,7 @@ export default class ArticleInsert extends Component {
         this.state = {
             title: '',
             category: '',
-            content: '',
+            content: ''
         }
         this.handleInsert = this.handleInsert.bind(this)
     }
@@ -58,11 +58,11 @@ export default class ArticleInsert extends Component {
                     '|',
                     'watch',
                     'preview',
-                    'fullscreen',
+                    'fullscreen'
                 ]
             },
             watch: false,
-            saveHTMLToTextarea: true,
+            saveHTMLToTextarea: true
         })
     }
     handleInsert() {
@@ -74,7 +74,7 @@ export default class ArticleInsert extends Component {
         }
         this.setState({ content }, async () => {
             const {
-                data: { message, code, data },
+                data: { message, code, data }
             } = await api.post('backend/article/insert', this.state)
             if (code === 200) {
                 setMessage({ type: 'success', content: message })

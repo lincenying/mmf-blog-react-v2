@@ -25,8 +25,8 @@ export default class App extends Component {
     static propTypes = {
         location: PropTypes.shape({
             key: PropTypes.string,
-            pathname: PropTypes.string.isRequired,
-        }),
+            pathname: PropTypes.string.isRequired
+        })
     }
     render() {
         return (

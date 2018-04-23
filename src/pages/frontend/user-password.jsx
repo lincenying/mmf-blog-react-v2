@@ -13,7 +13,7 @@ export default class UserPassword extends Component {
         this.state = {
             old_password: '',
             password: '',
-            re_password: '',
+            re_password: ''
         }
         this.handleModify = this.handleModify.bind(this)
     }
@@ -26,14 +26,14 @@ export default class UserPassword extends Component {
             return
         }
         const {
-            data: { code, data },
+            data: { code, data }
         } = await api.post('frontend/user/password', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: data })
             this.setState({
                 old_password: '',
                 password: '',
-                re_password: '',
+                re_password: ''
             })
         }
     }

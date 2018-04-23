@@ -11,7 +11,7 @@ import { getCommentList } from '~reducers/global/comment'
 
 function mapStateToProps(state) {
     return {
-        comment: state.comment.toJS(),
+        comment: state.comment.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -26,7 +26,7 @@ export default class FrontendComment extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            content: '',
+            content: ''
         }
         this.handleGetComment = this.handleGetComment.bind(this)
         this.handleReply = this.handleReply.bind(this)
@@ -42,8 +42,8 @@ export default class FrontendComment extends Component {
             getCommentList,
             location: { pathname },
             match: {
-                params: { id },
-            },
+                params: { id }
+            }
         } = this.props
         page = page || comment.lists.page
         getCommentList({ id, pathname, limit: 10, page })
@@ -57,16 +57,16 @@ export default class FrontendComment extends Component {
             setMessage('请输入评论内容!')
         } else {
             const {
-                data: { code, data },
+                data: { code, data }
             } = await api.post('frontend/comment/insert', {
                 ...this.state,
-                id: this.props.match.params.id,
+                id: this.props.match.params.id
             })
             if (code === 200) {
                 this.setState({ content: '' })
                 setMessage({
                     content: '评论发布成功!',
-                    type: 'success',
+                    type: 'success'
                 })
                 this.props.dispatch({ type: 'insertCommentItem', item: data })
             }

@@ -17,7 +17,7 @@ function mapStateToProps(state) {
     return {
         topics: state.topics.toJS(),
         category: state.category.toJS(),
-        trending: state.trending.toJS(),
+        trending: state.trending.toJS()
     }
 }
 function mapDispatchToProps(dispatch) {
@@ -32,7 +32,7 @@ export default class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            scrollTop: 0,
+            scrollTop: 0
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
         this.onScroll = this.onScroll.bind(this)
@@ -63,8 +63,8 @@ export default class Topics extends Component {
             getTopics,
             location: { pathname },
             match: {
-                params: { id, key, by },
-            },
+                params: { id, key, by }
+            }
         } = this.props
         getTopics({ id, key, by, pathname, page })
     }

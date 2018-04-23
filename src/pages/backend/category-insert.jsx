@@ -7,7 +7,7 @@ import AInput from '~components/_input.jsx'
 
 function mapStateToProps(state) {
     return {
-        category: state.category.toJS().item,
+        category: state.category.toJS().item
     }
 }
 
@@ -19,7 +19,7 @@ export default class CategoryModify extends Component {
         const { cate_name, cate_order } = props.category
         this.state = {
             cate_name,
-            cate_order,
+            cate_order
         }
         this.handleInsert = this.handleInsert.bind(this)
     }
@@ -29,7 +29,7 @@ export default class CategoryModify extends Component {
             return
         }
         const {
-            data: { message, code, data },
+            data: { message, code, data }
         } = await api.post('backend/category/insert', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })

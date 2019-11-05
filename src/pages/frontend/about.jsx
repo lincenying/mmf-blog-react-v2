@@ -16,19 +16,21 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class About extends Component {
+class About extends Component {
     constructor(props) {
         super(props)
         this.state = {}
-    }
-    componentWillMount() {
+
         const {
             trending: { data },
             getTrending
-        } = this.props
+        } = props
         if (data.length === 0) getTrending()
     }
     render() {
@@ -54,11 +56,7 @@ export default class About extends Component {
                                 <div className="flex-item">
                                     <div className="flex-label">Github:</div>
                                     <div className="flex-content">
-                                        <a
-                                            href="https://github.com/lincenying"
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
+                                        <a href="https://github.com/lincenying" target="_blank" rel="noopener noreferrer">
                                             @lincenying
                                         </a>
                                     </div>
@@ -94,3 +92,4 @@ export default class About extends Component {
         )
     }
 }
+export default About

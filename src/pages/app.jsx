@@ -21,7 +21,7 @@ import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
 @withRouter
-export default class App extends Component {
+class App extends Component {
     static propTypes = {
         location: PropTypes.shape({
             key: PropTypes.string,
@@ -33,12 +33,7 @@ export default class App extends Component {
             <div id="app" className={this.props.location.pathname.indexOf('backend') >= 0 ? 'backend' : 'frontend'}>
                 <FrontendNavigation location={this.props.location} history={this.props.history} />
                 <TransitionGroup appear>
-                    <CSSTransition
-                        classNames="example"
-                        in={false}
-                        key={this.props.location.key}
-                        timeout={{ appear: 3000, enter: 3000, exit: 300 }}
-                    >
+                    <CSSTransition classNames="example" in={false} key={this.props.location.key} timeout={{ appear: 3000, enter: 3000, exit: 300 }}>
                         <Switch key={this.props.location.pathname} location={this.props.location}>
                             <Route name="index" path="/" component={Main} exact />
                             <Route name="trending" path="/trending/:by" component={Main} />
@@ -57,3 +52,4 @@ export default class App extends Component {
         )
     }
 }
+export default App

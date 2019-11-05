@@ -25,10 +25,13 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class Topics extends Component {
+class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -36,9 +39,8 @@ export default class Topics extends Component {
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
         this.onScroll = this.onScroll.bind(this)
-    }
-    componentWillMount() {
-        const { category, trending, topics, getTrending, getCategoryList } = this.props
+
+        const { category, trending, topics, getTrending, getCategoryList } = props
         if (topics.pathname !== this.props.location.pathname) this.handlefetchPosts()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
@@ -89,8 +91,9 @@ export default class Topics extends Component {
         } else if (topics.data.length > 0) {
             const lists = topics.data.map(item => <TopicsItem key={item._id} payload={item} />)
             const hasNext = topics.hasNext ? (
-                <a onClick={this.handleLoadMore} href="javascript:;" className="load-more">
-                    更多<i className="icon icon-circle-loading" />
+                <a onClick={this.handleLoadMore} href={null} className="load-more">
+                    更多
+                    <i className="icon icon-circle-loading" />
                 </a>
             ) : (
                 ''
@@ -119,3 +122,4 @@ export default class Topics extends Component {
         )
     }
 }
+export default Topics

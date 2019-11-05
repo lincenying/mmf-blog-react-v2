@@ -2,35 +2,44 @@
     "env": {
         "production": {
             "presets": [
-                ["env", {
+                ["@babel/preset-env", {
                     "targets": {
                         "browsers": ["last 2 version", "ie 10"]
                     },
+                    "useBuiltIns": "usage",
+                    "corejs": 2,
                     "modules": false,
                     "debug": false
-                }], "react"
+                }], "@babel/preset-react"
             ],
             "plugins": [
-                "transform-runtime",
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "babel-plugin-transform-decorators-legacy"
+                ["@babel/plugin-transform-runtime", {
+                    "corejs": 2
+                }],
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                "@babel/plugin-proposal-object-rest-spread"
             ]
         },
         "development": {
             "presets": [
-                ["env", {
+                ["@babel/preset-env", {
                     "targets": {
                         "chrome": 60
                     },
+                    "useBuiltIns": "usage",
+                    "corejs": 2,
                     "modules": false,
-                    "debug": true
-                }], "react"
+                    "debug": false
+                }], "@babel/preset-react"
             ],
             "plugins": [
-                "transform-class-properties",
-                "transform-object-rest-spread",
-                "babel-plugin-transform-decorators-legacy"
+                ["@babel/plugin-transform-runtime", {
+                    "corejs": 2
+                }],
+                ["@babel/plugin-proposal-decorators", { "legacy": true }],
+                ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                "@babel/plugin-proposal-object-rest-spread"
             ]
         }
     }

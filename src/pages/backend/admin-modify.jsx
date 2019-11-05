@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -18,9 +18,12 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class AdminModify extends Component {
+class AdminModify extends Component {
     constructor(props) {
         super(props)
         const { username, email } = props.admin.item.data
@@ -30,9 +33,8 @@ export default class AdminModify extends Component {
             password: ''
         }
         this.handleModify = this.handleModify.bind(this)
-    }
-    componentWillMount() {
-        this.props.getAdminItem({ id: this.props.match.params.id })
+
+        props.getAdminItem({ id: this.props.match.params.id })
     }
     componentDidUpdate(prevProps) {
         const { username, email } = this.props.admin.item.data
@@ -100,7 +102,7 @@ export default class AdminModify extends Component {
                     <Link to="/backend/admin/list" className="btn btn-blue">
                         返回
                     </Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                    <a onClick={this.handleModify} href={null} className="btn btn-yellow">
                         编辑管理员
                     </a>
                 </div>
@@ -108,3 +110,4 @@ export default class AdminModify extends Component {
         )
     }
 }
+export default AdminModify

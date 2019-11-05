@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
 import { propTypes } from '~decorators'
@@ -30,12 +30,16 @@ const addTarget = content => {
     return content.replace(/<a(.*?)href=/g, '<a$1target="_blank" href=')
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class Article extends Component {
-    componentWillMount() {
-        const { article, category, trending, getTrending, getCategoryList } = this.props
+class Article extends Component {
+    constructor(props) {
+        super(props)
+        const { article, category, trending, getTrending, getCategoryList } = props
         if (article.pathname !== this.props.location.pathname) this.handlefetchArticle()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
@@ -118,3 +122,4 @@ export default class Article extends Component {
         )
     }
 }
+export default Article

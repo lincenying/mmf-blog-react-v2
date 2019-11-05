@@ -11,7 +11,11 @@ export function configureCounterStore(initialState) {
     const store = createStore(
         reducers,
         initialState,
-        compose(applyMiddleware(...middleware), DevTools.instrument(), ...enhancers)
+        compose(
+            applyMiddleware(...middleware),
+            DevTools.instrument(),
+            ...enhancers
+        )
     )
     if (module.hot) {
         module.hot.accept('./reducers', () => store.replaceReducer(require('./reducers').default))

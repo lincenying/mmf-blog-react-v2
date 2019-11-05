@@ -8,7 +8,7 @@ import Account from '~components/aside-account.jsx'
 
 @immutableRenderDecorator
 @propTypes({})
-export default class UserAccount extends Component {
+class UserAccount extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -16,8 +16,7 @@ export default class UserAccount extends Component {
             email: ''
         }
         this.getUser = this.getUser.bind(this)
-    }
-    componentWillMount() {
+
         this.getUser()
     }
     async getUser() {
@@ -50,14 +49,7 @@ export default class UserAccount extends Component {
                                     <span className="input-info error">请输入昵称</span>
                                 </AInput>
                                 <AInput title="邮箱">
-                                    <input
-                                        value={this.state.email}
-                                        type="text"
-                                        placeholder="邮箱"
-                                        className="base-input"
-                                        name="email"
-                                        readOnly
-                                    />
+                                    <input value={this.state.email} type="text" placeholder="邮箱" className="base-input" name="email" readOnly />
                                     <span className="input-info error">请输入邮箱</span>
                                 </AInput>
                             </div>
@@ -71,3 +63,4 @@ export default class UserAccount extends Component {
         )
     }
 }
+export default UserAccount

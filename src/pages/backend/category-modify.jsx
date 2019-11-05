@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -18,9 +18,12 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class CategoryModify extends Component {
+class CategoryModify extends Component {
     constructor(props) {
         super(props)
         const { cate_name, cate_order } = props.category
@@ -29,9 +32,8 @@ export default class CategoryModify extends Component {
             cate_order: cate_order || ''
         }
         this.handleModify = this.handleModify.bind(this)
-    }
-    componentWillMount() {
-        this.props.getCategoryItem({ id: this.props.match.params.id })
+
+        props.getCategoryItem({ id: this.props.match.params.id })
     }
     componentDidUpdate(prevProps) {
         const { cate_name, cate_order } = this.props.category
@@ -88,7 +90,7 @@ export default class CategoryModify extends Component {
                     <Link to="/backend/category/list" className="btn btn-blue">
                         返回
                     </Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                    <a onClick={this.handleModify} href={null} className="btn btn-yellow">
                         编辑分类
                     </a>
                 </div>
@@ -96,3 +98,4 @@ export default class CategoryModify extends Component {
         )
     }
 }
+export default CategoryModify

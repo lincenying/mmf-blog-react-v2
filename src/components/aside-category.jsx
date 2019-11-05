@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 
 const AsideCategory = props => {
     const { payload } = props

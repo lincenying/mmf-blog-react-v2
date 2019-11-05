@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -17,17 +17,19 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class UserList extends Component {
+class UserList extends Component {
     constructor(props) {
         super(props)
         this.state = {}
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getUserList = this.getUserList.bind(this)
-    }
-    componentWillMount() {
+
         this.getUserList(1)
     }
     async handleRecover(id) {
@@ -67,11 +69,11 @@ export default class UserList extends Component {
         const { user } = this.props
         const lists = user.lists.data.map((item, index) => {
             const btn = item.is_delete ? (
-                <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleRecover.bind(this, item._id)} href={null}>
                     恢复
                 </a>
             ) : (
-                <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleDelete.bind(this, item._id)} href={null}>
                     删除
                 </a>
             )
@@ -92,7 +94,7 @@ export default class UserList extends Component {
         const next = user.lists.hasNext ? (
             <div className="settings-footer clearfix">
                 {' '}
-                <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">
+                <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多
                 </a>{' '}
             </div>
@@ -115,3 +117,4 @@ export default class UserList extends Component {
         )
     }
 }
+export default UserList

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -15,17 +15,19 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class CategoryList extends Component {
+class CategoryList extends Component {
     constructor(props) {
         super(props)
-    }
-    componentWillMount() {
+
         const {
             category: { lists },
             getCategoryList
-        } = this.props
+        } = props
         if (lists.length === 0) getCategoryList()
     }
     render() {
@@ -59,3 +61,4 @@ export default class CategoryList extends Component {
         )
     }
 }
+export default CategoryList

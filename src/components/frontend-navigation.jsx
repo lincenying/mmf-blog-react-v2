@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 //import Route from 'react-router-dom/Route'
-import Link from 'react-router-dom/Link'
-import NavLink from 'react-router-dom/NavLink'
+import { Link, NavLink } from 'react-router-dom'
 //import withRouter from 'react-router-dom/withRouter'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import cookies from 'js-cookie'
@@ -16,10 +15,13 @@ function mapDispatchToProps(dispatch) {
     return { dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 //@withRouter
-export default class Navigation extends Component {
+class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -46,7 +48,7 @@ export default class Navigation extends Component {
             </span>
         ) : (
             <span className="nav-me">
-                <a onClick={this.handleLogin} href="javascript:;" className="nav-me-link">
+                <a onClick={this.handleLogin} href={null} className="nav-me-link">
                     <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" className="nav-avatar-img" />
                 </a>
             </span>
@@ -77,11 +79,7 @@ export default class Navigation extends Component {
                     <div className="right-part">
                         <span className="nav-search">
                             <i className="icon icon-search-white" />
-                            <input
-                                onKeyUp={this.handleSearch}
-                                placeholder="记得按回车哦"
-                                className="nav-search-input"
-                            />
+                            <input onKeyUp={this.handleSearch} placeholder="记得按回车哦" className="nav-search-input" />
                         </span>
                         {loginText}
                     </div>
@@ -90,3 +88,4 @@ export default class Navigation extends Component {
         )
     }
 }
+export default Navigation

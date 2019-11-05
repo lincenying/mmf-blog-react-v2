@@ -6,7 +6,7 @@ import { setMessage } from '~utils'
 import AInput from '~components/_input.jsx'
 
 @immutableRenderDecorator
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -57,7 +57,7 @@ export default class Login extends Component {
                             </AInput>
                         </div>
                         <div className="settings-footer clearfix">
-                            <a onClick={this.handleLogin} href="javascript:;" className="btn btn-yellow">
+                            <a onClick={this.handleLogin} href={null} className="btn btn-yellow">
                                 登录
                             </a>
                         </div>
@@ -67,3 +67,4 @@ export default class Login extends Component {
         )
     }
 }
+export default Login

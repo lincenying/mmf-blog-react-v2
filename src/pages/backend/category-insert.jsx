@@ -11,9 +11,12 @@ function mapStateToProps(state) {
     }
 }
 
-@connect(mapStateToProps, dispatch => ({ dispatch }))
+@connect(
+    mapStateToProps,
+    dispatch => ({ dispatch })
+)
 @immutableRenderDecorator
-export default class CategoryModify extends Component {
+class CategoryModify extends Component {
     constructor(props) {
         super(props)
         const { cate_name, cate_order } = props.category
@@ -65,7 +68,7 @@ export default class CategoryModify extends Component {
                     </AInput>
                 </div>
                 <div className="settings-footer clearfix">
-                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">
+                    <a onClick={this.handleInsert} href={null} className="btn btn-yellow">
                         添加分类
                     </a>
                 </div>
@@ -73,3 +76,4 @@ export default class CategoryModify extends Component {
         )
     }
 }
+export default CategoryModify

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -19,10 +19,13 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class ArticleModify extends Component {
+class ArticleModify extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -130,12 +133,7 @@ export default class ArticleModify extends Component {
                     </AInput>
                     <AInput title="分类" classes={'select-item-wrap'}>
                         <i className="icon icon-arrow-down" />
-                        <select
-                            value={this.state.category}
-                            onChange={this.handleChange}
-                            className="select-item"
-                            name="category"
-                        >
+                        <select value={this.state.category} onChange={this.handleChange} className="select-item" name="category">
                             <option value="">请选择分类</option>
                             {select}
                         </select>
@@ -143,12 +141,7 @@ export default class ArticleModify extends Component {
                     </AInput>
                     <div className="settings-section">
                         <div id="post-content" className="settings-item-content">
-                            <textarea
-                                id="editor"
-                                name="content"
-                                className="form-control hidden"
-                                data-autosave="editor-content"
-                            />
+                            <textarea id="editor" name="content" className="form-control hidden" data-autosave="editor-content" />
                         </div>
                     </div>
                 </div>
@@ -156,7 +149,7 @@ export default class ArticleModify extends Component {
                     <Link to="/backend/article/list" className="btn btn-blue">
                         返回
                     </Link>
-                    <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                    <a onClick={this.handleModify} href={null} className="btn btn-yellow">
                         编辑文章
                     </a>
                 </div>
@@ -164,3 +157,4 @@ export default class ArticleModify extends Component {
         )
     }
 }
+export default ArticleModify

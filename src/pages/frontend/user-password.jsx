@@ -7,7 +7,7 @@ import Account from '~components/aside-account.jsx'
 import { setMessage } from '~utils'
 
 @immutableRenderDecorator
-export default class UserPassword extends Component {
+class UserPassword extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -76,7 +76,7 @@ export default class UserPassword extends Component {
                                 </AInput>
                             </div>
                             <div className="settings-footer clearfix">
-                                <a onClick={this.handleModify} href="javascript:;" className="btn btn-yellow">
+                                <a onClick={this.handleModify} href={null} className="btn btn-yellow">
                                     保存设置
                                 </a>
                             </div>
@@ -90,3 +90,4 @@ export default class UserPassword extends Component {
         )
     }
 }
+export default UserPassword

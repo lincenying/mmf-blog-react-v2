@@ -10,7 +10,10 @@ function mapStateToProps(state) {
     }
 }
 
-@connect(mapStateToProps, dispatch => ({ dispatch }))
+@connect(
+    mapStateToProps,
+    dispatch => ({ dispatch })
+)
 @immutableRenderDecorator
 class signUp extends Component {
     constructor(props) {
@@ -56,17 +59,11 @@ class signUp extends Component {
     }
     render() {
         return (
-            <div
-                className={
-                    this.props.global.showRegisterModal
-                        ? 'modal-wrap modal-signup-wrap active'
-                        : 'modal-wrap modal-signup-wrap'
-                }
-            >
+            <div className={this.props.global.showRegisterModal ? 'modal-wrap modal-signup-wrap active' : 'modal-wrap modal-signup-wrap'}>
                 <span className="center-helper" />
                 <div className="modal modal-signup">
                     <h2 className="modal-title">注册</h2>
-                    <a onClick={this.handleClose} href="javascript:;" className="modal-close">
+                    <a onClick={this.handleClose} href={null} className="modal-close">
                         <i className="icon icon-close-black" />
                     </a>
                     <div className="modal-content">
@@ -111,10 +108,10 @@ class signUp extends Component {
                                 />
                                 <p className="error-info input-info hidden">长度至少 6 位</p>
                             </div>
-                            <a onClick={this.handleRegister} href="javascript:;" className="btn signup-btn btn-yellow">
+                            <a onClick={this.handleRegister} href={null} className="btn signup-btn btn-yellow">
                                 确认注册
                             </a>
-                            <a onClick={this.handleLogin} href="javascript:;" className="btn signup-btn btn-blue">
+                            <a onClick={this.handleLogin} href={null} className="btn signup-btn btn-blue">
                                 直接登录
                             </a>
                         </div>

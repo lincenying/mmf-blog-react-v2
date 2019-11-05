@@ -17,17 +17,19 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class Comment extends Component {
+class Comment extends Component {
     constructor(props) {
         super(props)
         this.state = {}
-    }
-    componentWillMount() {
+
         const {
             comment: { pathname }
-        } = this.props
+        } = props
         if (pathname !== this.props.location.pathname) this.getCommentList(1)
     }
     async handleRecover(id) {
@@ -66,26 +68,22 @@ export default class Comment extends Component {
         const { comment } = this.props
         const html = comment.lists.data.map(item => {
             const btn = item.is_delete ? (
-                <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleRecover.bind(this, item._id)} href={null}>
                     恢复
                 </a>
             ) : (
-                <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleDelete.bind(this, item._id)} href={null}>
                     删除
                 </a>
             )
             return (
                 <div key={item._id} className="comment-item">
-                    <a href="javascript:;" className="comment-author-avatar-link">
-                        <img
-                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
-                            alt=""
-                            className="avatar-img"
-                        />
+                    <a href={null} className="comment-author-avatar-link">
+                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
-                            <a href="javascript:;" className="comment-author">
+                            <a href={null} className="comment-author">
                                 {item.username}
                             </a>
                         </span>
@@ -101,7 +99,7 @@ export default class Comment extends Component {
         const next = comment.lists.hasNext ? (
             <div className="settings-footer clearfix">
                 {' '}
-                <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">
+                <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多
                 </a>{' '}
             </div>
@@ -118,3 +116,4 @@ export default class Comment extends Component {
         )
     }
 }
+export default Comment

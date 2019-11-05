@@ -18,10 +18,13 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class ArticleInsert extends Component {
+class ArticleInsert extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -120,17 +123,12 @@ export default class ArticleInsert extends Component {
                     </AInput>
                     <div className="settings-section">
                         <div id="post-content" className="settings-item-content">
-                            <textarea
-                                id="editor"
-                                name="content"
-                                className="form-control hidden"
-                                data-autosave="editor-content"
-                            />
+                            <textarea id="editor" name="content" className="form-control hidden" data-autosave="editor-content" />
                         </div>
                     </div>
                 </div>
                 <div className="settings-footer clearfix">
-                    <a onClick={this.handleInsert} href="javascript:;" className="btn btn-yellow">
+                    <a onClick={this.handleInsert} href={null} className="btn btn-yellow">
                         添加文章
                     </a>
                 </div>
@@ -138,3 +136,4 @@ export default class ArticleInsert extends Component {
         )
     }
 }
+export default ArticleInsert

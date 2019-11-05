@@ -1,5 +1,5 @@
 import React from 'react'
-import withRouter from 'react-router-dom/withRouter'
+import { withRouter } from 'react-router-dom'
 
 import SignUp from '~components/sign-up.jsx'
 import SignIn from '~components/sign-in.jsx'

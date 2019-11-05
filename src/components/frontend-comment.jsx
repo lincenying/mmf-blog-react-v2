@@ -19,10 +19,13 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
 @propTypes({})
-export default class FrontendComment extends Component {
+class FrontendComment extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,9 +34,8 @@ export default class FrontendComment extends Component {
         this.handleGetComment = this.handleGetComment.bind(this)
         this.handleReply = this.handleReply.bind(this)
         this.handlePostComment = this.handlePostComment.bind(this)
-    }
-    componentWillMount() {
-        const { comment } = this.props
+
+        const { comment } = props
         if (comment.lists.pathname !== this.props.location.pathname) this.handleGetComment(1)
     }
     handleGetComment(page) {
@@ -81,27 +83,19 @@ export default class FrontendComment extends Component {
         const html = comment.lists.data.map(item => {
             return (
                 <div key={item._id} className="comment-item">
-                    <a href="javascript:;" className="comment-author-avatar-link">
-                        <img
-                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
-                            alt=""
-                            className="avatar-img"
-                        />
+                    <a href={null} className="comment-author-avatar-link">
+                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
-                            <a href="javascript:;" className="comment-author">
+                            <a href={null} className="comment-author">
                                 {item.username}
                             </a>
                         </span>
                         <div className="comment-content">{item.content}</div>
                         <div className="comment-footer">
                             <span className="comment-time">{item.creat_date}</span>
-                            <a
-                                onClick={this.handleReply.bind(this, item)}
-                                href="javascript:;"
-                                className="comment-action-item comment-reply"
-                            >
+                            <a onClick={this.handleReply.bind(this, item)} href={null} className="comment-action-item comment-reply">
                                 回复
                             </a>
                         </div>
@@ -112,7 +106,7 @@ export default class FrontendComment extends Component {
         const hasNext = comment.lists.hasNext ? (
             <div className="load-more-wrap">
                 {' '}
-                <a onClick={this.handleGetComment} href="javascript:;" className="comments-load-more">
+                <a onClick={this.handleGetComment} href={null} className="comments-load-more">
                     加载更多
                 </a>{' '}
             </div>
@@ -124,11 +118,7 @@ export default class FrontendComment extends Component {
                 <div className="comments">
                     <div className="comment-post-wrap">
                         {' '}
-                        <img
-                            src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg"
-                            alt=""
-                            className="avatar-img"
-                        />
+                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
                         <div className="comment-post-input-wrap base-textarea-wrap">
                             <textarea
                                 value={this.state.content}
@@ -140,7 +130,7 @@ export default class FrontendComment extends Component {
                             />
                         </div>
                         <div className="comment-post-actions clearfix">
-                            <a onClick={this.handlePostComment} href="javascript:;" className="btn btn-blue">
+                            <a onClick={this.handlePostComment} href={null} className="btn btn-blue">
                                 发表评论
                             </a>
                         </div>
@@ -152,3 +142,4 @@ export default class FrontendComment extends Component {
         )
     }
 }
+export default FrontendComment

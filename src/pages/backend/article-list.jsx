@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Link from 'react-router-dom/Link'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
@@ -17,9 +17,12 @@ function mapDispatchToProps(dispatch) {
     return { ...actions, dispatch }
 }
 
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(
+    mapStateToProps,
+    mapDispatchToProps
+)
 @immutableRenderDecorator
-export default class ArticleList extends Component {
+class ArticleList extends Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -27,8 +30,7 @@ export default class ArticleList extends Component {
         this.handleDelete = this.handleDelete.bind(this)
         this.getArticleList = this.getArticleList.bind(this)
         this.handleLoadMore = this.handleLoadMore.bind(this)
-    }
-    componentWillMount() {
+
         this.getArticleList(1)
     }
     async handleRecover(id) {
@@ -64,11 +66,11 @@ export default class ArticleList extends Component {
         const { topics } = this.props
         const lists = topics.lists.data.map((item, index) => {
             const btn = item.is_delete ? (
-                <a onClick={this.handleRecover.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleRecover.bind(this, item._id)} href={null}>
                     恢复
                 </a>
             ) : (
-                <a onClick={this.handleDelete.bind(this, item._id)} href="javascript:;">
+                <a onClick={this.handleDelete.bind(this, item._id)} href={null}>
                     删除
                 </a>
             )
@@ -98,7 +100,7 @@ export default class ArticleList extends Component {
         const next = topics.lists.hasNext ? (
             <div className="settings-footer clearfix">
                 {' '}
-                <a onClick={this.handleLoadMore} className="admin-load-more" href="javascript:;">
+                <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多
                 </a>{' '}
             </div>
@@ -121,3 +123,4 @@ export default class ArticleList extends Component {
         )
     }
 }
+export default ArticleList

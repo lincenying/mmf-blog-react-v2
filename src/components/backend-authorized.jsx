@@ -1,6 +1,5 @@
 import React from 'react'
-import Route from 'react-router-dom/Route'
-import Redirect from 'react-router-dom/Redirect'
+import { Route, Redirect } from 'react-router-dom'
 import cookies from 'js-cookie'
 
 export default ({ component: Component, ...rest }) => {

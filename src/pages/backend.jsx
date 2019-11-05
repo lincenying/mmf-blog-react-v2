@@ -41,61 +41,17 @@ const Backend = props => {
                             >
                                 <Switch key={props.location.pathname} location={props.location}>
                                     <Route name="backend" path="/backend" component={Login} exact />
-                                    <MatchWhenAuthorized
-                                        name="admin_list"
-                                        path="/backend/admin/list"
-                                        component={AdminList}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="admin_modify"
-                                        path="/backend/admin/modify/:id"
-                                        component={AdminModify}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="article_insert"
-                                        path="/backend/article/list"
-                                        component={ArticleList}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="article_insert"
-                                        path="/backend/article/insert"
-                                        component={ArticleInsert}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="article_modify"
-                                        path="/backend/article/modify/:id"
-                                        component={ArticleModify}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="article_comment"
-                                        path="/backend/article/comment/:id"
-                                        component={Comment}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="category_list"
-                                        path="/backend/category/list"
-                                        component={CategoryList}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="category_insert"
-                                        path="/backend/category/insert"
-                                        component={CategoryInsert}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="category_modify"
-                                        path="/backend/category/modify/:id"
-                                        component={CategoryModify}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="user_list"
-                                        path="/backend/user/list"
-                                        component={UserList}
-                                    />
-                                    <MatchWhenAuthorized
-                                        name="user_modify"
-                                        path="/backend/user/modify/:id"
-                                        component={UserModify}
-                                    />
+                                    <MatchWhenAuthorized name="admin_list" path="/backend/admin/list" component={AdminList} />
+                                    <MatchWhenAuthorized name="admin_modify" path="/backend/admin/modify/:id" component={AdminModify} />
+                                    <MatchWhenAuthorized name="article_insert" path="/backend/article/list" component={ArticleList} />
+                                    <MatchWhenAuthorized name="article_insert" path="/backend/article/insert" component={ArticleInsert} />
+                                    <MatchWhenAuthorized name="article_modify" path="/backend/article/modify/:id" component={ArticleModify} />
+                                    <MatchWhenAuthorized name="article_comment" path="/backend/article/comment/:id" component={Comment} />
+                                    <MatchWhenAuthorized name="category_list" path="/backend/category/list" component={CategoryList} />
+                                    <MatchWhenAuthorized name="category_insert" path="/backend/category/insert" component={CategoryInsert} />
+                                    <MatchWhenAuthorized name="category_modify" path="/backend/category/modify/:id" component={CategoryModify} />
+                                    <MatchWhenAuthorized name="user_list" path="/backend/user/list" component={UserList} />
+                                    <MatchWhenAuthorized name="user_modify" path="/backend/user/modify/:id" component={UserModify} />
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>

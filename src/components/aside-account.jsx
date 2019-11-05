@@ -1,5 +1,5 @@
 import React from 'react'
-import NavLink from 'react-router-dom/NavLink'
+import { NavLink } from 'react-router-dom'
 import api from '~api'
 
 const handleLogout = async () => {
@@ -12,15 +12,18 @@ const AsideAccount = () => {
         <div className="card card-me">
             <NavLink to="/user/account" activeClassName="active" className="side-entry">
                 <i className="icon icon-arrow-right" />
-                <i className="icon icon-articles" />帐号
+                <i className="icon icon-articles" />
+                帐号
             </NavLink>
             <NavLink to="/user/password" activeClassName="active" className="side-entry">
                 <i className="icon icon-arrow-right" />
-                <i className="icon icon-articles" />密码
+                <i className="icon icon-articles" />
+                密码
             </NavLink>
-            <a href="javascript:;" onClick={handleLogout} className="side-entry">
+            <a href={null} onClick={handleLogout} className="side-entry">
                 <i className="icon icon-arrow-right" />
-                <i className="icon icon-articles" />退出
+                <i className="icon icon-articles" />
+                退出
             </a>
         </div>
     )

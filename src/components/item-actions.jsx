@@ -6,9 +6,12 @@ import cookies from 'js-cookie'
 import api from '~api'
 import { setMessage } from '~utils'
 
-@connect('', dispatch => ({ dispatch }))
+@connect(
+    '',
+    dispatch => ({ dispatch })
+)
 @immutableRenderDecorator
-export default class ItemActions extends Component {
+class ItemActions extends Component {
     constructor(props) {
         super(props)
         this.state = {}
@@ -46,34 +49,26 @@ export default class ItemActions extends Component {
                 '&url=' +
                 encodeURIComponent(url),
             '分享至新浪微博',
-            'height=500, width=600, top=' +
-                top +
-                ', left=' +
-                left +
-                ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no'
+            'height=500, width=600, top=' + top + ', left=' + left + ', toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no'
         )
     }
     render() {
         const item = this.props.item
         return (
             <div className="actions-wrap">
-                <a
-                    onClick={this.handleLike}
-                    href="javascript:;"
-                    className={item.like_status ? 'action-item active' : 'action-item'}
-                >
+                <a onClick={this.handleLike} href={null} className={item.like_status ? 'action-item active' : 'action-item'}>
                     <i className={item.like_status ? 'icon icon-action-voteup-active' : 'icon icon-action-voteup'} />
                     <span className="text">{item.like} 赞</span>
                 </a>
-                <a href="javascript:;" className="action-item">
+                <a href={null} className="action-item">
                     <i className="icon icon-action-comment" />
                     <span className="text">{item.comment_count} 评论</span>
                 </a>
-                <a href="javascript:;" className="action-item action-item-fav">
+                <a href={null} className="action-item action-item-fav">
                     <i className="icon icon-action-fav" />
                     <span className="text">{item.visit} 浏览</span>
                 </a>
-                <a onClick={this.handleShare} href="javascript:;" className="action-item">
+                <a onClick={this.handleShare} href={null} className="action-item">
                     <i className="icon icon-action-share" />
                     <span className="text">分享</span>
                 </a>
@@ -81,3 +76,4 @@ export default class ItemActions extends Component {
         )
     }
 }
+export default ItemActions

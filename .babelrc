@@ -7,14 +7,14 @@
                         "browsers": ["last 2 version", "ie 10"]
                     },
                     "useBuiltIns": "usage",
-                    "corejs": 2,
+                    "corejs": 3,
                     "modules": false,
                     "debug": false
                 }], "@babel/preset-react"
             ],
             "plugins": [
                 ["@babel/plugin-transform-runtime", {
-                    "corejs": 2
+                    "corejs": 3
                 }],
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 ["@babel/plugin-proposal-class-properties", { "loose": true }],
@@ -28,14 +28,14 @@
                         "chrome": 60
                     },
                     "useBuiltIns": "usage",
-                    "corejs": 2,
+                    "corejs": 3,
                     "modules": false,
                     "debug": false
                 }], "@babel/preset-react"
             ],
             "plugins": [
                 ["@babel/plugin-transform-runtime", {
-                    "corejs": 2
+                    "corejs": 3
                 }],
                 ["@babel/plugin-proposal-decorators", { "legacy": true }],
                 ["@babel/plugin-proposal-class-properties", { "loose": true }],

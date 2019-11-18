@@ -1,33 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import ls from 'store2'
 
-import { propTypes } from '~decorators'
-import TopicsItemNone from '~components/topics-item-none.jsx'
-import TopicsItem from '~components/topics-item.jsx'
-import Trending from '~components/aside-trending.jsx'
-import Category from '~components/aside-category.jsx'
-import { getTopics } from '~reducers/frontend/topics'
-import { getTrending } from '~reducers/frontend/trending'
-import { getCategoryList } from '~reducers/global/category'
+import { propTypes } from '@/decorators'
+import TopicsItemNone from '@/components/topics-item-none.jsx'
+import TopicsItem from '@/components/topics-item.jsx'
+import Trending from '@/components/aside-trending.jsx'
+import Category from '@/components/aside-category.jsx'
+import { getTopics } from '@/store/reducers/frontend/topics'
+import { getTrending } from '@/store/reducers/frontend/trending'
+import { getCategoryList } from '@/store/reducers/global/category'
 
-function mapStateToProps(state) {
-    return {
+@connect(
+    state => ({
         topics: state.topics.toJS(),
         category: state.category.toJS(),
         trending: state.trending.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getTopics, getTrending, getCategoryList }, dispatch)
-    return { ...actions, dispatch }
-}
-
-@connect(
-    mapStateToProps,
-    mapDispatchToProps
+    }),
+    { getTopics, getTrending, getCategoryList }
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -44,8 +35,10 @@ class Topics extends Component {
         if (topics.pathname !== this.props.location.pathname) this.handlefetchPosts()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
+        console.log(`topics: constructor`)
     }
     componentDidMount() {
+        console.log(`topics: componentDidMount`)
         const path = this.props.location.pathname
         const scrollTop = ls.get(path) || 0
         ls.remove(path)
@@ -55,9 +48,13 @@ class Topics extends Component {
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
         const prevPathname = prevProps.location.pathname
-        if (pathname !== prevPathname) this.handlefetchPosts()
+        if (pathname !== prevPathname) {
+            console.log(`topics: componentDidUpdate`)
+            this.handlefetchPosts()
+        }
     }
     componentWillUnmount() {
+        console.log(`topics: componentWillUnmount`)
         window.removeEventListener('scroll', this.onScroll)
     }
     handlefetchPosts(page = 1) {
@@ -112,7 +109,7 @@ class Topics extends Component {
             )
         }
         return (
-            <div className="main wrap clearfix">
+            <div className="main wrap">
                 <div className="main-left">{html}</div>
                 <div className="main-right">
                     <Category payload={category.lists} />

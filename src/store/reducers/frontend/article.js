@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
-import api from '~api'
+import api from '@/api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
@@ -31,9 +31,7 @@ const reducers = {
 
 export const getArticleItem = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('frontend/article/item', config)
+        const { code, data } = await api.get('frontend/article/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveArticleItem',

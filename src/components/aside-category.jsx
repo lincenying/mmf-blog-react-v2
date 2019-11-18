@@ -5,7 +5,7 @@ const AsideCategory = props => {
     const { payload } = props
     const html = payload.map(item => {
         return (
-            <Link key={item._id} to={`/category/${item._id}`} className="topic-item clearfix">
+            <Link key={item._id} to={`/category/${item._id}`} className="topic-item">
                 <span className="avatar-link">
                     <img src="/static/images/topic-1.png" className="avatar-image" />
                 </span>

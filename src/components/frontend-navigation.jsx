@@ -4,20 +4,13 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 //import withRouter from 'react-router-dom/withRouter'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import cookies from 'js-cookie'
-
-function mapStateToProps(state) {
-    return {
-        global: state.global.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    return { dispatch }
-}
+import md5 from 'md5'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        global: state.global.toJS()
+    }),
+    dispatch => ({ dispatch })
 )
 @immutableRenderDecorator
 //@withRouter
@@ -25,7 +18,7 @@ class Navigation extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLogin: cookies.get('user')
+            isLogin: !!this.props.global.cookies.user
         }
         this.handleLogin = this.handleLogin.bind(this)
         this.handleSearch = this.handleSearch.bind(this)
@@ -39,17 +32,20 @@ class Navigation extends Component {
             this.props.history.push(`/search/${key}`)
         }
     }
+    avatar(email = 'lincenying@126.com') {
+        return `https://fdn.geekzu.org/avatar/${md5(email)}?s=256&d=identicon&r=g`
+    }
     render() {
         const loginText = this.state.isLogin ? (
             <span className="nav-me">
                 <Link to="/user/account" className="nav-me-link">
-                    <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" className="nav-avatar-img" />
+                    <img src={this.avatar(this.props.global.cookies.useremail)} className="nav-avatar-img" />
                 </Link>
             </span>
         ) : (
             <span className="nav-me">
                 <a onClick={this.handleLogin} href={null} className="nav-me-link">
-                    <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" className="nav-avatar-img" />
+                    <img src={this.avatar('')} className="nav-avatar-img" />
                 </a>
             </span>
         )

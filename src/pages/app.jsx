@@ -3,11 +3,12 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withRouter, Route, Switch } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
+import { connect } from 'react-redux'
 
-import DevTools from '~devtools'
-import Sign from '~components/sign.jsx'
-import FrontendNavigation from '~components/frontend-navigation.jsx'
-import MatchWhenAuthorized from '~components/frontend-authorized.jsx'
+import DevTools from '@devtools'
+import Sign from '@/components/sign.jsx'
+import FrontendNavigation from '@/components/frontend-navigation.jsx'
+import MatchWhenAuthorized from '@/components/frontend-authorized.jsx'
 
 import About from './frontend/about.jsx'
 import Main from './frontend/topics.jsx'
@@ -15,11 +16,14 @@ import Article from './frontend/article.jsx'
 import userAccount from './frontend/user-account.jsx'
 import userPassword from './frontend/user-password.jsx'
 
-import 'assets/css/hljs/googlecode.css'
-import 'assets/less/style.less'
+import '@/assets/css/hljs/googlecode.css'
+import '@/assets/less/style.less'
 import 'nprogress/nprogress.css'
 import 'toastr/build/toastr.min.css'
 
+@connect(state => ({
+    global: state.global.toJS()
+}))
 @withRouter
 class App extends Component {
     static propTypes = {
@@ -41,8 +45,8 @@ class App extends Component {
                             <Route name="search" path="/search/:key" component={Main} />
                             <Route name="article" path="/article/:id" component={Article} />
                             <Route name="about" path="/about" component={About} />
-                            <MatchWhenAuthorized name="account" path="/user/account" component={userAccount} />
-                            <MatchWhenAuthorized name="password" path="/user/password" component={userPassword} />
+                            <MatchWhenAuthorized name="account" path="/user/account" global={this.props.global} component={userAccount} />
+                            <MatchWhenAuthorized name="password" path="/user/password" global={this.props.global} component={userPassword} />
                         </Switch>
                     </CSSTransition>
                 </TransitionGroup>

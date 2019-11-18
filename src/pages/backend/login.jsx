@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import api from '~api'
-import { setMessage } from '~utils'
-import AInput from '~components/_input.jsx'
+import api from '@/api'
+import { setMessage } from '@/utils'
+import AInput from '@/components/_input.jsx'
 
 @immutableRenderDecorator
 class Login extends Component {
@@ -20,16 +20,14 @@ class Login extends Component {
             setMessage('请输入用户名和密码!')
             return
         }
-        const {
-            data: { data, code }
-        } = await api.post('backend/admin/login', this.state)
+        const { code, data } = await api.post('backend/admin/login', this.state)
         if (data && code === 200) {
             this.props.history.push('/backend/article/list')
         }
     }
     render() {
         return (
-            <div className="main wrap clearfix">
+            <div className="main wrap">
                 <div className="home-feeds cards-wrap">
                     <div className="settings-main card">
                         <div className="settings-main-content">
@@ -56,7 +54,7 @@ class Login extends Component {
                                 <span className="input-info error">请输入密码</span>
                             </AInput>
                         </div>
-                        <div className="settings-footer clearfix">
+                        <div className="settings-footer">
                             <a onClick={this.handleLogin} href={null} className="btn btn-yellow">
                                 登录
                             </a>

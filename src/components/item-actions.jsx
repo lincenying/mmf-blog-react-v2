@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import cookies from 'js-cookie'
 
-import api from '~api'
-import { setMessage } from '~utils'
+import api from '@/api'
+import { setMessage } from '@/utils'
 
 @connect(
-    '',
+    state => ({
+        global: state.global.toJS()
+    }),
     dispatch => ({ dispatch })
 )
 @immutableRenderDecorator
@@ -19,7 +20,7 @@ class ItemActions extends Component {
         this.handleShare = this.handleShare.bind(this)
     }
     async handleLike() {
-        const username = cookies.get('user')
+        const username = this.props.global.cookies.user
         const { dispatch, item } = this.props
         if (!username) {
             setMessage('请先登录!')
@@ -28,9 +29,7 @@ class ItemActions extends Component {
         }
         let url = 'frontend/like'
         if (item.like_status) url = 'frontend/unlike'
-        const {
-            data: { code, message }
-        } = await api.get(url, { id: item._id })
+        const { code, message } = await api.get(url, { id: item._id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             dispatch({ type: 'updateTopicsLikeState', payload: item._id })

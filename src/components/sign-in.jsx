@@ -2,18 +2,14 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import { propTypes } from '~decorators'
-import { setMessage } from '~utils'
-import api from '~api'
-
-function mapStateToProps(state) {
-    return {
-        global: state.global.toJS()
-    }
-}
+import { propTypes } from '@/decorators'
+import { setMessage } from '@/utils'
+import api from '@/api'
 
 @connect(
-    mapStateToProps,
+    state => ({
+        global: state.global.toJS()
+    }),
     dispatch => ({ dispatch })
 )
 @immutableRenderDecorator
@@ -34,9 +30,7 @@ class signIn extends Component {
             setMessage('请将表单填写完整!')
             return
         }
-        const {
-            data: { message, code }
-        } = await api.post('frontend/user/login', this.state)
+        const { code, message } = await api.post('frontend/user/login', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             //this._reactInternalInstance._context.router.go(0)

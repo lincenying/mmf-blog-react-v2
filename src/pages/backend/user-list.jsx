@@ -3,23 +3,15 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getUserList } from '~reducers/backend/user'
-import { setMessage, timeAgo } from '~utils'
-import api from '~api'
-
-function mapStateToProps(state) {
-    return {
-        user: state.backendUser.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getUserList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getUserList } from '@/store/reducers/backend/user'
+import { setMessage, timeAgo } from '@/utils'
+import api from '@/api'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        user: state.backendUser.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getUserList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class UserList extends Component {
@@ -33,9 +25,7 @@ class UserList extends Component {
         this.getUserList(1)
     }
     async handleRecover(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/user/recover', {
+        const { code, message } = await api.get('backend/user/recover', {
             id
         })
         if (code === 200) {
@@ -44,9 +34,7 @@ class UserList extends Component {
         }
     }
     async handleDelete(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/user/delete', {
+        const { code, message } = await api.get('backend/user/delete', {
             id
         })
         if (code === 200) {
@@ -92,7 +80,7 @@ class UserList extends Component {
             )
         })
         const next = user.lists.hasNext ? (
-            <div className="settings-footer clearfix">
+            <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多

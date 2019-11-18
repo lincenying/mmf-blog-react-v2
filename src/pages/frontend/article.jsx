@@ -1,29 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import { propTypes } from '~decorators'
-import Comment from '~components/frontend-comment.jsx'
-import Trending from '~components/aside-trending.jsx'
-import Category from '~components/aside-category.jsx'
-import Actions from '~components/item-actions.jsx'
-import { getArticleItem } from '~reducers/frontend/article'
-import { getTrending } from '~reducers/frontend/trending'
-import { getCategoryList } from '~reducers/global/category'
-
-function mapStateToProps(state) {
-    return {
-        article: state.article.toJS(),
-        category: state.category.toJS(),
-        trending: state.trending.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getArticleItem, getTrending, getCategoryList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { propTypes } from '@/decorators'
+import Comment from '@/components/frontend-comment.jsx'
+import Trending from '@/components/aside-trending.jsx'
+import Category from '@/components/aside-category.jsx'
+import Actions from '@/components/item-actions.jsx'
+import { getArticleItem } from '@/store/reducers/frontend/article'
+import { getTrending } from '@/store/reducers/frontend/trending'
+import { getCategoryList } from '@/store/reducers/global/category'
 
 const addTarget = content => {
     if (!content) return ''
@@ -31,8 +18,12 @@ const addTarget = content => {
 }
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        article: state.article.toJS(),
+        category: state.category.toJS(),
+        trending: state.trending.toJS()
+    }),
+    { getArticleItem, getTrending, getCategoryList }
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -43,14 +34,19 @@ class Article extends Component {
         if (article.pathname !== this.props.location.pathname) this.handlefetchArticle()
         if (category.lists.length === 0) getCategoryList()
         if (trending.data.length === 0) getTrending()
+        console.log(`article: constructor`)
     }
     componentDidMount() {
+        console.log(`article: componentDidMount`)
         window.scrollTo(0, 0)
     }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
         const prevPathname = prevProps.location.pathname
-        if (pathname !== prevPathname) this.handlefetchArticle()
+        if (pathname !== prevPathname) {
+            console.log(`article: componentDidUpdate`)
+            this.handlefetchArticle()
+        }
     }
     async handlefetchArticle() {
         const {
@@ -112,7 +108,7 @@ class Article extends Component {
             )
         }
         return (
-            <div className="main wrap clearfix">
+            <div className="main wrap">
                 {html}
                 <div className="main-right">
                     <Category payload={category.lists} />

@@ -1,15 +1,18 @@
 process.env.NODE_ENV = 'development'
 
-var chalk = require('chalk')
-var webpack = require('webpack')
-var WebpackDevServer = require('webpack-dev-server')
-var config = require('../config/webpack.config.dev')
-var opn = require('opn')
+const chalk = require('chalk')
+const opn = require('opn')
+const webpack = require('webpack')
+const WebpackDevServer = require('webpack-dev-server')
 
-// TODO: hide this behind a flag and eliminate dead code on eject.
+const configDev = require('./webpack.config.dev')
+const config = require('../config/index')
+
+const port = process.env.PORT || config.dev.port
+
 // This shouldn't be exposed to the user.
-var handleCompile
-var isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1)
+let handleCompile
+const isSmokeTest = process.argv.some(arg => arg.indexOf('--smoke-test') > -1)
 if (isSmokeTest) {
     handleCompile = function(err, stats) {
         if (err || stats.hasErrors() || stats.hasWarnings()) {
@@ -20,7 +23,7 @@ if (isSmokeTest) {
     }
 }
 
-var friendlySyntaxErrorLabel = 'Syntax error:'
+const friendlySyntaxErrorLabel = 'Syntax error:'
 
 function isLikelyASyntaxError(message) {
     return message.indexOf(friendlySyntaxErrorLabel) !== -1
@@ -55,26 +58,26 @@ function clearConsole() {
     process.stdout.write('\x1B[2J\x1B[0f')
 }
 
-var compiler = webpack(config, handleCompile)
+const compiler = webpack(configDev, handleCompile)
 compiler.plugin('invalid', function() {
     clearConsole()
     console.log('Compiling...')
 })
 compiler.plugin('done', function(stats) {
     clearConsole()
-    var hasErrors = stats.hasErrors()
-    var hasWarnings = stats.hasWarnings()
+    const hasErrors = stats.hasErrors()
+    const hasWarnings = stats.hasWarnings()
     if (!hasErrors && !hasWarnings) {
         console.log(chalk.green('Compiled successfully!'))
         console.log()
-        console.log('The app is running at http://localhost:8080/')
+        console.log(`The app is running at http://localhost:${port}/`)
         console.log()
         return
     }
 
-    var json = stats.toJson()
-    var formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message))
-    var formattedWarnings = json.warnings.map(message => 'Warning in ' + formatMessage(message))
+    const json = stats.toJson()
+    const formattedErrors = json.errors.map(message => 'Error in ' + formatMessage(message))
+    const formattedWarnings = json.warnings.map(message => 'Warning in ' + formatMessage(message))
 
     if (hasErrors) {
         console.log(chalk.red('Failed to compile.'))
@@ -110,23 +113,23 @@ compiler.plugin('done', function(stats) {
 function openBrowser() {
     // Fallback to opn
     // (It will always open new tab)
-    opn('http://localhost:8080/')
+    opn(`http://localhost:${port}/`)
 }
 
 new WebpackDevServer(compiler, {
     historyApiFallback: true,
     // Note: only CSS is currently hot reloaded
     hot: true,
-    publicPath: config.output.publicPath,
+    publicPath: configDev.output.publicPath,
     quiet: true,
     proxy: {
         '/api/**': {
-            target: 'http://localhost:3000/',
+            target: 'http://localhost:4000/',
             secure: false,
             changeOrigin: true
         }
     }
-}).listen(8080, 'localhost', function(err) {
+}).listen(port, 'localhost', function(err) {
     if (err) {
         return console.log(err)
     }

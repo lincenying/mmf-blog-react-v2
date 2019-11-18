@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
-import api from '~api'
+import api from '@/api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
@@ -29,17 +29,13 @@ const reducers = {
             obj.like = obj.like_status ? obj.like - 1 : obj.like + 1
             obj.like_status = !obj.like_status
         }
-        return state.mergeDeep({
-            data
-        })
+        return state.set('data', data)
     }
 }
 
 export const getTopics = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('frontend/article/list', config)
+        const { code, data } = await api.get('frontend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveTopics',

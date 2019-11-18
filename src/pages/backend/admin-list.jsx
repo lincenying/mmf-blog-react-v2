@@ -3,23 +3,15 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getAdminList } from '~reducers/backend/admin'
-import { setMessage, timeAgo } from '~utils'
-import api from '~api'
-
-function mapStateToProps(state) {
-    return {
-        admin: state.backendAdmin.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getAdminList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getAdminList } from '@/store/reducers/backend/admin'
+import { setMessage, timeAgo } from '@/utils'
+import api from '@/api'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        admin: state.backendAdmin.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getAdminList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class AdminList extends Component {
@@ -29,13 +21,10 @@ class AdminList extends Component {
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getAdminList = this.getAdminList.bind(this)
-
-        this.getAdminList(1)
+        if (props.admin.lists.data.length === 0) this.getAdminList(1)
     }
     async handleRecover(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/admin/recover', {
+        const { code, message } = await api.get('backend/admin/recover', {
             id
         })
         if (code === 200) {
@@ -44,9 +33,7 @@ class AdminList extends Component {
         }
     }
     async handleDelete(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/admin/delete', {
+        const { code, message } = await api.get('backend/admin/delete', {
             id
         })
         if (code === 200) {
@@ -80,7 +67,7 @@ class AdminList extends Component {
             return (
                 <div key={index} className="list-section">
                     <div className="list-username">{item.username}</div>
-                    <div className="list-email">{item.email}</div>
+                    <div className="list-email">{item.userid.email}</div>
                     <div className="list-date">{timeAgo(item.update_date)}</div>
                     <div className="list-action">
                         <Link to={`/backend/admin/modify/${item._id}`} className="badge badge-success">
@@ -92,7 +79,7 @@ class AdminList extends Component {
             )
         })
         const next = admin.lists.hasNext ? (
-            <div className="settings-footer clearfix">
+            <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多

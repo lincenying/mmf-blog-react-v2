@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 
-import api from '~api'
-import AInput from '~components/_input.jsx'
-import Account from '~components/aside-account.jsx'
-import { setMessage } from '~utils'
+import api from '@/api'
+import AInput from '@/components/_input.jsx'
+import Account from '@/components/aside-account.jsx'
+import { setMessage } from '@/utils'
 
 @immutableRenderDecorator
 class UserPassword extends Component {
@@ -25,9 +25,7 @@ class UserPassword extends Component {
             setMessage('两次密码输入不一致!')
             return
         }
-        const {
-            data: { code, data }
-        } = await api.post('frontend/user/password', this.state)
+        const { code, data } = await api.post('frontend/user/password', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: data })
             this.setState({
@@ -39,7 +37,7 @@ class UserPassword extends Component {
     }
     render() {
         return (
-            <div className="main wrap clearfix">
+            <div className="main wrap">
                 <div className="main-left">
                     <div className="home-feeds cards-wrap">
                         <div className="settings-main card">
@@ -75,7 +73,7 @@ class UserPassword extends Component {
                                     />
                                 </AInput>
                             </div>
-                            <div className="settings-footer clearfix">
+                            <div className="settings-footer">
                                 <a onClick={this.handleModify} href={null} className="btn btn-yellow">
                                     保存设置
                                 </a>

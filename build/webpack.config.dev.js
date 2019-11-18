@@ -30,8 +30,8 @@ const config = merge(baseWebpackConfig, {
     },
     resolve: {
         alias: {
-            '~store': path.join(__dirname, '../src/store/conf.dev'),
-            '~devtools': path.join(__dirname, '../src/components/global/devtools')
+            '@store': path.join(__dirname, '../src/store/conf.dev'),
+            '@devtools': path.join(__dirname, '../src/components/global/devtools')
         }
     },
     plugins: [

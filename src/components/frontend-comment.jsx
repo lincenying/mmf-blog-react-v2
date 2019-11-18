@@ -2,26 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import cookies from 'js-cookie'
+import md5 from 'md5'
 
-import { propTypes } from '~decorators'
-import api from '~api'
-import { setMessage } from '~utils'
-import { getCommentList } from '~reducers/global/comment'
-
-function mapStateToProps(state) {
-    return {
-        comment: state.comment.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCommentList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { propTypes } from '@/decorators'
+import api from '@/api'
+import { setMessage } from '@/utils'
+import { getCommentList } from '@/store/reducers/global/comment'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        global: state.global.toJS(),
+        comment: state.comment.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getCommentList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -51,16 +44,14 @@ class FrontendComment extends Component {
         getCommentList({ id, pathname, limit: 10, page })
     }
     async handlePostComment() {
-        const username = cookies.get('user')
+        const username = this.props.global.cookies.user
         if (!username) {
             setMessage('请先登录!')
             this.props.dispatch({ type: 'showLoginModal', payload: true })
         } else if (this.state.content === '') {
             setMessage('请输入评论内容!')
         } else {
-            const {
-                data: { code, data }
-            } = await api.post('frontend/comment/insert', {
+            const { code, data } = await api.post('frontend/comment/insert', {
                 ...this.state,
                 id: this.props.match.params.id
             })
@@ -78,13 +69,16 @@ class FrontendComment extends Component {
         this.setState({ content: '回复 @' + item.username + ': ' })
         document.querySelector('#content').focus()
     }
+    avatar(email = 'lincenying@126.com') {
+        return `https://fdn.geekzu.org/avatar/${md5(email)}?s=256&d=identicon&r=g`
+    }
     render() {
         const { comment } = this.props
         const html = comment.lists.data.map(item => {
             return (
                 <div key={item._id} className="comment-item">
                     <a href={null} className="comment-author-avatar-link">
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                        <img src={this.avatar(item.userid.email)} alt="" className="avatar-img" />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
@@ -118,7 +112,7 @@ class FrontendComment extends Component {
                 <div className="comments">
                     <div className="comment-post-wrap">
                         {' '}
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                        <img src={this.avatar(this.props.global.cookies.useremail)} alt="" className="avatar-img" />
                         <div className="comment-post-input-wrap base-textarea-wrap">
                             <textarea
                                 value={this.state.content}
@@ -129,7 +123,7 @@ class FrontendComment extends Component {
                                 rows="4"
                             />
                         </div>
-                        <div className="comment-post-actions clearfix">
+                        <div className="comment-post-actions">
                             <a onClick={this.handlePostComment} href={null} className="btn btn-blue">
                                 发表评论
                             </a>

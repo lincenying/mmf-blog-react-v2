@@ -2,7 +2,7 @@ import axios from 'axios'
 import qs from 'qs'
 import NProgress from 'nprogress'
 import config from './config'
-import { setMessage } from '~utils'
+import { setMessage } from '@/utils'
 
 axios.interceptors.request.use(
     config => {
@@ -38,7 +38,7 @@ function checkCode(res) {
     } else if (res.data.code !== 200) {
         setMessage(res.data.message)
     }
-    return res
+    return res.data
 }
 
 export default {

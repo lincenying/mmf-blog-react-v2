@@ -3,24 +3,16 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getUserItem } from '~reducers/backend/user'
-import { setMessage } from '~utils'
-import api from '~api'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        user: state.backendUser.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getUserItem }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getUserItem } from '@/store/reducers/backend/user'
+import { setMessage } from '@/utils'
+import api from '@/api'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        user: state.backendUser.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getUserItem }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class UserModify extends Component {
@@ -50,9 +42,7 @@ class UserModify extends Component {
             ...this.state,
             id: this.props.match.params.id
         }
-        const {
-            data: { message, code, data }
-        } = await api.post('backend/user/modify', item)
+        const { code, data, message } = await api.post('backend/user/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateUserItem', data })
@@ -97,7 +87,7 @@ class UserModify extends Component {
                         <span className="input-info error">请输入密码</span>
                     </AInput>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <Link to="/backend/user/list" className="btn btn-blue">
                         返回
                     </Link>

@@ -3,24 +3,16 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getAdminItem } from '~reducers/backend/admin'
-import { setMessage } from '~utils'
-import api from '~api'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        admin: state.backendAdmin.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getAdminItem }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getAdminItem } from '@/store/reducers/backend/admin'
+import { setMessage } from '@/utils'
+import api from '@/api'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        admin: state.backendAdmin.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getAdminItem }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class AdminModify extends Component {
@@ -51,9 +43,7 @@ class AdminModify extends Component {
             ...this.state,
             id: this.props.match.params.id
         }
-        const {
-            data: { message, code, data }
-        } = await api.post('backend/admin/modify', item)
+        const { code, data, message } = await api.post('backend/admin/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateAdminItem', data })
@@ -98,7 +88,7 @@ class AdminModify extends Component {
                         <span className="input-info error">请输入密码</span>
                     </AInput>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <Link to="/backend/admin/list" className="btn btn-blue">
                         返回
                     </Link>

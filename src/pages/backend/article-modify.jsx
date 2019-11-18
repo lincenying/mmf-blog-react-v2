@@ -3,25 +3,17 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { propTypes } from '~decorators'
-import api from '~api'
-import { setMessage } from '~utils'
-import { getCategoryList } from '~reducers/global/category'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        category: state.category.toJS().lists
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCategoryList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { propTypes } from '@/decorators'
+import api from '@/api'
+import { setMessage } from '@/utils'
+import { getCategoryList } from '@/store/reducers/global/category'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        category: state.category.toJS().lists
+    }),
+    dispatch => ({ ...bindActionCreators({ getCategoryList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -37,51 +29,54 @@ class ArticleModify extends Component {
         }
         this.handleModify = this.handleModify.bind(this)
         this.handleChange = this.handleChange.bind(this)
+        this.getArticleData = this.getArticleData.bind(this)
+        this.getArticleData()
     }
-    componentDidMount() {
+    async componentDidMount() {
         this.props.getCategoryList()
-        api.get('backend/article/item', { id: this.props.match.params.id }).then(({ data: { code, data } }) => {
-            if (code === 200) {
-                this.setState({
-                    title: data.title,
-                    category: data.category,
-                    category_name: data.category_name,
-                    category_old: data.category,
-                    content: data.content
-                })
-                // eslint-disable-next-line
-                window.postEditor = editormd("post-content", {
-                    width: '100%',
-                    height: 500,
-                    markdown: data.content,
-                    placeholder: '请输入内容...',
-                    path: '/static/editor.md/lib/',
-                    toolbarIcons() {
-                        return [
-                            'bold',
-                            'italic',
-                            'quote',
-                            '|',
-                            'list-ul',
-                            'list-ol',
-                            'hr',
-                            '|',
-                            'link',
-                            'reference-link',
-                            'image',
-                            'code',
-                            'table',
-                            '|',
-                            'watch',
-                            'preview',
-                            'fullscreen'
-                        ]
-                    },
-                    watch: false,
-                    saveHTMLToTextarea: true
-                })
-            }
-        })
+    }
+    async getArticleData() {
+        const { code, data } = await api.get('backend/article/item', { id: this.props.match.params.id })
+        if (code === 200) {
+            this.setState({
+                title: data.title,
+                category: data.category,
+                category_name: data.category_name,
+                category_old: data.category,
+                content: data.content
+            })
+            // eslint-disable-next-line
+            window.postEditor = editormd("post-content", {
+                width: '100%',
+                height: 500,
+                markdown: data.content,
+                placeholder: '请输入内容...',
+                path: '/static/editor.md/lib/',
+                toolbarIcons() {
+                    return [
+                        'bold',
+                        'italic',
+                        'quote',
+                        '|',
+                        'list-ul',
+                        'list-ol',
+                        'hr',
+                        '|',
+                        'link',
+                        'reference-link',
+                        'image',
+                        'code',
+                        'table',
+                        '|',
+                        'watch',
+                        'preview',
+                        'fullscreen'
+                    ]
+                },
+                watch: false,
+                saveHTMLToTextarea: true
+            })
+        }
     }
     handleModify() {
         // eslint-disable-next-line
@@ -91,9 +86,7 @@ class ArticleModify extends Component {
             return
         }
         this.setState({ content }, async () => {
-            const {
-                data: { message, code, data }
-            } = await api.post('backend/article/modify', {
+            const { code, data, message } = await api.post('backend/article/modify', {
                 ...this.state,
                 id: this.props.match.params.id
             })
@@ -145,7 +138,7 @@ class ArticleModify extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <Link to="/backend/article/list" className="btn btn-blue">
                         返回
                     </Link>

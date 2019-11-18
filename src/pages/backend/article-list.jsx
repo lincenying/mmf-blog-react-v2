@@ -3,23 +3,15 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getArticleList } from '~reducers/backend/article'
-import { setMessage, timeAgo } from '~utils'
-import api from '~api'
-
-function mapStateToProps(state) {
-    return {
-        topics: state.backendArticle.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getArticleList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getArticleList } from '@/store/reducers/backend/article'
+import { setMessage, timeAgo } from '@/utils'
+import api from '@/api'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        topics: state.backendArticle.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getArticleList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class ArticleList extends Component {
@@ -31,21 +23,17 @@ class ArticleList extends Component {
         this.getArticleList = this.getArticleList.bind(this)
         this.handleLoadMore = this.handleLoadMore.bind(this)
 
-        this.getArticleList(1)
+        if (props.topics.lists.data.length === 0) this.getArticleList(1)
     }
     async handleRecover(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/article/recover', { id })
+        const { code, message } = await api.get('backend/article/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'recoverArticle', id })
         }
     }
     async handleDelete(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/article/delete', { id })
+        const { code, message } = await api.get('backend/article/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'deleteArticle', id })
@@ -98,7 +86,7 @@ class ArticleList extends Component {
             )
         })
         const next = topics.lists.hasNext ? (
-            <div className="settings-footer clearfix">
+            <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多

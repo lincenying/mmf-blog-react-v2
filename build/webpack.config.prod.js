@@ -23,8 +23,8 @@ const config = merge(baseWebpackConfig, {
     },
     resolve: {
         alias: {
-            '~store': path.join(__dirname, '../src/store/conf.prod'),
-            '~devtools': path.join(__dirname, '../src/components/global/devtools-prod')
+            '@store': path.join(__dirname, '../src/store/conf.prod'),
+            '@devtools': path.join(__dirname, '../src/components/global/devtools-prod')
         }
     },
     module: {

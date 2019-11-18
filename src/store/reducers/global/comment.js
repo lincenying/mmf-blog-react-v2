@@ -1,4 +1,4 @@
-import api from '~api'
+import api from '@/api'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
 import { errConfig } from '../global'
@@ -34,7 +34,7 @@ const reducers = {
     ['insertCommentItem']: (state, { item }) => {
         const { lists } = state.toJS()
         const data = [item].concat(lists.data)
-        return state.mergeDeep({
+        return state.merge({
             lists: {
                 data
             }
@@ -44,7 +44,7 @@ const reducers = {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
-        return state.mergeDeep({
+        return state.merge({
             lists
         })
     },
@@ -52,7 +52,7 @@ const reducers = {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
-        return state.mergeDeep({
+        return state.merge({
             lists
         })
     }
@@ -60,9 +60,7 @@ const reducers = {
 
 export const getCommentList = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('frontend/comment/list', config)
+        const { code, data } = await api.get('frontend/comment/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'recevieCommentList',

@@ -1,27 +1,27 @@
 /* global require, module, process */
 
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
-var config = require('../config')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.config.dev')
+const path = require('path')
+const express = require('express')
+const webpack = require('webpack')
+const config = require('../config')
+const proxyMiddleware = require('http-proxy-middleware')
+const webpackConfig = require('./webpack.config.dev')
 
 // default port where dev server listens for incoming traffic
-var port = process.env.PORT || config.dev.port
+const port = process.env.PORT || config.dev.port
 // Define HTTP proxies to your custom API backend
 // https://github.com/chimurai/http-proxy-middleware
-var proxyTable = config.dev.proxyTable
+const proxyTable = config.dev.proxyTable
 
-var app = express()
-var compiler = webpack(webpackConfig)
+const app = express()
+const compiler = webpack(webpackConfig)
 
-var devMiddleware = require('webpack-dev-middleware')(compiler, {
+const devMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
     noInfo: true
 })
 
-var hotMiddleware = require('webpack-hot-middleware')(compiler)
+const hotMiddleware = require('webpack-hot-middleware')(compiler)
 // force page reload when html-webpack-plugin template changes
 // compiler.plugin('compilation', function(compilation) {
 //     compilation.plugin('html-webpack-plugin-after-emit', function(data, cb) {
@@ -34,7 +34,7 @@ var hotMiddleware = require('webpack-hot-middleware')(compiler)
 
 // proxy api requests
 Object.keys(proxyTable).forEach(function(context) {
-    var options = proxyTable[context]
+    const options = proxyTable[context]
     if (typeof options === 'string') {
         options = {
             target: options
@@ -44,7 +44,7 @@ Object.keys(proxyTable).forEach(function(context) {
 })
 
 // handle fallback for HTML5 history API
-var history = require('connect-history-api-fallback')
+const history = require('connect-history-api-fallback')
 app.use(
     history({
         rewrites: [
@@ -63,7 +63,7 @@ app.use(devMiddleware)
 app.use(hotMiddleware)
 
 // serve pure static assets
-var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
+const staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
 module.exports = app.listen(port, function(err) {

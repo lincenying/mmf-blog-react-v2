@@ -3,21 +3,13 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getCategoryList } from '~reducers/global/category'
-
-function mapStateToProps(state) {
-    return {
-        category: state.category.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCategoryList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getCategoryList } from '@/store/reducers/global/category'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        category: state.category.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getCategoryList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class CategoryList extends Component {

@@ -3,24 +3,16 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getCategoryItem } from '~reducers/global/category'
-import { setMessage } from '~utils'
-import api from '~api'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        category: state.category.toJS().item
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCategoryItem }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getCategoryItem } from '@/store/reducers/global/category'
+import { setMessage } from '@/utils'
+import api from '@/api'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        category: state.category.toJS().item
+    }),
+    dispatch => ({ ...bindActionCreators({ getCategoryItem }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class CategoryModify extends Component {
@@ -50,9 +42,7 @@ class CategoryModify extends Component {
             ...this.state,
             id: this.props.match.params.id
         }
-        const {
-            data: { message, code, data }
-        } = await api.post('backend/category/modify', item)
+        const { code, data, message } = await api.post('backend/category/modify', item)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'updateCategoryItem', data })
@@ -86,7 +76,7 @@ class CategoryModify extends Component {
                         <span className="input-info error">请输入分类排序</span>
                     </AInput>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <Link to="/backend/category/list" className="btn btn-blue">
                         返回
                     </Link>

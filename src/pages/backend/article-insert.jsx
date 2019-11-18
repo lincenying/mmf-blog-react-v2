@@ -2,25 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { propTypes } from '~decorators'
-import api from '~api'
-import { setMessage } from '~utils'
-import { getCategoryList } from '~reducers/global/category'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        category: state.category.toJS().lists
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCategoryList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { propTypes } from '@/decorators'
+import api from '@/api'
+import { setMessage } from '@/utils'
+import { getCategoryList } from '@/store/reducers/global/category'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        category: state.category.toJS().lists
+    }),
+    dispatch => ({ ...bindActionCreators({ getCategoryList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -76,9 +68,7 @@ class ArticleInsert extends Component {
             return
         }
         this.setState({ content }, async () => {
-            const {
-                data: { message, code, data }
-            } = await api.post('backend/article/insert', this.state)
+            const { code, data, message } = await api.post('backend/article/insert', this.state)
             if (code === 200) {
                 setMessage({ type: 'success', content: message })
                 this.props.dispatch({ type: 'insertArticleItem', item: data })
@@ -127,7 +117,7 @@ class ArticleInsert extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <a onClick={this.handleInsert} href={null} className="btn btn-yellow">
                         添加文章
                     </a>

@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { propTypes } from '~decorators'
-import Trending from '~components/aside-trending.jsx'
-import { getTrending } from '~reducers/frontend/trending'
-
-function mapStateToProps(state) {
-    return {
-        trending: state.trending.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getTrending }, dispatch)
-    return { ...actions, dispatch }
-}
+import { propTypes } from '@/decorators'
+import Trending from '@/components/aside-trending.jsx'
+import { getTrending } from '@/store/reducers/frontend/trending'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        trending: state.trending.toJS()
+    }),
+    { getTrending }
 )
 @immutableRenderDecorator
 @propTypes({})
@@ -35,7 +26,7 @@ class About extends Component {
     }
     render() {
         return (
-            <div className="main wrap clearfix">
+            <div className="main wrap">
                 <div className="main-left">
                     <div className="card card-answer">
                         <div className="answer-content">

@@ -2,24 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import md5 from 'md5'
 
-import { getCommentList } from '~reducers/global/comment'
-import { setMessage, timeAgo } from '~utils'
-import api from '~api'
-
-function mapStateToProps(state) {
-    return {
-        comment: state.comment.toJS()
-    }
-}
-function mapDispatchToProps(dispatch) {
-    const actions = bindActionCreators({ getCommentList }, dispatch)
-    return { ...actions, dispatch }
-}
+import { getCommentList } from '@/store/reducers/global/comment'
+import { setMessage, timeAgo } from '@/utils'
+import api from '@/api'
 
 @connect(
-    mapStateToProps,
-    mapDispatchToProps
+    state => ({
+        comment: state.comment.toJS()
+    }),
+    dispatch => ({ ...bindActionCreators({ getCommentList }, dispatch), dispatch })
 )
 @immutableRenderDecorator
 class Comment extends Component {
@@ -33,18 +26,14 @@ class Comment extends Component {
         if (pathname !== this.props.location.pathname) this.getCommentList(1)
     }
     async handleRecover(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/comment/recover', { id })
+        const { code, message } = await api.get('frontend/comment/recover', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'recoverComment', id })
         }
     }
     async handleDelete(id) {
-        const {
-            data: { code, message }
-        } = await api.get('backend/comment/delete', { id })
+        const { code, message } = await api.get('frontend/comment/delete', { id })
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'deleteComment', id })
@@ -64,6 +53,9 @@ class Comment extends Component {
         page = page || lists.page
         this.props.getCommentList({ id, page, pathname })
     }
+    avatar(email = 'lincenying@126.com') {
+        return `https://fdn.geekzu.org/avatar/${md5(email)}?s=256&d=identicon&r=g`
+    }
     render() {
         const { comment } = this.props
         const html = comment.lists.data.map(item => {
@@ -79,7 +71,7 @@ class Comment extends Component {
             return (
                 <div key={item._id} className="comment-item">
                     <a href={null} className="comment-author-avatar-link">
-                        <img src="//ww2.sinaimg.cn/large/005uQRNCgw1f4ij3d8m05j301s01smwx.jpg" alt="" className="avatar-img" />
+                        <img src={this.avatar(item.userid.email)} alt="" className="avatar-img" />
                     </a>
                     <div className="comment-content-wrap">
                         <span className="comment-author-wrap">
@@ -97,7 +89,7 @@ class Comment extends Component {
             )
         })
         const next = comment.lists.hasNext ? (
-            <div className="settings-footer clearfix">
+            <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
                     加载更多

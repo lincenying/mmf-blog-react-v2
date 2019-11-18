@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { setMessage } from '~utils'
-import api from '~api'
-import AInput from '~components/_input.jsx'
-
-function mapStateToProps(state) {
-    return {
-        category: state.category.toJS().item
-    }
-}
+import { setMessage } from '@/utils'
+import api from '@/api'
+import AInput from '@/components/_input.jsx'
 
 @connect(
-    mapStateToProps,
+    state => ({
+        category: state.category.toJS().item
+    }),
     dispatch => ({ dispatch })
 )
 @immutableRenderDecorator
@@ -31,9 +27,7 @@ class CategoryModify extends Component {
             setMessage('请将表单填写完整!')
             return
         }
-        const {
-            data: { message, code, data }
-        } = await api.post('backend/category/insert', this.state)
+        const { code, data, message } = await api.post('backend/category/insert', this.state)
         if (code === 200) {
             setMessage({ type: 'success', content: message })
             this.props.dispatch({ type: 'insertCategoryItem', item: data })
@@ -67,7 +61,7 @@ class CategoryModify extends Component {
                         <span className="input-info error">请输入分类排序</span>
                     </AInput>
                 </div>
-                <div className="settings-footer clearfix">
+                <div className="settings-footer">
                     <a onClick={this.handleInsert} href={null} className="btn btn-yellow">
                         添加分类
                     </a>

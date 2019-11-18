@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
-import api from '~api'
+import api from '@/api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
@@ -47,41 +47,30 @@ const reducers = {
         })
     },
     ['updateUserItem']: (state, { data }) => {
-        const { lists, item } = state.toJS()
+        const { lists } = state.toJS()
         const index = lists.data.findIndex(ii => ii._id === data._id)
         if (index > -1) {
-            state.lists.data.splice(index, 1, data)
+            lists.data.splice(index, 1, data)
         }
-        return state.mergeDeep({
-            lists,
-            item: {
-                data: item
-            }
-        })
+        return state.set('lists', lists)
     },
     ['deleteUser']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
-        return state.mergeDeep({
-            lists
-        })
+        return state.set('lists', lists)
     },
     ['recoverUser']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
-        return state.mergeDeep({
-            lists
-        })
+        return state.set('lists', lists)
     }
 }
 
 export const getUserList = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('backend/user/list', config)
+        const { code, data } = await api.get('backend/user/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserList',
@@ -94,9 +83,7 @@ export const getUserList = config => {
 }
 export const getUserItem = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('backend/user/item', config)
+        const { code, data } = await api.get('backend/user/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveUserItem',

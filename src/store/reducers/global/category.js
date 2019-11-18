@@ -1,4 +1,4 @@
-import api from '~api'
+import api from '@/api'
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
 import { errConfig } from '../global'
@@ -24,19 +24,15 @@ const reducers = {
     ['insertCategoryItem']: (state, { item }) => {
         const { lists } = state.toJS()
         const data = [item].concat(lists.data)
-        return state.mergeDeep({
-            lists: {
-                data
-            }
-        })
+        return state.set('lists', data)
     },
     ['updateCategoryItem']: (state, { data }) => {
         const { lists } = state.toJS()
         const index = lists.findIndex(ii => ii._id === data._id)
         if (index > -1) {
-            state.lists.splice(index, 1, data)
+            lists.splice(index, 1, data)
         }
-        return state.mergeDeep({
+        return state.merge({
             lists,
             item: data
         })
@@ -45,9 +41,7 @@ const reducers = {
 
 export const getCategoryList = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('backend/category/list', config)
+        const { code, data } = await api.get('backend/category/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryList',
@@ -59,9 +53,7 @@ export const getCategoryList = config => {
 }
 export const getCategoryItem = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('backend/category/item', config)
+        const { code, data } = await api.get('backend/category/item', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveCategoryItem',

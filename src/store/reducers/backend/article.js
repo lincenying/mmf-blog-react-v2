@@ -1,6 +1,6 @@
 import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
-import api from '~api'
+import api from '@/api'
 import { errConfig } from '../global'
 
 const initStates = fromJS({
@@ -45,27 +45,25 @@ const reducers = {
         const { lists } = state.toJS()
         const index = lists.data.findIndex(ii => ii._id === data._id)
         if (index > -1) lists.data[index] = data
-        return state.mergeDeep({ lists, item: { data } })
+        return state.set('lists', lists)
     },
     ['deleteArticle']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 1
-        return state.mergeDeep({ lists })
+        return state.set('lists', lists)
     },
     ['recoverArticle']: (state, { id }) => {
         const { lists } = state.toJS()
         const obj = lists.data.find(ii => ii._id === id)
         if (obj) obj.is_delete = 0
-        return state.mergeDeep({ lists })
+        return state.set('lists', lists)
     }
 }
 
 export const getArticleList = config => {
     return async dispatch => {
-        const {
-            data: { data, code }
-        } = await api.get('backend/article/list', config)
+        const { code, data } = await api.get('backend/article/list', config)
         if (code === 200) {
             return dispatch({
                 type: 'receiveBackendArticleList',
@@ -79,9 +77,7 @@ export const getArticleList = config => {
 
 export const deleteArticle = config => {
     return async dispatch => {
-        const {
-            data: { code }
-        } = await api.get('backend/article/delete', config)
+        const { code } = await api.get('backend/article/delete', config)
         if (code === 200) {
             return dispatch({
                 type: 'deleteArticle',
@@ -93,9 +89,7 @@ export const deleteArticle = config => {
 }
 export const recoverArticle = config => {
     return async dispatch => {
-        const {
-            data: { code }
-        } = await api.get('backend/article/recover', config)
+        const { code } = await api.get('backend/article/recover', config)
         if (code === 200) {
             return dispatch({
                 type: 'recoverArticle',

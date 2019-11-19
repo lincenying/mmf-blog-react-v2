@@ -27,50 +27,35 @@
 // publish/index.html <<<<<<<<========
 
 // app.vue ========>>>>>>>>
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-    transition: all 0.3s ease;
+.example-enter {
+    min-height: 100vh;
+    opacity: 0;
+    transform:   translate(-200px,0);
+    transform: translate3d(-200px,0,0);
 }
-.slide-left-enter,
-.slide-right-enter {
+.example-enter.example-enter-active {
     opacity: 1;
-    transform: translate3d(0, 100px, 0);
+    transform:   translate(0,0);
+    transform: translate3d(0,0,0);
+    transition-property: transform, opacity;
+    transition-duration: 500ms;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
+    z-index: 2
 }
-.slide-right-leave-active,
-.slide-left-leave-active {
+.example-exit {
+    min-height: 100vh;
     opacity: 0;
-    transform: translate3d(100px, 0, 0);
+    transform:   translate(0,0);
+    transform: translate3d(0,0,0);
+    transition-property: transform, opacity;
+    transition-duration: 0;
+    transition-timing-function: cubic-bezier(0.175, 0.665, 0.320, 1), linear;
 }
-@media (max-width: 540px) {
-    .slide-left-enter-active,
-    .slide-left-leave-active,
-    .slide-right-enter-active,
-    .slide-right-leave-active {
-        transition: all 0.3s cubic-bezier(0.55, 0, 0.1, 1);
-    }
-    .slide-left-enter {
-        transform: translate(100%, 0);
-    }
-    .slide-right-enter {
-        transform: translate(-100%, 0);
-    }
-    .slide-right-leave-active {
-        transform: translate(100%, 0);
-    }
-    .slide-left-leave-active {
-        transform: translate(-100%, 0);
-    }
-}
-
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity 0.3s;
-}
-.fade-enter,
-.fade-leave-to {
+.example-exit.example-exit-active {
     opacity: 0;
+    transform:   translate(0, 0);
+    transform: translate3d(0, 0, 0);
+    z-index: 1
 }
 // app.vue <<<<<<<<========
 

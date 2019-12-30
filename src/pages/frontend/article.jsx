@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-
-import { propTypes } from '@/decorators'
-import Comment from '@/components/frontend-comment.jsx'
-import Trending from '@/components/aside-trending.jsx'
-import Category from '@/components/aside-category.jsx'
-import Actions from '@/components/item-actions.jsx'
-import { getArticleItem } from '@/store/reducers/frontend/article'
-import { getTrending } from '@/store/reducers/frontend/trending'
-import { getCategoryList } from '@/store/reducers/global/category'
+import Category from '~/components/aside-category.jsx'
+import Other from '~/components/aside-other.jsx'
+import Trending from '~/components/aside-trending.jsx'
+import Comment from '~/components/frontend-comment.jsx'
+import Actions from '~/components/item-actions.jsx'
+import { propTypes } from '~/decorators'
+import { getArticleItem } from '~/store/reducers/frontend/article'
+import { getTrending } from '~/store/reducers/frontend/trending'
+import { getCategoryList } from '~/store/reducers/global/category'
 
 const addTarget = content => {
     if (!content) return ''
@@ -59,9 +59,14 @@ class Article extends Component {
         await getArticleItem({ id, pathname })
     }
     render() {
-        const { article, category, trending } = this.props
+        const {
+            article,
+            category,
+            trending,
+            location: { pathname }
+        } = this.props
         let html
-        if (!article.isLoad) {
+        if (!article.isLoad || pathname !== article.pathname) {
             html = (
                 <div className="main-left">
                     <div className="card card-answer">
@@ -113,6 +118,7 @@ class Article extends Component {
                 <div className="main-right">
                     <Category payload={category.lists} />
                     <Trending payload={trending.data} />
+                    <Other />
                 </div>
             </div>
         )

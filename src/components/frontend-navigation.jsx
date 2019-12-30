@@ -1,10 +1,10 @@
+import md5 from 'md5'
 import React, { Component } from 'react'
+//import withRouter from 'react-router-dom/withRouter'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
 //import Route from 'react-router-dom/Route'
 import { Link, NavLink } from 'react-router-dom'
-//import withRouter from 'react-router-dom/withRouter'
-import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import md5 from 'md5'
 
 @connect(
     state => ({

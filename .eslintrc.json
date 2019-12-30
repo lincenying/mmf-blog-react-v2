@@ -1,6 +1,7 @@
 {
     "extends": ["lcy-react"],
     "rules": {
-        "no-irregular-whitespace": 0
+        "no-irregular-whitespace": 0,
+        "import/order": 0
     }
 }

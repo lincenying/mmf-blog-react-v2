@@ -1,25 +1,22 @@
 /* eslint-disable react/require-optimization, no-inline-comments */
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { withRouter, Route, Switch } from 'react-router-dom'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { connect } from 'react-redux'
-
 import DevTools from '@devtools'
-import Sign from '@/components/sign.jsx'
-import FrontendNavigation from '@/components/frontend-navigation.jsx'
-import MatchWhenAuthorized from '@/components/frontend-authorized.jsx'
-
+import 'nprogress/nprogress.css'
+import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Route, Switch, withRouter } from 'react-router-dom'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import 'toastr/build/toastr.min.css'
+import '~/assets/css/hljs/googlecode.css'
+import '~/assets/less/style.less'
+import MatchWhenAuthorized from '~/components/frontend-authorized.jsx'
+import FrontendNavigation from '~/components/frontend-navigation.jsx'
+import Sign from '~/components/sign.jsx'
 import About from './frontend/about.jsx'
-import Main from './frontend/topics.jsx'
 import Article from './frontend/article.jsx'
+import Main from './frontend/topics.jsx'
 import userAccount from './frontend/user-account.jsx'
 import userPassword from './frontend/user-password.jsx'
-
-import '@/assets/css/hljs/googlecode.css'
-import '@/assets/less/style.less'
-import 'nprogress/nprogress.css'
-import 'toastr/build/toastr.min.css'
 
 @connect(state => ({
     global: state.global.toJS()

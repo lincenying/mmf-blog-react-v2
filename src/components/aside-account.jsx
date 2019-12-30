@@ -1,6 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
-import api from '@/api'
+import api from '~/api'
 
 const handleLogout = async () => {
     await api.post('frontend/user/logout', {})

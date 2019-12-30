@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { propTypes } from '@/decorators'
-import api from '@/api'
-import { setMessage } from '@/utils'
-import { getCategoryList } from '@/store/reducers/global/category'
-import AInput from '@/components/_input.jsx'
+import api from '~/api'
+import AInput from '~/components/_input.jsx'
+import { propTypes } from '~/decorators'
+import { getCategoryList } from '~/store/reducers/global/category'
+import { setMessage } from '~/utils'
 
 @connect(
     state => ({

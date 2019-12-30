@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-
-import api from '@/api'
-import { setMessage } from '@/utils'
+import { connect } from 'react-redux'
+import api from '~/api'
+import { setMessage } from '~/utils'
 
 @connect(
     state => ({

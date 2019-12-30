@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getArticleList } from '@/store/reducers/backend/article'
-import { setMessage, timeAgo } from '@/utils'
-import api from '@/api'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import api from '~/api'
+import { getArticleList } from '~/store/reducers/backend/article'
+import { setMessage, timeAgo } from '~/utils'
 
 @connect(
     state => ({

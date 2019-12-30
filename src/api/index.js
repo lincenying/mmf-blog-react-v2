@@ -1,8 +1,8 @@
-import axios from 'axios'
-import qs from 'qs'
-import NProgress from 'nprogress'
-import config from './config'
 import { setMessage } from '@/utils'
+import axios from 'axios'
+import NProgress from 'nprogress'
+import qs from 'qs'
+import config from './config'
 
 axios.interceptors.request.use(
     config => {

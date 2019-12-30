@@ -9,9 +9,11 @@ const AsideCategory = props => {
                 <span className="avatar-link">
                     <img src="/static/images/topic-1.png" className="avatar-image" />
                 </span>
-                <h3 className="topic-title">{item.cate_name}</h3>
-                <p className="topic-meta">{item.cate_num || 0} 篇文章</p>
-                <i className="icon icon-arrow-right" />
+                <div>
+                    <h3 className="topic-title">{item.cate_name}</h3>
+                    <p className="topic-meta">{item.cate_num || 0} 篇文章</p>
+                    <i className="icon icon-arrow-right" />
+                </div>
             </Link>
         )
     })

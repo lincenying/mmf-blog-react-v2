@@ -1,6 +1,6 @@
 import api from '@/api'
-import { createReducer } from 'redux-immutablejs'
 import { fromJS } from 'immutable'
+import { createReducer } from 'redux-immutablejs'
 import { errConfig } from '../global'
 
 const initStates = fromJS({

@@ -1,9 +1,9 @@
+import { configureCounterStore } from '@store'
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader'
+import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { configureCounterStore } from '@store'
 import Root from './pages/app'
 
 const store = configureCounterStore()

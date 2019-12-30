@@ -1,13 +1,12 @@
+import md5 from 'md5'
 import React, { Component } from 'react'
+import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import md5 from 'md5'
-
-import { propTypes } from '@/decorators'
-import api from '@/api'
-import { setMessage } from '@/utils'
-import { getCommentList } from '@/store/reducers/global/comment'
+import api from '~/api'
+import { propTypes } from '~/decorators'
+import { getCommentList } from '~/store/reducers/global/comment'
+import { setMessage } from '~/utils'
 
 @connect(
     state => ({

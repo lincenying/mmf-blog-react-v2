@@ -33,7 +33,8 @@ const config = {
     resolve: {
         alias: {
             'react-dom': '@hot-loader/react-dom',
-            '@': path.join(__dirname, '../src')
+            '@': path.join(__dirname, '../src'),
+            '~': path.join(__dirname, '../src')
         },
         extensions: ['.js', '.jsx']
     },

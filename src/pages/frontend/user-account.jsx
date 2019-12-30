@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
-
-import { setMessage } from '@/utils'
-import api from '@/api'
-import { propTypes } from '@/decorators'
-import { setCookis } from '@/store/reducers/global'
-
-import AInput from '@/components/_input.jsx'
-import Account from '@/components/aside-account.jsx'
+import api from '~/api'
+import Account from '~/components/aside-account.jsx'
+import AInput from '~/components/_input.jsx'
+import { propTypes } from '~/decorators'
+import { setCookis } from '~/store/reducers/global'
+import { setMessage } from '~/utils'
 
 @connect(
     null,

@@ -1,8 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
-
-import SignUp from '@/components/sign-up.jsx'
-import SignIn from '@/components/sign-in.jsx'
+import SignIn from '~/components/sign-in.jsx'
+import SignUp from '~/components/sign-up.jsx'
 
 const Sign = props => {
     const backend = props.location.pathname.indexOf('/backend') === 0

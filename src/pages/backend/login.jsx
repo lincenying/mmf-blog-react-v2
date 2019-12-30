@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-
-import api from '@/api'
-import { setMessage } from '@/utils'
-import AInput from '@/components/_input.jsx'
+import api from '~/api'
+import AInput from '~/components/_input.jsx'
+import { setMessage } from '~/utils'
 
 @immutableRenderDecorator
 class Login extends Component {

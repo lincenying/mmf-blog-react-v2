@@ -1,16 +1,17 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
+import { connect } from 'react-redux'
+import { Prompt } from 'react-router-dom'
 import ls from 'store2'
-
-import { propTypes } from '@/decorators'
-import TopicsItemNone from '@/components/topics-item-none.jsx'
-import TopicsItem from '@/components/topics-item.jsx'
-import Trending from '@/components/aside-trending.jsx'
-import Category from '@/components/aside-category.jsx'
-import { getTopics } from '@/store/reducers/frontend/topics'
-import { getTrending } from '@/store/reducers/frontend/trending'
-import { getCategoryList } from '@/store/reducers/global/category'
+import Category from '~/components/aside-category.jsx'
+import Other from '~/components/aside-other.jsx'
+import Trending from '~/components/aside-trending.jsx'
+import TopicsItemNone from '~/components/topics-item-none.jsx'
+import TopicsItem from '~/components/topics-item.jsx'
+import { propTypes } from '~/decorators'
+import { getTopics } from '~/store/reducers/frontend/topics'
+import { getTrending } from '~/store/reducers/frontend/trending'
+import { getCategoryList } from '~/store/reducers/global/category'
 
 @connect(
     state => ({
@@ -29,7 +30,6 @@ class Topics extends Component {
             scrollTop: 0
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
-        this.onScroll = this.onScroll.bind(this)
 
         const { category, trending, topics, getTrending, getCategoryList } = props
         if (topics.pathname !== this.props.location.pathname) this.handlefetchPosts()
@@ -39,11 +39,12 @@ class Topics extends Component {
     }
     componentDidMount() {
         console.log(`topics: componentDidMount`)
-        const path = this.props.location.pathname
-        const scrollTop = ls.get(path) || 0
-        ls.remove(path)
-        if (scrollTop) window.scrollTo(0, scrollTop)
-        window.addEventListener('scroll', this.onScroll)
+        const pathname = this.props.location.pathname
+        if (this.props.topics.pathname !== '') {
+            const scrollTop = ls.get(pathname) || 0
+            ls.remove(pathname)
+            if (scrollTop) window.scrollTo(0, scrollTop)
+        }
     }
     componentDidUpdate(prevProps) {
         const pathname = this.props.location.pathname
@@ -52,10 +53,14 @@ class Topics extends Component {
             console.log(`topics: componentDidUpdate`)
             this.handlefetchPosts()
         }
+        if (this.props.topics.pathname !== '' && this.props.topics.pathname !== prevProps.topics.pathname) {
+            const scrollTop = ls.get(pathname) || 0
+            ls.remove(pathname)
+            if (scrollTop) window.scrollTo(0, scrollTop)
+        }
     }
     componentWillUnmount() {
         console.log(`topics: componentWillUnmount`)
-        window.removeEventListener('scroll', this.onScroll)
     }
     handlefetchPosts(page = 1) {
         const {
@@ -70,11 +75,6 @@ class Topics extends Component {
     handleLoadMore() {
         const { page } = this.props.topics
         this.handlefetchPosts(page + 1)
-    }
-    onScroll() {
-        const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
-        const path = this.props.location.pathname
-        if (path && scrollTop) ls.set(path, scrollTop)
     }
     render() {
         const { topics, category, trending } = this.props
@@ -110,10 +110,20 @@ class Topics extends Component {
         }
         return (
             <div className="main wrap">
+                <Prompt
+                    when
+                    message={() => {
+                        const path = this.props.location.pathname
+                        const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)
+                        ls.set(path, scrollTop)
+                        return true
+                    }}
+                />
                 <div className="main-left">{html}</div>
                 <div className="main-right">
                     <Category payload={category.lists} />
                     <Trending payload={trending.data} />
+                    <Other />
                 </div>
             </div>
         )

@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-
-import { propTypes } from '@/decorators'
-import { setMessage } from '@/utils'
-import api from '@/api'
+import { connect } from 'react-redux'
+import api from '~/api'
+import { propTypes } from '~/decorators'
+import { setMessage } from '~/utils'
 
 @connect(
     state => ({
@@ -58,30 +57,34 @@ class signIn extends Component {
                     </a>
                     <div className="modal-content">
                         <div className="signup-form">
-                            <div className="input-wrap">
-                                <input
-                                    type="text"
-                                    value={this.state.username}
-                                    onChange={e => this.setState({ username: e.target.value })}
-                                    placeholder="昵称"
-                                    className="base-input"
-                                />
-                                <p className="error-info input-info hidden">长度至少 6 位</p>
-                            </div>
-                            <div className="input-wrap">
-                                <input
-                                    type="password"
-                                    value={this.state.password}
-                                    onChange={e => this.setState({ password: e.target.value })}
-                                    placeholder="密码"
-                                    className="base-input"
-                                />
-                                <p className="error-info input-info hidden">长度至少 6 位</p>
-                            </div>
+                            <form action="#">
+                                <div className="input-wrap">
+                                    <input
+                                        type="text"
+                                        value={this.state.username}
+                                        onChange={e => this.setState({ username: e.target.value })}
+                                        placeholder="昵称"
+                                        className="base-input"
+                                        autoComplete="off"
+                                    />
+                                    <p className="error-info input-info hidden">长度至少 6 位</p>
+                                </div>
+                                <div className="input-wrap">
+                                    <input
+                                        type="password"
+                                        value={this.state.password}
+                                        onChange={e => this.setState({ password: e.target.value })}
+                                        placeholder="密码"
+                                        className="base-input"
+                                        autoComplete="off"
+                                    />
+                                    <p className="error-info input-info hidden">长度至少 6 位</p>
+                                </div>
+                            </form>
                             <a onClick={this.handleLogin} href={null} className="btn signup-btn btn-yellow">
                                 确认登录
                             </a>
-                            <a onClick={this.handleRegister} href={null} className="btn signup-btn btn-blue">
+                            <a onClick={this.handleRegister} href={null} className="btn signup-btn btn-blue block">
                                 我要注册
                             </a>
                         </div>

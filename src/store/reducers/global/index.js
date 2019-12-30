@@ -1,6 +1,6 @@
+import { fromJS } from 'immutable'
 import cookies from 'js-cookie'
 import { createReducer } from 'redux-immutablejs'
-import { fromJS } from 'immutable'
 
 let userid = cookies.get('userid')
 if (userid) userid = userid.replace('j:"', '').replace('"', '')

@@ -292,6 +292,26 @@ a {
             p + .about-title {
                 padding-top: 10px;
             }
+            &.markdown-body {
+                h1 {
+                    font-size: 22px;
+                }
+                h2 {
+                    font-size: 20px;
+                }
+                h3 {
+                    font-size: 18px;
+                }
+                h4 {
+                    font-size: 16px;
+                }
+                h5 {
+                    font-size: 14px;
+                }
+                h6 {
+                    font-size: 12px;
+                }
+            }
         }
     }
 }
@@ -345,6 +365,15 @@ a {
         & + .trending-meta-item {
             margin-left: 12px;
         }
+    }
+}
+
+// 右侧其他
+.card-other {
+    padding: 25px;
+    font-size: 14px;
+    li {
+        line-height: 2;
     }
 }
 
@@ -520,10 +549,10 @@ a:hover .icon-arrow-right {
 
             .list-action {
                 width: 100px;
-                a {
+                & > a {
                     display: inline-block;
                     & + a {
-                        margin-left: 8px;
+                        margin-left: 5px;
                     }
                 }
             }
@@ -642,7 +671,3 @@ a:hover .icon-arrow-right {
         border-radius: 0;
     }
 }
-
-
-
-

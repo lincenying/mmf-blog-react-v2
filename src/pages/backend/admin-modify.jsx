@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
-import { getAdminItem } from '@/store/reducers/backend/admin'
-import { setMessage } from '@/utils'
-import api from '@/api'
-import AInput from '@/components/_input.jsx'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { bindActionCreators } from 'redux'
+import api from '~/api'
+import AInput from '~/components/_input.jsx'
+import { getAdminItem } from '~/store/reducers/backend/admin'
+import { setMessage } from '~/utils'
 
 @connect(
     state => ({

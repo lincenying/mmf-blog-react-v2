@@ -1,13 +1,13 @@
 {
   "name": "mmf-blog-react-v2",
-  "version": "2.0.1",
+  "version": "2.0.3",
   "description": "mmf-blog-react-v2",
   "author": "lincenying",
   "license": "MIT",
   "dependencies": {
     "@hot-loader/react-dom": "^16.11.0",
-    "axios": "^0.19.0",
-    "core-js": "3.6.1",
+    "axios": "^0.19.1",
+    "core-js": "3.6.3",
     "create-react-class": "^15.6.3",
     "immutable": "^4.0.0-rc.12",
     "js-cookie": "^2.2.1",
@@ -31,31 +31,33 @@
     "toastr": "^2.1.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-proposal-class-properties": "^7.7.4",
-    "@babel/plugin-proposal-decorators": "^7.7.4",
-    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.7.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.7.7",
-    "@babel/plugin-proposal-optional-chaining": "^7.7.5",
-    "@babel/plugin-transform-runtime": "^7.7.6",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-react": "^7.7.4",
-    "@babel/runtime-corejs3": "^7.7.7",
+    "@babel/core": "^7.8.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.0",
+    "@babel/plugin-proposal-decorators": "^7.8.0",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.8.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.8.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.8.0",
+    "@babel/plugin-transform-runtime": "^7.8.0",
+    "@babel/preset-env": "^7.8.2",
+    "@babel/preset-react": "^7.8.0",
+    "@babel/runtime-corejs3": "^7.8.0",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
-    "babel-runtime": "^6.26.0",
-    "browserslist": "^4.8.2",
+    "browserslist": "^4.8.3",
+    "caniuse-lite": "^1.0.30001020",
     "chalk": "^3.0.0",
     "connect-history-api-fallback": "^1.6.0",
-    "css-loader": "^3.4.0",
-    "eslint-config-lcy-react": "^3.0.9",
+    "css-loader": "^3.4.2",
+    "eslint-config-lcy-react": "^3.1.0",
     "express": "^4.17.1",
     "file-loader": "^5.0.2",
     "friendly-errors-webpack-plugin": "^1.7.0",
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.20.0",
+    "husky": "^4.0.7",
     "less": "^3.10.3",
     "less-loader": "^5.0.0",
+    "lint-staged": "^9.5.0",
     "mini-css-extract-plugin": "^0.9.0",
     "opn": "^6.0.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",
@@ -82,5 +84,16 @@
     "start": "node build/start.js --debug-template",
     "serve": "node build/dev-server.js",
     "lint": "eslint --ext .jsx,.js src/ --fix"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

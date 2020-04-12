@@ -8,10 +8,7 @@ import { propTypes } from '~/decorators'
 import { setCookis } from '~/store/reducers/global'
 import { setMessage } from '~/utils'
 
-@connect(
-    null,
-    { setCookis }
-)
+@connect(null, { setCookis })
 @immutableRenderDecorator
 @propTypes({})
 class UserAccount extends Component {

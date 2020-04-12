@@ -14,8 +14,13 @@ const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
     performance: {
-        maxEntrypointSize: 300000,
-        hints: isProd ? 'warning' : false
+        hints: 'warning', // 枚举
+        maxAssetSize: 30000000, // 整数类型（以字节为单位）
+        maxEntrypointSize: 50000000, // 整数类型（以字节为单位）
+        assetFilter(assetFilename) {
+            // 提供资源文件名的断言函数
+            return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
+        }
     },
     entry: {
         app: [path.join(srcPath, 'index.jsx')],

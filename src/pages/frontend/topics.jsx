@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { immutableRenderDecorator } from 'react-immutable-render-mixin'
 import { connect } from 'react-redux'
-import { Prompt } from 'react-router-dom'
 import ls from 'store2'
 import Category from '~/components/aside-category.jsx'
 import Other from '~/components/aside-other.jsx'
 import Trending from '~/components/aside-trending.jsx'
+import PromptWrapper from '~/components/prompt-wrapper.jsx'
 import TopicsItemNone from '~/components/topics-item-none.jsx'
 import TopicsItem from '~/components/topics-item.jsx'
 import { propTypes } from '~/decorators'
@@ -42,7 +42,7 @@ class Topics extends Component {
         const pathname = this.props.location.pathname
         if (this.props.topics.pathname !== '') {
             const scrollTop = ls.get(pathname) || 0
-            ls.remove(pathname)
+            // ls.remove(pathname)
             if (scrollTop) window.scrollTo(0, scrollTop)
         }
     }
@@ -54,9 +54,9 @@ class Topics extends Component {
             this.handlefetchPosts()
         }
         if (this.props.topics.pathname !== '' && this.props.topics.pathname !== prevProps.topics.pathname) {
-            const scrollTop = ls.get(pathname) || 0
-            ls.remove(pathname)
-            if (scrollTop) window.scrollTo(0, scrollTop)
+            const scrollTop = ls.get(this.props.topics.pathname) || 0
+            // ls.remove(pathname)
+            window.scrollTo(0, scrollTop)
         }
     }
     componentWillUnmount() {
@@ -110,8 +110,7 @@ class Topics extends Component {
         }
         return (
             <div className="main wrap">
-                <Prompt
-                    when
+                <PromptWrapper
                     message={() => {
                         const path = this.props.location.pathname
                         const scrollTop = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop)

@@ -17,7 +17,7 @@ import { setMessage, timeAgo } from '~/utils'
 class UserList extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { loading: false }
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getUserList = this.getUserList.bind(this)
@@ -42,16 +42,20 @@ class UserList extends Component {
             this.props.dispatch({ type: 'deleteUser', id })
         }
     }
-    handleLoadMore() {
-        this.getUserList()
+    async handleLoadMore() {
+        if (this.state.loading) return
+        const { page } = this.props.user.lists
+        this.setState({ loading: true })
+        await this.getUserList(page + 1)
+        this.setState({ loading: false })
     }
-    getUserList(page) {
+    async getUserList(page) {
         const {
             user: { lists },
             location: { pathname }
         } = this.props
         page = page || lists.page
-        this.props.getUserList({ page, pathname })
+        await this.props.getUserList({ page, pathname })
     }
     render() {
         const { user } = this.props
@@ -83,7 +87,7 @@ class UserList extends Component {
             <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
-                    加载更多
+                    {this.state.loading ? '加载中...' : '加载更多'}
                 </a>{' '}
             </div>
         ) : (

@@ -27,7 +27,8 @@ class Topics extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            scrollTop: 0
+            scrollTop: 0,
+            loading: false
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
 
@@ -62,7 +63,14 @@ class Topics extends Component {
     componentWillUnmount() {
         console.log(`topics: componentWillUnmount`)
     }
-    handlefetchPosts(page = 1) {
+    async handleLoadMore() {
+        if (this.state.loading) return
+        const { page } = this.props.topics
+        this.setState({ loading: true })
+        await this.handlefetchPosts(page + 1)
+        this.setState({ loading: false })
+    }
+    async handlefetchPosts(page = 1) {
         const {
             getTopics,
             location: { pathname },
@@ -70,11 +78,7 @@ class Topics extends Component {
                 params: { id, key, by }
             }
         } = this.props
-        getTopics({ id, key, by, pathname, page })
-    }
-    handleLoadMore() {
-        const { page } = this.props.topics
-        this.handlefetchPosts(page + 1)
+        await getTopics({ id, key, by, pathname, page })
     }
     render() {
         const { topics, category, trending } = this.props
@@ -88,8 +92,8 @@ class Topics extends Component {
         } else if (topics.data.length > 0) {
             const lists = topics.data.map(item => <TopicsItem key={item._id} payload={item} />)
             const hasNext = topics.hasNext ? (
-                <a onClick={this.handleLoadMore} href={null} className="load-more">
-                    更多
+                <a onClick={this.handleLoadMore} href={null} className={`load-more ${this.state.loading ? 'loading' : ''}`}>
+                    {this.state.loading ? '加载中' : '加载'}
                     <i className="icon icon-circle-loading" />
                 </a>
             ) : (

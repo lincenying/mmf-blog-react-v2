@@ -17,7 +17,7 @@ import { setMessage, timeAgo } from '~/utils'
 class AdminList extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { loading: false }
         this.handleRecover = this.handleRecover.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.getAdminList = this.getAdminList.bind(this)
@@ -41,16 +41,20 @@ class AdminList extends Component {
             this.props.dispatch({ type: 'deleteAdmin', id })
         }
     }
-    handleLoadMore() {
-        this.getAdminList()
+    async handleLoadMore() {
+        if (this.state.loading) return
+        const { page } = this.props.admin.lists
+        this.setState({ loading: true })
+        await this.getAdminList(page + 1)
+        this.setState({ loading: false })
     }
-    getAdminList(page) {
+    async getAdminList(page) {
         const {
             admin: { lists },
             location: { pathname }
         } = this.props
         page = page || lists.page
-        this.props.getAdminList({ page, pathname })
+        await this.props.getAdminList({ page, pathname })
     }
     render() {
         const { admin } = this.props
@@ -82,7 +86,7 @@ class AdminList extends Component {
             <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
-                    加载更多
+                    {this.state.loading ? '加载中...' : '加载更多'}
                 </a>{' '}
             </div>
         ) : (

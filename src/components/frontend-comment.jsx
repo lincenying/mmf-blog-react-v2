@@ -21,8 +21,10 @@ class FrontendComment extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            content: ''
+            content: '',
+            loading: false
         }
+        this.handleLoadMore = this.handleLoadMore.bind(this)
         this.handleGetComment = this.handleGetComment.bind(this)
         this.handleReply = this.handleReply.bind(this)
         this.handlePostComment = this.handlePostComment.bind(this)
@@ -30,7 +32,15 @@ class FrontendComment extends Component {
         const { comment } = props
         if (comment.lists.pathname !== this.props.location.pathname) this.handleGetComment(1)
     }
-    handleGetComment(page) {
+    async handleLoadMore() {
+        if (this.state.loading) return
+        const { page } = this.props.comment.lists
+        this.setState({ loading: true })
+        await this.handleGetComment(page + 1)
+        this.setState({ loading: false })
+    }
+    async handleGetComment(page) {
+        if (this.state.loading) return
         const {
             comment,
             getCommentList,
@@ -40,7 +50,9 @@ class FrontendComment extends Component {
             }
         } = this.props
         page = page || comment.lists.page
-        getCommentList({ id, pathname, limit: 10, page })
+        this.setState({ loading: true })
+        await getCommentList({ id, pathname, limit: 10, page })
+        this.setState({ loading: false })
     }
     async handlePostComment() {
         const username = this.props.global.cookies.user
@@ -99,8 +111,8 @@ class FrontendComment extends Component {
         const hasNext = comment.lists.hasNext ? (
             <div className="load-more-wrap">
                 {' '}
-                <a onClick={this.handleGetComment} href={null} className="comments-load-more">
-                    加载更多
+                <a onClick={this.handleLoadMore} href={null} className="comments-load-more">
+                    {this.state.loading ? '加载中...' : '加载更多'}
                 </a>{' '}
             </div>
         ) : (

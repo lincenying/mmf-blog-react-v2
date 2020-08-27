@@ -17,7 +17,7 @@ import { setMessage, timeAgo } from '~/utils'
 class Comment extends Component {
     constructor(props) {
         super(props)
-        this.state = {}
+        this.state = { loading: false }
 
         const {
             comment: { pathname }
@@ -38,10 +38,14 @@ class Comment extends Component {
             this.props.dispatch({ type: 'deleteComment', id })
         }
     }
-    handleLoadMore() {
-        this.getCommentList()
+    async handleLoadMore() {
+        if (this.state.loading) return
+        const { page } = this.props.comment.lists
+        this.setState({ loading: true })
+        await this.getCommentList(page + 1)
+        this.setState({ loading: false })
     }
-    getCommentList(page) {
+    async getCommentList(page) {
         const {
             comment: { lists },
             location: { pathname },
@@ -50,7 +54,7 @@ class Comment extends Component {
             }
         } = this.props
         page = page || lists.page
-        this.props.getCommentList({ id, page, pathname })
+        await this.props.getCommentList({ id, page, pathname })
     }
     avatar(email = 'lincenying@126.com') {
         return `https://fdn.geekzu.org/avatar/${md5(email)}?s=256&d=identicon&r=g`
@@ -91,7 +95,7 @@ class Comment extends Component {
             <div className="settings-footer">
                 {' '}
                 <a onClick={this.handleLoadMore} className="admin-load-more" href={null}>
-                    加载更多
+                    {this.state.loading ? '加载中...' : '加载更多'}
                 </a>{' '}
             </div>
         ) : (

@@ -18,7 +18,7 @@ const compiler = webpack(webpackConfig)
 
 const devMiddleware = require('webpack-dev-middleware')(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    noInfo: true
+    stats: 'minimal'
 })
 
 const hotMiddleware = require('webpack-hot-middleware')(compiler)
@@ -28,7 +28,7 @@ const hotMiddleware = require('webpack-hot-middleware')(compiler)
 //         hotMiddleware.publish({
 //             action: 'reload'
 //         })
-//         cb && cb()
+//         cb()
 //     })
 // })
 

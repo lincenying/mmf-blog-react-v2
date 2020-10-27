@@ -13,15 +13,6 @@ const buildPath = path.join(__dirname, isInNodeModules ? '../../..' : '..', 'dis
 const isProd = process.env.NODE_ENV === 'production'
 
 const config = {
-    performance: {
-        hints: 'warning', // 枚举
-        maxAssetSize: 30000000, // 整数类型（以字节为单位）
-        maxEntrypointSize: 50000000, // 整数类型（以字节为单位）
-        assetFilter(assetFilename) {
-            // 提供资源文件名的断言函数
-            return assetFilename.endsWith('.css') || assetFilename.endsWith('.js')
-        }
-    },
     entry: {
         app: [path.join(srcPath, 'index.jsx')],
         admin: [path.join(srcPath, 'backend.jsx')]
@@ -38,10 +29,10 @@ const config = {
     resolve: {
         alias: {
             'react-dom': '@hot-loader/react-dom',
-            '@': path.join(__dirname, '../src'),
-            '~': path.join(__dirname, '../src')
+            '~': path.join(__dirname, '../src'),
+            '@': path.join(__dirname, '../src')
         },
-        extensions: ['.js', '.jsx']
+        extensions: ['.ts', '.tsx', '.js', '.jsx']
     },
     resolveLoader: {
         modules: [nodeModulesPath]
@@ -52,7 +43,27 @@ const config = {
                 test: /\.js|\.jsx$/,
                 include: srcPath,
                 exclude: /node_modules/,
-                loader: ['babel-loader']
+                use: {
+                    loader: 'babel-loader'
+                }
+            },
+            {
+                test: /\.(scss|css)$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+                    { loader: 'postcss-loader', options: { sourceMap: true } },
+                    { loader: 'sass-loader', options: { sourceMap: true } }
+                ]
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    { loader: 'css-loader', options: { sourceMap: true, importLoaders: 1 } },
+                    { loader: 'postcss-loader', options: { sourceMap: true } },
+                    { loader: 'less-loader', options: { sourceMap: true } }
+                ]
             }
         ]
     },

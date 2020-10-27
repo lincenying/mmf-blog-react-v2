@@ -8,10 +8,17 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const WebpackBar = require('webpackbar')
 
 const baseWebpackConfig = require('./webpack.config.base')
-const buildPath = path.join(__dirname, '../dist')
 const configIndex = require('../config')
+const buildPath = path.join(__dirname, '../dist')
 
 const config = merge(baseWebpackConfig, {
+    performance: {
+        maxAssetSize: 600000,
+        maxEntrypointSize: 1000000,
+        assetFilter: function (assetFilename) {
+            return assetFilename.endsWith('.js')
+        }
+    },
     mode: 'production',
     bail: true,
     devtool: false,
@@ -30,19 +37,42 @@ const config = merge(baseWebpackConfig, {
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                test: /\.(scss|css)$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2,
+                            sourceMap: false
+                        }
+                    },
+                    'postcss-loader',
+                    'sass-loader'
+                ]
             },
             {
-                test: /\.less/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2,
+                            sourceMap: false
+                        }
+                    },
+                    'postcss-loader',
+                    'less-loader'
+                ]
             },
             {
-                test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-                loader: 'url-loader',
-                query: {
-                    limit: 10000,
-                    name: 'static/img/[name].[hash:7].[ext]'
+                test: /\.(png|jpe?g|gif)$/i,
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        name: 'static/img/[name].[hash:7].[ext]'
+                    }
                 }
             }
         ]
@@ -64,33 +94,24 @@ const config = merge(baseWebpackConfig, {
         minimizer: [
             new UglifyJsPlugin({
                 uglifyOptions: {
-                    compress: {
-                    }
+                    compress: {}
                 },
                 sourceMap: configIndex.build.productionSourceMap,
                 parallel: true
             }),
-            new OptimizeCSSAssetsPlugin({
-                cssProcessorOptions: {
-                    discardComments: { removeAll: true },
-                    // 避免 cssnano 重新计算 z-index
-                    safe: true
-                }
-            })
+            new OptimizeCSSAssetsPlugin({})
         ]
     },
     plugins: [
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': '"production"'
         }),
-        // new ExtractTextPlugin('static/css/[name].[contenthash:7].css'),
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // both options are optional
             filename: 'static/css/[name].[contenthash:7].css',
             chunkFilename: 'static/css/[name].[contenthash:7].css'
         }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
         new HtmlWebpackPlugin({
             inject: true,
             chunks: ['manifest', 'vendors', 'app'],
@@ -126,7 +147,7 @@ const config = merge(baseWebpackConfig, {
             }
         }),
         new WebpackBar({
-            profile: true
+            profile: false
         })
     ]
 })

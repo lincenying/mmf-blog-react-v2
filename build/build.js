@@ -16,7 +16,6 @@ cp('-R', 'favicon.ico', relative + '/dist/')
 
 webpack(configProd).run(function(err, stats) {
     if (err) {
-        console.log(err);
         console.error('Failed to create a production build. Reason:')
         console.error(err.message || err)
         process.exit(1)
@@ -24,6 +23,7 @@ webpack(configProd).run(function(err, stats) {
     process.stdout.write(
         stats.toString({
             colors: true,
+            assets: false,
             modules: false,
             children: false,
             chunks: false,

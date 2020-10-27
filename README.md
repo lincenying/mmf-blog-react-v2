@@ -41,10 +41,10 @@ npm run serve   or   npm run start
 ```
 
 首页
-http://localhost:8082
+http://localhost:8031
 
 管理员登录
-http://localhost:8082/backend
+http://localhost:8031/backend
 
 # LICENSE
 

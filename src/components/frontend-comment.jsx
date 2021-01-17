@@ -22,14 +22,15 @@ class FrontendComment extends Component {
         super(props)
         this.state = {
             content: '',
-            loading: false
+            loading: true
         }
         this.handleLoadMore = this.handleLoadMore.bind(this)
         this.handleGetComment = this.handleGetComment.bind(this)
         this.handleReply = this.handleReply.bind(this)
         this.handlePostComment = this.handlePostComment.bind(this)
-
-        const { comment } = props
+    }
+    componentDidMount() {
+        const { comment } = this.props
         if (comment.lists.pathname !== this.props.location.pathname) this.handleGetComment(1)
     }
     async handleLoadMore() {
@@ -50,7 +51,6 @@ class FrontendComment extends Component {
             }
         } = this.props
         page = page || comment.lists.page
-        this.setState({ loading: true })
         await getCommentList({ id, pathname, limit: 10, page })
         this.setState({ loading: false })
     }
